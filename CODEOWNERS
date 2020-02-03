@@ -1,0 +1,15 @@
+# See https://help.github.com/articles/about-codeowners/
+# for more info about CODEOWNERS file
+
+# It uses the same pattern rule for gitignore file
+# https://git-scm.com/docs/gitignore#_pattern_format
+
+/README.md @NeoMindStd
+/LICENSE @NeoMindStd
+/CODE_OF_CONDUCT.md @NeoMindStd
+/CODEOWNERS @NeoMindStd
+/AUTHORS @NeoMindStd
+/holinoti_admin/ @NeoMindStd
+/holinoti_customer/ @NeoMindStd
+/backups/ @NeoMindStd
+/backup_db/ @NeoMindStd
