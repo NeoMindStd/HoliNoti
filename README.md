@@ -23,8 +23,8 @@ The project was started to minimize such experience.
 ## Versions of tools
 
 ### CLIENTS
-- Framework: Flutter 1.9.1+hotfix.4 • channel stable
-- IDE: Android Studio 3.5 JRE: 1.8 (use androidx.* artifacts) (Gradle build)
+- Framework: Flutter 1.12.13+hotfix.7 • channel stable
+- IDE: Android Studio 3.5.3 JRE: 1.8 (use androidx.* artifacts) (Gradle 5.6.4 build, plugin 3.5.3)
 - Language: Dart 2.5.0
 - App native languages
   * android: Java 1.8
