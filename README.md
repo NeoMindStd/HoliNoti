@@ -2,6 +2,9 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
 [![HitCount](http://hits.dwyl.io/NeoMindStd/Holinoti.svg)](http://hits.dwyl.io/NeoMindStd/Holinoti)
 
+Admin [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_admin/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_admin/android/app/build.gradle)
+Customer [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_customer/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_customer/android/app/build.gradle)
+
 ## Korean
 가게나 공공시설등의 비정기 휴일 또는 영업일을 파악하여 계획의 차질을 방지하기 위해 시작된 오픈소스 프로젝트입니다.
 **정식 릴리즈되지 않은 코드를 빌드, 사용시 어떠한 법적 책임도 지지 않음을 명시합니다.**
