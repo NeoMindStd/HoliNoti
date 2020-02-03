@@ -13,7 +13,7 @@
     <!-- 1. aliases ?? -->
     <servlet>
         <servlet-name>holinoti</servlet-name>
-        <servlet-class>com.neomind.holinoti_server.SpringRestApiApplication</servlet-class>
+        <servlet-class>com.neomind.holinoti_server.RestApiApplication</servlet-class>
     </servlet>
 
     <!-- 2. ?? -->

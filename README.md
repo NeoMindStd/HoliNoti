@@ -31,9 +31,9 @@ The project was started to minimize such experience.
   * iOS: Swift
 
 ### SERVER 
-- Framework: Spring boot  2.1.1
-- IDE: IntelliJ IDEA 2019.2.4 (Ultimate Edition) (Maven build)
-- Language: Open JDK 11
+- Framework: Spring boot Starter Parent 2.1.12.RELEASE
+- IDE: IntelliJ IDEA 2019.3.2 (Ultimate Edition) 
+- Language: Open JDK 11 (Maven 3.6.1 build)
 - DB: 5.7.28 MySQL Community Server
 - WAS: Apache Tomcat 9.0.27
 - Host: Google Cloud Platform
