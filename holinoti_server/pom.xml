@@ -72,6 +72,12 @@
             <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
             <version>1.16</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.2.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
