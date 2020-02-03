@@ -24,10 +24,10 @@ The project was started to minimize such experience.
 
 ### CLIENTS
 - Framework: Flutter 1.12.13+hotfix.7 • channel stable
-- IDE: Android Studio 3.5.3 JRE: 1.8 (use androidx.* artifacts) (Gradle 5.6.4 build, plugin 3.5.3)
+- IDE: Android Studio 3.5.3 JRE: 1.8 (use androidx.* artifacts) 
 - Language: Dart 2.5.0
 - App native languages
-  * android: Java 1.8
+  * android: Java 1.8 (Gradle 5.6.4 build, plugin 3.5.3), Kotlin 1.3.10
   * iOS: Swift
 
 ### SERVER 
