@@ -1,17 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:holinoti_admin/constants/strings.dart' as Strings;
-import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
+import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
-import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
-
 
 class RegisterFacilityBloc {
   Facility facility;
@@ -23,7 +18,8 @@ class RegisterFacilityBloc {
   }
 
   // TODO 이미 시설이 있는경우 등록하지 않게 해야함
-  void registerFacility(BuildContext context, String name, String address) async {
+  void registerFacility(
+      BuildContext context, String name, String address) async {
     try {
       Response facilityResponse = await Dio().post(
         "http://holinoti.tk:8080/holinoti/facilities/",
@@ -43,9 +39,11 @@ class RegisterFacilityBloc {
           data: openingInfoToJson(openingInfo),
         );
         print("Response: $openingInfoResponse");
-      } catch(e) { print(e); }
+      } catch (e) {
+        print(e);
+      }
 
-      try{
+      try {
         await Dio().put(
           "http://holinoti.tk:8080/holinoti/managers/id=${DataManager().signedIn.id}",
           options: Options(headers: {"Content-Type": "application/json"}),
@@ -53,9 +51,12 @@ class RegisterFacilityBloc {
         );
         print(managerToJson(DataManager().signedIn));
         print('Updated: ${DataManager().signedIn}');
-
-      } catch(e) { print(e); }
-    } catch(e) { print(e); }
+      } catch (e) {
+        print(e);
+      }
+    } catch (e) {
+      print(e);
+    }
     Navigator.pop(context);
   }
 
@@ -91,10 +92,12 @@ class RegisterFacilityBloc {
       context: context,
       initialTime: TimeOfDay(
         hour: int.parse(timeString.first),
-        minute: int.parse(timeString.last),),
+        minute: int.parse(timeString.last),
+      ),
     );
 
-    openingInfo.openingHoursStart = sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
+    openingInfo.openingHoursStart =
+        sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
     _openingInfoSubject.add(openingInfo);
   }
 
@@ -104,10 +107,12 @@ class RegisterFacilityBloc {
       context: context,
       initialTime: TimeOfDay(
         hour: int.parse(timeString.first),
-        minute: int.parse(timeString.last),),
+        minute: int.parse(timeString.last),
+      ),
     );
 
-    openingInfo.openingHoursEnd = sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
+    openingInfo.openingHoursEnd =
+        sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
     _openingInfoSubject.add(openingInfo);
   }
 

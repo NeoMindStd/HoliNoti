@@ -1,15 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
+import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:rxdart/rxdart.dart';
-
 
 class AuthBloc {
   Enums.AuthMode authMode;
@@ -20,7 +17,7 @@ class AuthBloc {
   get isLoginModeStream => _authModeSubject.stream;
 
   void setAuthMode(Enums.AuthMode authMode) {
-    this.authMode=authMode;
+    this.authMode = authMode;
     _authModeSubject.add(authMode);
   }
 
@@ -30,28 +27,29 @@ class AuthBloc {
   void signIn(BuildContext context, {String account, String password}) async {
     try {
       Response managerResponse = await Dio().get(
-          "http://holinoti.tk:8080/holinoti/managers/account=${account}",
-          options: Options(headers: {"Content-Type":"application/json"}),
+        "http://holinoti.tk:8080/holinoti/managers/account=${account}",
+        options: Options(headers: {"Content-Type": "application/json"}),
       );
       Manager manager = Manager.fromJson(managerResponse.data);
 
-      if(manager.password == password) {
+      if (manager.password == password) {
         try {
           Response facilityResponse = await Dio().get(
             "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
-            options: Options(headers: {"Content-Type":"application/json"}),
+            options: Options(headers: {"Content-Type": "application/json"}),
           );
           manager.facility = Facility.fromJson(facilityResponse.data);
-        } catch(e) { print(e); }
+        } catch (e) {
+          print(e);
+        }
 
         DataManager().signedIn = manager;
         print('Signed in as $manager');
         Navigator.pop(context);
-
       } else {
         signInFailed(context);
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
       signInFailed(context);
     }
@@ -60,20 +58,20 @@ class AuthBloc {
   void signInFailed(BuildContext context) {
     AppDialog(context).showConfirmDialog("아이디 또는 비밀번호가 잘못되었습니다.");
   }
-  
+
   void signUp({String account, String password, String name}) async {
     try {
       Response response = await Dio().post(
         "http://holinoti.tk:8080/holinoti/managers",
-        options: Options(headers: {"Content-Type":"application/json"}),
+        options: Options(headers: {"Content-Type": "application/json"}),
         data: {
-          'account':account,
-          'password':password,
-          'name':name,
+          'account': account,
+          'password': password,
+          'name': name,
         },
       );
       print(response);
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
   }

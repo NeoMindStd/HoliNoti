@@ -9,31 +9,31 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value = "/managers", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/managers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ManagerController {
     @Autowired
     ManagerRepository managerRepository;
 
     @GetMapping
-    public List<Manager> getAllManagers(){
+    public List<Manager> getAllManagers() {
         return managerRepository.findAll();
     }
 
     @RequestMapping(path = "/id={managerId}", method = RequestMethod.GET)
-    public Manager getManagerById(@PathVariable("managerId") int id){
+    public Manager getManagerById(@PathVariable("managerId") int id) {
         return managerRepository.findById(id).get();
     }
 
     @RequestMapping(path = "/account={managerAccount}", method = RequestMethod.GET)
-    public Manager getManagerByAccount(@PathVariable("managerAccount") String account){
+    public Manager getManagerByAccount(@PathVariable("managerAccount") String account) {
         return managerRepository.findByAccount(account);
     }
 
     @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
-    public List<Manager> getManagerByAccount(@PathVariable("facilityCode") int facilityCode){
+    public List<Manager> getManagerByAccount(@PathVariable("facilityCode") int facilityCode) {
         return managerRepository.findByFacilityCode(facilityCode);
     }
 
@@ -62,7 +62,7 @@ public class ManagerController {
     }
 
     @RequestMapping(path = "/id={managerId}", method = RequestMethod.DELETE)
-    public void deleteManager(@PathVariable("managerId") int id){
+    public void deleteManager(@PathVariable("managerId") int id) {
         managerRepository.deleteById(id);
     }
 }

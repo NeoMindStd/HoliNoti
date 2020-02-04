@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:holinoti_customer/bloc/facilities_bloc.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
-import 'package:holinoti_customer/constants/strings.dart' as Strings;
-import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/data/opening_info.dart';
 import 'package:holinoti_customer/screens/widgets/global/center_card.dart';
-import 'package:holinoti_customer/screens/widgets/facilities/facility_card.dart';
 import 'package:holinoti_customer/screens/widgets/global/lower_half.dart';
 import 'package:holinoti_customer/screens/widgets/global/upper_half.dart';
 
@@ -25,8 +21,12 @@ class FacilityPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            LowerHalf(appBarHeight: appbar.preferredSize.height,),
-            UpperHalf(appBarHeight: appbar.preferredSize.height,),
+            LowerHalf(
+              appBarHeight: appbar.preferredSize.height,
+            ),
+            UpperHalf(
+              appBarHeight: appbar.preferredSize.height,
+            ),
             CenterCard(
               appBarHeight: appbar.preferredSize.height,
               child: Column(
@@ -68,8 +68,7 @@ class FacilityPage extends StatelessWidget {
                           shrinkWrap: true,
                           children: ol,
                         );
-                      }
-                  ),
+                      }),
                 ],
               ),
             ),

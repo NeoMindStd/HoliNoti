@@ -1,7 +1,7 @@
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 
 class AppDialog {
   static final AppDialog _instance = AppDialog._();
@@ -92,12 +92,12 @@ class AppDialog {
 
   Future showInputDialog(
       {String title = Strings.GlobalPage.ALERT_INPUT,
-        String message,
-        String text = '',
-        String hint,
-        List<TextInputFormatter> inputFormatters,
-        Function onConfirm,
-        Function onCancel()}) async {
+      String message,
+      String text = '',
+      String hint,
+      List<TextInputFormatter> inputFormatters,
+      Function onConfirm,
+      Function onCancel()}) async {
     TextEditingController controller = TextEditingController();
     controller.text = text;
 
@@ -113,8 +113,7 @@ class AppDialog {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            message == null ?
-            Container() : Text(message),
+            message == null ? Container() : Text(message),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
@@ -162,7 +161,7 @@ class AppDialog {
   }
 
   Future showSelectCasesDialog(final String title,
-      {Map<String, void Function()> cases}) =>
+          {Map<String, void Function()> cases}) =>
       showPlatformDialog(
         context: _context,
         builder: (final BuildContext context) => PlatformAlertDialog(
@@ -170,16 +169,16 @@ class AppDialog {
           actions: cases
               .map(
                 (msg, f) => MapEntry(
-              msg,
-              PlatformDialogAction(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  f();
-                },
-                child: Text(msg),
-              ),
-            ),
-          )
+                  msg,
+                  PlatformDialogAction(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      f();
+                    },
+                    child: Text(msg),
+                  ),
+                ),
+              )
               .values
               .toList(),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
-import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 
 class SignUpCard extends StatelessWidget {
   final AuthBloc _authBloc;
@@ -16,23 +16,17 @@ class SignUpCard extends StatelessWidget {
 
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.AuthPage.ACCOUNT,
-          hasFloatingPlaceholder: true
-      ),
+          labelText: Strings.AuthPage.ACCOUNT, hasFloatingPlaceholder: true),
       controller: accountController,
     );
     final TextFormField passwordField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.AuthPage.PASSWORD,
-          hasFloatingPlaceholder: true
-      ),
+          labelText: Strings.AuthPage.PASSWORD, hasFloatingPlaceholder: true),
       controller: passwordController,
     );
     final TextFormField nameField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.GlobalPage.NAME,
-          hasFloatingPlaceholder: true
-      ),
+          labelText: Strings.GlobalPage.NAME, hasFloatingPlaceholder: true),
       controller: nameController,
     );
 
@@ -125,7 +119,9 @@ class SignUpCard extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
             FlatButton(
-              onPressed: () { _authBloc.setAuthMode(Enums.AuthMode.signIn); },
+              onPressed: () {
+                _authBloc.setAuthMode(Enums.AuthMode.signIn);
+              },
               textColor: Colors.black87,
               child: Text(Strings.GlobalPage.SIGN_IN),
             )
