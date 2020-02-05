@@ -16,17 +16,53 @@ class SignUpCard extends StatelessWidget {
 
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.AuthPage.ACCOUNT, hasFloatingPlaceholder: true),
+          labelText: Strings.AuthPage.ACCOUNT,
+          hasFloatingPlaceholder: true,
+          suffixIcon: IconButton(
+      icon: Icon(Icons.clear),
+      onPressed: accountController.clear,
+    ),
+      ),
       controller: accountController,
     );
-    final TextFormField passwordField = TextFormField(
-      decoration: InputDecoration(
-          labelText: Strings.AuthPage.PASSWORD, hasFloatingPlaceholder: true),
-      controller: passwordController,
+    final passwordField = StreamBuilder<bool>(
+      initialData: _authBloc.isObscureText,
+      stream: _authBloc.isObscureTextStream,
+      builder: (context, snapshot)=>
+          TextFormField(
+            decoration: InputDecoration(
+                labelText: Strings.AuthPage.PASSWORD,
+                hasFloatingPlaceholder: true,
+                suffixIcon: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+                  mainAxisSize: MainAxisSize.min, // added line
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(snapshot.data
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: _authBloc.switchObscureTextMode,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.clear),
+                      onPressed: passwordController.clear,
+                    ),
+                  ],
+                ),
+            ),
+            controller: passwordController,
+            obscureText: snapshot.data,
+          ),
     );
     final TextFormField nameField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.GlobalPage.NAME, hasFloatingPlaceholder: true),
+          labelText: Strings.GlobalPage.NAME,
+          hasFloatingPlaceholder: true,
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: nameController.clear,
+        ),
+      ),
       controller: nameController,
     );
 
@@ -65,11 +101,7 @@ class SignUpCard extends StatelessWidget {
                   ),
                   passwordField,
                   SizedBox(
-                    height: 15,
-                  ),
-                  nameField,
-                  SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Text(
                     Strings.AuthPage.PASSWORD_CONDITION,
@@ -77,6 +109,10 @@ class SignUpCard extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 5,
+                  ),
+                  nameField,
+                  SizedBox(
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -119,9 +155,7 @@ class SignUpCard extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
             FlatButton(
-              onPressed: () {
-                _authBloc.setAuthMode(Enums.AuthMode.signIn);
-              },
+              onPressed: () => _authBloc.setAuthMode(Enums.AuthMode.signIn),
               textColor: Colors.black87,
               child: Text(Strings.GlobalPage.SIGN_IN),
             )

@@ -10,15 +10,27 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthBloc {
   Enums.AuthMode authMode;
-
-  AuthBloc({this.authMode = Enums.AuthMode.signIn});
+  bool _obscureText;
 
   final _authModeSubject = PublishSubject<Enums.AuthMode>();
+  final _obscureTextSubject = PublishSubject<bool>();
+
+  AuthBloc({this.authMode = Enums.AuthMode.signIn}) {
+    _obscureText = true;
+  }
+
+  get isObscureText => _obscureText;
   get isLoginModeStream => _authModeSubject.stream;
+  get isObscureTextStream => _obscureTextSubject.stream;
 
   void setAuthMode(Enums.AuthMode authMode) {
     this.authMode = authMode;
     _authModeSubject.add(authMode);
+  }
+
+  void switchObscureTextMode({bool obscureText}) {
+    _obscureText=obscureText??!_obscureText;
+    _obscureTextSubject.add(_obscureText);
   }
 
   /// 임시 메소드
@@ -78,5 +90,6 @@ class AuthBloc {
 
   void dispose() {
     _authModeSubject.close();
+    _obscureTextSubject.close();
   }
 }
