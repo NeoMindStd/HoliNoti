@@ -1,7 +1,6 @@
 package com.neomind.holinoti_server.opening_info;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,26 +9,26 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value = "/opening-infos", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/opening-infos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class OpeningInfoController {
     @Autowired
     OpeningInfoRepository openingInfoRepository;
 
     @GetMapping
-    public List<OpeningInfo> getAllOpeningInfos(){
+    public List<OpeningInfo> getAllOpeningInfos() {
         return openingInfoRepository.findAll();
     }
 
     @RequestMapping(path = "/id={id}", method = RequestMethod.GET)
-    public OpeningInfo getOpeningInfo(@PathVariable("id") int id){
+    public OpeningInfo getOpeningInfo(@PathVariable("id") int id) {
         return openingInfoRepository.findById(id).get();
     }
 
     @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
-    public List<OpeningInfo> getOpeningInfos(@PathVariable("facilityCode") int facilityCode){
+    public List<OpeningInfo> getOpeningInfos(@PathVariable("facilityCode") int facilityCode) {
         return openingInfoRepository.findOpeningInfosByFacilityCode(facilityCode);
     }
 
@@ -57,7 +56,7 @@ public class OpeningInfoController {
     }
 
     @RequestMapping(path = "/{managerId}", method = RequestMethod.DELETE)
-    public void deleteOpeningInfo(@PathVariable("managerId") int id){
+    public void deleteOpeningInfo(@PathVariable("managerId") int id) {
         openingInfoRepository.deleteById(id);
     }
 }

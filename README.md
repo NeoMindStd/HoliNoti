@@ -1,6 +1,11 @@
 # Holinoti
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
+[![contributions welcome](https://img.shields.io/badge/platform-flutter%7Cspring_boot-blue)](https://github.com/NeoMindStd/HoliNoti) 
 [![HitCount](http://hits.dwyl.io/NeoMindStd/Holinoti.svg)](http://hits.dwyl.io/NeoMindStd/Holinoti)
+
+**CLIENT(Admin)** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_admin/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_admin/android/app/build.gradle) 
+**CLIENT(Customer)** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_customer/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_customer/android/app/build.gradle) 
+**SERVER** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_server/pom.xml)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_server/pom.xml) 
 
 ## Korean
 가게나 공공시설등의 비정기 휴일 또는 영업일을 파악하여 계획의 차질을 방지하기 위해 시작된 오픈소스 프로젝트입니다.
@@ -23,17 +28,17 @@ The project was started to minimize such experience.
 ## Versions of tools
 
 ### CLIENTS
-- Framework: Flutter 1.9.1+hotfix.4 • channel stable
-- IDE: Android Studio 3.5 JRE: 1.8 (use androidx.* artifacts) (Gradle build)
+- Framework: Flutter 1.12.13+hotfix.7 • channel stable
+- IDE: Android Studio 3.5.3 JRE: 1.8 (use androidx.* artifacts) 
 - Language: Dart 2.5.0
 - App native languages
-  * android: Java 1.8
+  * android: Java 1.8 (Gradle 5.6.4 build, plugin 3.5.3), Kotlin 1.3.10
   * iOS: Swift
 
 ### SERVER 
-- Framework: Spring boot  2.1.1
-- IDE: IntelliJ IDEA 2019.2.4 (Ultimate Edition) (Maven build)
-- Language: Open JDK 11
+- Framework: Spring boot Starter Parent 2.1.12.RELEASE
+- IDE: IntelliJ IDEA 2019.3.2 (Ultimate Edition) 
+- Language: Open JDK 11 (Maven 3.6.1 build)
 - DB: 5.7.28 MySQL Community Server
 - WAS: Apache Tomcat 9.0.27
 - Host: Google Cloud Platform

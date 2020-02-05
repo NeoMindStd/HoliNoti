@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name="facility")
+@Table(name = "facility")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

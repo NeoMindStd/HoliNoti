@@ -6,6 +6,7 @@ class Facility {
   int code;
   String name;
   String address;
+
   /// json 매핑시 제외
   List<OpeningInfo> openingInfo;
 
@@ -18,17 +19,13 @@ class Facility {
     openingInfo ??= [];
   }
 
-
-  factory Facility.fromJson(Map<String, dynamic> json) =>
-      Facility(
+  factory Facility.fromJson(Map<String, dynamic> json) => Facility(
         code: json['code'] as int,
         name: json['name'] as String,
         address: json['address'] as String,
       );
 
-
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'code': code,
         'name': name,
         'address': address,
@@ -40,7 +37,7 @@ class Facility {
   }
 }
 
-
-Facility facilityFromJson(String string) => Facility.fromJson(json.decode(string));
+Facility facilityFromJson(String string) =>
+    Facility.fromJson(json.decode(string));
 
 String facilityToJson(Facility facility) => json.encode(facility.toJson());

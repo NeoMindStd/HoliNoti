@@ -1,6 +1,5 @@
 package com.neomind.holinoti_server.opening_info;
 
-import com.neomind.holinoti_server.facility.Facility;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name="opening_info")
+@Table(name = "opening_info")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,14 +1,17 @@
 package com.neomind.holinoti_server.manager;
 
-import com.neomind.holinoti_server.facility.Facility;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+enum UserType {
+    admin, employee, temporary;
+}
+
 @Entity
 @Data
-@Table(name="manager")
+@Table(name = "manager")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,8 +34,4 @@ public class Manager implements Serializable {
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     private UserType userType;
-}
-
-enum UserType {
-    admin, employee, temporary;
 }

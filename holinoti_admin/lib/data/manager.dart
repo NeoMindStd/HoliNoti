@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/data/facility.dart';
 
@@ -9,6 +10,7 @@ class Manager {
   String name;
   int facilityCode;
   Enums.UserType userType;
+
   /// json 매핑시 제외
   Facility _facility;
 
@@ -28,9 +30,7 @@ class Manager {
     this.userType,
   });
 
-
-  factory Manager.fromJson(Map<String, dynamic> json) =>
-      Manager(
+  factory Manager.fromJson(Map<String, dynamic> json) => Manager(
         id: json['id'] as int,
         account: json['account'] as String,
         password: json['password'] as String,
@@ -39,9 +39,7 @@ class Manager {
         userType: json['userType'] as Enums.UserType,
       );
 
-
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'id': id,
         'account': account,
         'password': password,
@@ -54,9 +52,7 @@ class Manager {
   String toString() {
     return 'Manager{id: $id, account: $account, name: $name, facilityCode: $facilityCode, userType: $userType, facility: $_facility}';
   }
-
 }
-
 
 Manager managerFromJson(String string) => Manager.fromJson(json.decode(string));
 

@@ -1,10 +1,3 @@
-enum AuthMode {
-  signIn,
-  signUp
-}
+enum AuthMode { signIn, signUp }
 
-enum UserType {
-  admin,
-  employee,
-  temporary
-}
+enum UserType { admin, employee, temporary }
