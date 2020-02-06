@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
+import 'package:holinoti_admin/constants/nos.dart' as Nos;
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
 import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:sprintf/sprintf.dart';
 
 class AuthBloc {
   Enums.AuthMode authMode;
@@ -29,7 +32,7 @@ class AuthBloc {
   }
 
   void switchObscureTextMode({bool obscureText}) {
-    _obscureText=obscureText??!_obscureText;
+    _obscureText = obscureText ?? !_obscureText;
     _obscureTextSubject.add(_obscureText);
   }
 
@@ -86,6 +89,26 @@ class AuthBloc {
     } catch (e) {
       print(e);
     }
+  }
+
+  String passwordValidator(String password) {
+    if (password.length < Nos.AuthPage.MIN_NO_OF_CHARACTERS)
+      return Strings.AuthPage.ERROR_TO_SHORT;
+    if (password.length > Nos.AuthPage.MAX_NO_OF_CHARACTERS)
+      return Strings.AuthPage.ERROR_TO_LONG;
+    List banned = RegExp(r"[^A-Za-z0-9!@#\$&*~]")
+        .allMatches(password)
+        .map((e) => e.group(0))
+        .toList();
+    if (banned.length > 0)
+      return sprintf(
+          Strings.AuthPage.ERROR_PROHIBITED_CHARACTERS, [banned.join(" ")]);
+    int c = 0;
+    if (RegExp(r"(?=.*[A-Za-z])").hasMatch(password)) c++;
+    if (RegExp(r"(?=.*[0-9])").hasMatch(password)) c++;
+    if (RegExp(r"(?=.*?[!@#\$&*~]).{8,}").hasMatch(password)) c++;
+    if (c < 2) return Strings.AuthPage.ERROR_REQUIRE_COMBINE;
+    return null;
   }
 
   void dispose() {

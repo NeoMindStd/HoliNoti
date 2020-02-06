@@ -28,31 +28,29 @@ class SignInCard extends StatelessWidget {
     final passwordField = StreamBuilder<bool>(
       initialData: _authBloc.isObscureText,
       stream: _authBloc.isObscureTextStream,
-      builder: (context, snapshot)=>
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: Strings.AuthPage.PASSWORD,
-              hasFloatingPlaceholder: true,
-              suffixIcon: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
-                mainAxisSize: MainAxisSize.min, // added line
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(snapshot.data
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                    onPressed: _authBloc.switchObscureTextMode,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: passwordController.clear,
-                  ),
-                ],
+      builder: (context, snapshot) => TextFormField(
+        decoration: InputDecoration(
+          labelText: Strings.AuthPage.PASSWORD,
+          hasFloatingPlaceholder: true,
+          suffixIcon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                    snapshot.data ? Icons.visibility_off : Icons.visibility),
+                onPressed: _authBloc.switchObscureTextMode,
               ),
-            ),
-            controller: passwordController,
-            obscureText: snapshot.data,
+              IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: passwordController.clear,
+              ),
+            ],
           ),
+        ),
+        controller: passwordController,
+        obscureText: snapshot.data,
+      ),
     );
 
     return Column(

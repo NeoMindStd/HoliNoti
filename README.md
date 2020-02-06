@@ -55,7 +55,6 @@ The project was started to minimize such experience.
 - 데이터베이스에 비밀번호 저장 시 SHA 해싱 암호화 적용 (Apply SHA hashing encryption when storing passwords in the database)
 
 #### 관리자용 앱(App for Admin)
-- 비밀번호 입력 칸 입력 값 검증 (Change to check password input field value)
 - 가게 수정 및 삭제, 운영시간 수정 및 삭제, 회원정보 관리 및 회원 탈퇴기능 도입 (Implement features that edit and delete facilities, update and delete operating hours, manage member information and membership withdrawal)
 - 비정기 휴일, 영업일 등록기능 도입 (Implement a feature that register irregular holiday and business day)
 
