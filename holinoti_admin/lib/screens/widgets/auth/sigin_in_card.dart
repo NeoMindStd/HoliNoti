@@ -16,13 +16,41 @@ class SignInCard extends StatelessWidget {
 
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
-          labelText: Strings.AuthPage.ACCOUNT, hasFloatingPlaceholder: true),
+        labelText: Strings.AuthPage.ACCOUNT,
+        hasFloatingPlaceholder: true,
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: accountController.clear,
+        ),
+      ),
       controller: accountController,
     );
-    final TextFormField passwordField = TextFormField(
-      decoration: InputDecoration(
-          labelText: Strings.AuthPage.PASSWORD, hasFloatingPlaceholder: true),
-      controller: passwordController,
+    final passwordField = StreamBuilder<bool>(
+      initialData: _authBloc.isObscureText,
+      stream: _authBloc.isObscureTextStream,
+      builder: (context, snapshot) => TextFormField(
+        decoration: InputDecoration(
+          labelText: Strings.AuthPage.PASSWORD,
+          hasFloatingPlaceholder: true,
+          suffixIcon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                    snapshot.data ? Icons.visibility_off : Icons.visibility),
+                onPressed: _authBloc.switchObscureTextMode,
+              ),
+              IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: passwordController.clear,
+              ),
+            ],
+          ),
+        ),
+        controller: passwordController,
+        obscureText: snapshot.data,
+      ),
     );
 
     return Column(
