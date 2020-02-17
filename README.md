@@ -49,6 +49,9 @@ The project was started to minimize such experience.
 - 사용한 오픈소스 라이브러리 표기 (Add the licenses page)
 - 개인정보 처리방침 등록 (Add the privacy policy page)
 - REST API 이용 보안 키 등록 (Change to use security key for rest api)
+- README.md 하위의 TODO List를 BACKLOG.md로 분리 [*참고](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md) (Move TODO List in README.md into BACKLOG.md [* Ref](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md))
+- holinoti_server/\*의 주소에 Java CI test를 수행하는 maven.yml 워크플로우 추가 (Add maven.yml workflow to perform Java CI test on holinoti_server/\*)
+- README.md에서 영어 번역을 README_EN.md로 분리 (Move english translation into README_EN.md in README.md)
 
 #### 서버(Server)
 - 로그인 시 서버에서 처리 후 토큰 교환하는 방식으로 변경 (Change the login method to use tokens)
