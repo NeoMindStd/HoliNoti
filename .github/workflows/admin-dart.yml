@@ -1,17 +1,17 @@
-name: Dart CI
+name: Admin Dart CI
 
 on:
   push:
     branches:
       - master
     paths:
-      ['holinoti_admin/*','holinoti_customer/*']
+      - holinoti_admin/**
       
   pull_request:
     branches:
       - master
     paths:
-      ['holinoti_admin/*','holinoti_customer/*']
+      - holinoti_admin/**
 
 jobs:
   build:
