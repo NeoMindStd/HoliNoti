@@ -1,11 +1,14 @@
 # Holinoti
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
-[![contributions welcome](https://img.shields.io/badge/platform-flutter%7Cspring_boot-blue)](https://github.com/NeoMindStd/HoliNoti) 
-[![HitCount](http://hits.dwyl.io/NeoMindStd/Holinoti.svg)](http://hits.dwyl.io/NeoMindStd/Holinoti)
+![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
+![HitCount](http://hits.dwyl.io/NeoMindStd/Holinoti.svg)
 
-**CLIENT(Admin)** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_admin/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_admin/android/app/build.gradle) 
-**CLIENT(Customer)** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_customer/android/app/build.gradle)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_customer/android/app/build.gradle) 
-**SERVER** [![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_server/pom.xml)](https://snyk.io/test/github/NeoMindStd/Holinoti?targetFile=holinoti_server/pom.xml) 
+| Sub Project | Platform | Vulnerabilities | CI |
+|:---:|:---:|:---:|:---:|
+| **App for Admin** | ![platform](https://img.shields.io/badge/platform-flutter-blue) | ![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_admin/android/app/build.gradle) | ![Flutter CI - Admin](https://github.com/NeoMindStd/HoliNoti/workflows/Flutter%20CI%20-%20Admin/badge.svg) |
+| **App for Customer** | ![platform](https://img.shields.io/badge/platform-flutter-blue) | ![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_customer/android/app/build.gradle) | ![Flutter CI - Customer](https://github.com/NeoMindStd/HoliNoti/workflows/Flutter%20CI%20-%20Customer/badge.svg) |
+| **Server** | ![platform](https://img.shields.io/badge/platform-spring_boot-green) | ![Known Vulnerabilities](https://snyk.io/test/github/NeoMindStd/Holinoti/badge.svg?targetFile=holinoti_server/pom.xml) | ![Java Maven CI](https://github.com/NeoMindStd/HoliNoti/workflows/Java%20Maven%20CI/badge.svg) |
+
+<br>
 
 ## Korean
 가게나 공공시설등의 비정기 휴일 또는 영업일을 파악하여 계획의 차질을 방지하기 위해 시작된 오픈소스 프로젝트입니다.
@@ -50,7 +53,6 @@ The project was started to minimize such experience.
 - 개인정보 처리방침 등록 (Add the privacy policy page)
 - REST API 이용 보안 키 등록 (Change to use security key for rest api)
 - README.md 하위의 TODO List를 BACKLOG.md로 분리 [*참고](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md) (Move TODO List in README.md into BACKLOG.md [* Ref](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md))
-- holinoti_server/\*의 주소에 Java CI test를 수행하는 maven.yml 워크플로우 추가 (Add maven.yml workflow to perform Java CI test on holinoti_server/\*)
 - README.md에서 영어 번역을 README_EN.md로 분리 (Move english translation into README_EN.md in README.md)
 
 #### 서버(Server)
