@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: pub get
+      run: flutter pub get
       working-directory: holinoti_admin
     - name: Run tests
       run: pub run test
