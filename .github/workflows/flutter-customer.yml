@@ -1,0 +1,35 @@
+name: Flutter CI - Customer
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - holinoti_customer/**
+      
+  pull_request:
+    branches:
+      - master
+    paths:
+      - holinoti_customer/**
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2.0.0
+    - uses: actions/setup-java@v1.3.0
+      with:
+        java-version: '1.8'
+    - uses: subosito/flutter-action@v1.1.1
+      with:
+        flutter-version: '1.12.x' # you can use 1.12
+        channel: 'stable' # optional, default to: 'stable'
+    - name: Install dependencies
+      run: flutter pub get
+      working-directory: holinoti_customer
+    - name: Test Build
+      run: flutter build apk
+      working-directory: holinoti_customer
