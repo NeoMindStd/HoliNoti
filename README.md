@@ -31,16 +31,16 @@ The project was started to minimize such experience.
 ## Versions of tools
 
 ### CLIENTS
-- Framework: Flutter 1.12.13+hotfix.7 • channel stable
-- IDE: Android Studio 3.5.3 JRE: 1.8 (use androidx.* artifacts) 
-- Language: Dart 2.5.0
+- Framework: Flutter 1.12.13+hotfix.8 • channel stable
+- IDE: Android Studio 3.6.1 JRE: 1.8 (use androidx.* artifacts) 
+- Language: Dart 2.7.1
 - App native languages
   * android: Java 1.8 (Gradle 5.6.4 build, plugin 3.5.3), Kotlin 1.3.10
   * iOS: Swift
 
 ### SERVER 
 - Framework: Spring boot Starter Parent 2.1.12.RELEASE
-- IDE: IntelliJ IDEA 2019.3.2 (Ultimate Edition) 
+- IDE: IntelliJ IDEA 2019.3.3 (Ultimate Edition) 
 - Language: Open JDK 11 (Maven 3.6.1 build)
 - DB: 5.7.28 MySQL Community Server
 - WAS: Apache Tomcat 9.0.27
