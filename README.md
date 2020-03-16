@@ -47,22 +47,4 @@ The project was started to minimize such experience.
 - Host: Google Cloud Platform
 - Server OS: CentOS Linux release 7.7.1908
 
-## TODO List
-#### 공통(General)
-- 사용한 오픈소스 라이브러리 표기 (Add the licenses page)
-- 개인정보 처리방침 등록 (Add the privacy policy page)
-- REST API 이용 보안 키 등록 (Change to use security key for rest api)
-- README.md 하위의 TODO List를 BACKLOG.md로 분리 [*참고](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md) (Move TODO List in README.md into BACKLOG.md [* Ref](https://github.com/googleapis/google-cloud-dotnet/blob/master/BACKLOG.md))
-- README.md에서 영어 번역을 README_EN.md로 분리 (Move english translation into README_EN.md in README.md)
-
-#### 서버(Server)
-- 로그인 시 서버에서 처리 후 토큰 교환하는 방식으로 변경 (Change the login method to use tokens)
-- 데이터베이스에 비밀번호 저장 시 SHA 해싱 암호화 적용 (Apply SHA hashing encryption when storing passwords in the database)
-
-#### 관리자용 앱(App for Admin)
-- 가게 수정 및 삭제, 운영시간 수정 및 삭제, 회원정보 관리 및 회원 탈퇴기능 도입 (Implement features that edit and delete facilities, update and delete operating hours, manage member information and membership withdrawal)
-- 비정기 휴일, 영업일 등록기능 도입 (Implement a feature that register irregular holiday and business day)
-
-#### 고객용 앱(App for Customer)
-- 가게 즐겨찾기 기능 추가 (Implement a feature that facilities favorites)
-- 비정기 휴일, 영업일 등록 시 푸시 알림 예약기능 추가 - 서버 단 (Implement a feature that add push notification when registered irregular holiday and business day - server side)
+## [BACKLOG](/BACKLOG.md)
