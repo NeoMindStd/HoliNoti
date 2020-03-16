@@ -41,4 +41,4 @@ The project was started to minimize such experience.
 - Host: Google Cloud Platform
 - Server OS: CentOS Linux release 7.7.1908
 
-## [BACKLOG](/BACKLOG.md)
+## [BACKLOG](/BACKLOG-EN.md)
