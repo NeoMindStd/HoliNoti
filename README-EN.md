@@ -1,7 +1,7 @@
 Language: [한국어](README.md) | [ENGLISH](README-EN.md)
 
 # Holinoti
-![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
+![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=plastic)
 ![HitCount](http://hits.dwyl.io/NeoMindStd/Holinoti.svg)
 
 | Sub Project | Platform | Vulnerabilities | CI |
@@ -12,16 +12,17 @@ Language: [한국어](README.md) | [ENGLISH](README-EN.md)
 
 <br>
 
-## 소개
-가게나 공공시설등의 비정기 휴일 또는 영업일을 파악하여 계획의 차질을 방지하기 위해 시작된 오픈소스 프로젝트입니다.
-**정식 릴리즈되지 않은 코드를 빌드, 사용시 어떠한 법적 책임도 지지 않음을 명시합니다.**
-[기타 라이센스 관련 사항은 이곳을 참고해주세요](https://github.com/NeoMindStd/Holinoti/blob/master/LICENSE)
-#### 프로젝트에 대해서
-주변 맛집, 카페, PC방, 도서관이 갑자기 여행, 공사 등의 이유로 임시 휴일일 때 헛걸음 하신적 있으신가요?
-가게에 휴일공지도 하고, 조금 큰 시설의 경우 자체적으로 공지도 하지만 통합적인 공지 플랫폼이 없어 난처했던 경험 많이들 하셨을 것으로 생각합니다.
-이 프로젝트는 그런 경험을 최소화하기 위해 시작되었습니다.
+## Introduction
+It is an open source project started as for identifying irregular holidays or business day such as shops and public facilities to prevent failure of plans.
+**IT ASSUMES TO NO LIABILITY WHATSOEVER FOR UNOFFICIAL RELEASE.**
+[See here for other license details](https://github.com/NeoMindStd/Holinoti/blob/master/LICENSE)
 
-## 개발 환경
+#### About
+Have you ever go to a restaurant, cafe, PC room, or library when is on a temporary holiday due to sudden travel or construction?
+It's a shit.
+The project was started to minimize such experience.
+
+## Dev env
 
 ### CLIENTS
 - Framework: Flutter 1.12.13+hotfix.8 • channel stable
