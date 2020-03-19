@@ -50,4 +50,3 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 
 #### 서버
 - 로그인 시 서버에서 처리 후 토큰 교환하는 방식으로 변경
-- 데이터베이스에 비밀번호 저장 시 SHA 해싱 암호화 적용

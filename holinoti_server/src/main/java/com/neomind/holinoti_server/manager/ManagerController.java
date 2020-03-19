@@ -1,5 +1,6 @@
 package com.neomind.holinoti_server.manager;
 
+import com.neomind.holinoti_server.utils.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +40,7 @@ public class ManagerController {
 
     @PostMapping
     public ResponseEntity addManager(@RequestBody Manager manager) {
+        manager.setPassword(new Encrypter().encode(manager.getPassword()));
         System.out.println(manager);
         Manager newManager = managerRepository.save(manager);
         URI createdURI = linkTo(ManagerController.class).slash(newManager.getId()).toUri();
@@ -53,7 +55,7 @@ public class ManagerController {
 
         target.setAccount(manager.getAccount());
         target.setPassword(manager.getPassword() != null
-                ? manager.getAccount() : target.getPassword());
+                ? new Encrypter().encode(manager.getPassword()) : target.getPassword());
         target.setName(manager.getName());
         target.setFacilityCode(manager.getFacilityCode());
         target.setUserType(manager.getUserType());

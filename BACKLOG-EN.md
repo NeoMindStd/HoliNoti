@@ -50,4 +50,3 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 
 #### Server
 - Change the login method to use tokens
-- Apply SHA hashing encryption when storing passwords in the database
