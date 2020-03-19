@@ -39,7 +39,6 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 - 사용한 오픈소스 라이브러리 표기
 - 개인정보 처리방침 등록
 - REST API 이용 보안 키 등록
-- README.md에서 영어 번역을 README_EN.md로 분리
 
 #### 관리자용 앱
 - 가게 수정 및 삭제, 운영시간 수정 및 삭제, 회원정보 관리 및 회원 탈퇴기능 도입
