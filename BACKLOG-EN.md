@@ -43,10 +43,13 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 #### App for Admin
 - Implement features that edit and delete facilities, update and delete operating hours, manage member information and membership withdrawal
 - Implement a feature that register irregular holiday and business day
+-Apply the changed login http method
 
 #### App for Customer
 - Implement a feature that facilities favorites
 - Implement a feature that add push notification when registered irregular holiday and business day - server side
+- Implement customer login
 
 #### Server
-- Change the login method to use tokens
+- Change to can view facility list and sales information, even if not logged in.
+-Add customer in UserType enum (no management authority)

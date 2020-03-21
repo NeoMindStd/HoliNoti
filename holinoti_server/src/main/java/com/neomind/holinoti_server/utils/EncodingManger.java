@@ -1,15 +1,16 @@
 package com.neomind.holinoti_server.utils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.neomind.holinoti_server.config.SecurityConfig;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class Encrypter implements PasswordEncoder {
+public class EncodingManger implements PasswordEncoder {
     private PasswordEncoder passwordEncoder;
 
-    public Encrypter() {
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public EncodingManger() {
+        this.passwordEncoder = SecurityConfig.passwordEncoder();
     }
 
-    public Encrypter(PasswordEncoder passwordEncoder) {
+    public EncodingManger(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
