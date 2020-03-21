@@ -1,5 +1,7 @@
 package com.neomind.holinoti_server.manager;
 
+import com.neomind.holinoti_server.utils.EncodingManger;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,14 +14,18 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/managers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ManagerController {
-    @Autowired
     ManagerRepository managerRepository;
+    ManagerService managerService;
 
     @GetMapping
-    public List<Manager> getAllManagers() {
-        return managerRepository.findAll();
+    public List<Manager> getAllManagers() { return managerRepository.findAll(); }
+
+    @RequestMapping(path = "login", method = RequestMethod.GET)
+    public String login() {
+        return "SUCCESS!!";
     }
 
     @RequestMapping(path = "/id={managerId}", method = RequestMethod.GET)
@@ -39,8 +45,7 @@ public class ManagerController {
 
     @PostMapping
     public ResponseEntity addManager(@RequestBody Manager manager) {
-        System.out.println(manager);
-        Manager newManager = managerRepository.save(manager);
+        Manager newManager = managerService.signUp(manager);
         URI createdURI = linkTo(ManagerController.class).slash(newManager.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newManager);
     }
@@ -53,7 +58,7 @@ public class ManagerController {
 
         target.setAccount(manager.getAccount());
         target.setPassword(manager.getPassword() != null
-                ? manager.getAccount() : target.getPassword());
+                ? new EncodingManger().encode(manager.getPassword()) : target.getPassword());
         target.setName(manager.getName());
         target.setFacilityCode(manager.getFacilityCode());
         target.setUserType(manager.getUserType());
