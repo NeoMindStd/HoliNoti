@@ -19,5 +19,5 @@ CREATE TABLE `manager` (
   `password` blob(20) NOT NULL,
   `name` varchar(255),
   `facility_code` int,
-  `user_type` SET('admin', 'employee', 'temporary')
+  `user_type` SET('admin', 'manager', 'employee', 'customer')
 );
