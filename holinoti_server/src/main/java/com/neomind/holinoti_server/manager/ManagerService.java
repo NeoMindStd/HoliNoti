@@ -18,9 +18,11 @@ import java.util.List;
 public class ManagerService implements UserDetailsService {
     private ManagerRepository managerRepository;
 
-    public Manager signUp(Manager manager) {
+    public Manager register(Manager manager) {
         manager.setPassword(new EncodingManger().encode(manager.getPassword()));
-        System.out.println(manager);
+
+        System.out.println("Registered a manager: " + manager);
+
         return managerRepository.save(manager);
     }
 
@@ -30,7 +32,9 @@ public class ManagerService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority(manager.getUserType().name()));
+        for (int i = manager.getUserType().ordinal(); i < UserType.values().length; i++) {
+            authorities.add(new SimpleGrantedAuthority(UserType.values()[i].name()));
+        }
 
         return new User(manager.getAccount(), manager.getPassword(), authorities);
     }
