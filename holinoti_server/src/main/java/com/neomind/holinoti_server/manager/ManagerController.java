@@ -2,7 +2,6 @@ package com.neomind.holinoti_server.manager;
 
 import com.neomind.holinoti_server.utils.EncodingManger;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ public class ManagerController {
     @GetMapping
     public List<Manager> getAllManagers() { return managerRepository.findAll(); }
 
-    @RequestMapping(path = "login", method = RequestMethod.GET)
+    @RequestMapping(path = "/login", method = RequestMethod.GET)
     public String login() {
         return "SUCCESS!!";
     }
@@ -39,13 +38,13 @@ public class ManagerController {
     }
 
     @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
-    public List<Manager> getManagerByAccount(@PathVariable("facilityCode") int facilityCode) {
+    public List<Manager> getManagerByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
         return managerRepository.findByFacilityCode(facilityCode);
     }
 
-    @PostMapping
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
     public ResponseEntity addManager(@RequestBody Manager manager) {
-        Manager newManager = managerService.signUp(manager);
+        Manager newManager = managerService.register(manager);
         URI createdURI = linkTo(ManagerController.class).slash(newManager.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newManager);
     }

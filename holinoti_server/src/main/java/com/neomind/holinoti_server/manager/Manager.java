@@ -5,10 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-enum UserType {
-    admin, employee, temporary;
-}
-
 @Entity
 @Data
 @Table(name = "manager")

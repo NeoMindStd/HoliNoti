@@ -22,7 +22,7 @@ public class FacilityController {
         return facilityRepository.findAll();
     }
 
-    @RequestMapping(path = "/{facilityCode}", method = RequestMethod.GET)
+    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.GET)
     public Facility getFacility(@PathVariable("facilityCode") int code) {
         return facilityRepository.findById(code).get();
     }
@@ -35,7 +35,7 @@ public class FacilityController {
         return ResponseEntity.created(createdURI).body(newFacility);
     }
 
-    @RequestMapping(path = "/{facilityCode}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateFacility(@RequestBody Facility facility,
                                @PathVariable("facilityCode") int code) {
@@ -48,7 +48,7 @@ public class FacilityController {
         facilityRepository.save(target);
     }
 
-    @RequestMapping(path = "/{facilityCode}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.DELETE)
     public void deleteFacility(@PathVariable("facilityCode") int code) {
         facilityRepository.deleteById(code);
     }
