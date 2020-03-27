@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Auto-generated method stub
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET,"/managers/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/managers/account=*").permitAll()
                 .antMatchers(HttpMethod.POST,"/managers/register").permitAll()
@@ -49,13 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/facilities/code=*").hasAuthority(UserType.manager.name())
 
                 .antMatchers(HttpMethod.GET,"/managers").hasAuthority(UserType.admin.name())
-                .antMatchers(HttpMethod.GET,"/managers/id=*").hasAuthority(UserType.admin.name())
-
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .csrf().disable();
+                .antMatchers(HttpMethod.GET,"/managers/id=*").hasAuthority(UserType.admin.name());
     }
 
     @Override
