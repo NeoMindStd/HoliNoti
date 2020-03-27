@@ -51,5 +51,4 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 - Implement customer login
 
 #### Server
-- Change to can view facility list and sales information, even if not logged in.
--Add customer in UserType enum (no management authority)
+- Implement the required unimplemented HTTP methods
