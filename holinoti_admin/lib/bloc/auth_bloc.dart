@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
@@ -65,7 +67,7 @@ class AuthBloc {
 
       try {
         http.Response facilityResponse = await client.get(
-          "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
+          "http://holinoti.tk:8080/holinoti/facilities/code=${manager.facilityCode}",
           headers: {"Content-Type": "application/json; charset=utf-8"},
         );
 
@@ -93,13 +95,13 @@ class AuthBloc {
   void signUp({String account, String password, String name}) async {
     try {
       http.Response managerResponse = await http.post(
-        "http://holinoti.tk:8080/holinoti/managers",
+        "http://holinoti.tk:8080/holinoti/managers/register",
         headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: {
+        body: jsonEncode({
           'account': account,
           'password': password,
           'name': name,
-        },
+        },),
       );
 
       var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
