@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
@@ -5,9 +7,11 @@ import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
-import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
+import 'package:holinoti_admin/utils/http_decoder.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -41,29 +45,43 @@ class AuthBloc {
   // TODO 비밀번호 암호화 하여 전달
   void signIn(BuildContext context, {String account, String password}) async {
     try {
-      Response managerResponse = await Dio().get(
-        "http://holinoti.tk:8080/holinoti/managers/account=${account}",
-        options: Options(headers: {"Content-Type": "application/json"}),
+      http_auth.BasicAuthClient client =
+          http_auth.BasicAuthClient(account, password);
+      http.Response loginResponse = await client.get(
+        "http://holinoti.tk:8080/holinoti/managers/login",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
       );
-      Manager manager = Manager.fromJson(managerResponse.data);
+      print('Response: $loginResponse');
 
-      if (manager.password == password) {
-        try {
-          Response facilityResponse = await Dio().get(
-            "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
-            options: Options(headers: {"Content-Type": "application/json"}),
-          );
-          manager.facility = Facility.fromJson(facilityResponse.data);
-        } catch (e) {
-          print(e);
-        }
+      http.Response managerResponse = await http.get(
+        "http://holinoti.tk:8080/holinoti/managers/account=$account",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+      );
 
-        DataManager().signedIn = manager;
-        print('Signed in as $manager');
-        Navigator.pop(context);
-      } else {
-        signInFailed(context);
+      var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
+      print('Response: $decodedManagerResponse');
+      decodedManagerResponse['userType'] = Enums.fromString(
+          Enums.UserType.values, decodedManagerResponse['userType']);
+
+      Manager manager = Manager.fromJson(decodedManagerResponse);
+
+      try {
+        http.Response facilityResponse = await client.get(
+          "http://holinoti.tk:8080/holinoti/facilities/code=${manager.facilityCode}",
+          headers: {"Content-Type": "application/json; charset=utf-8"},
+        );
+
+        var decodedFacilityResponse = HttpDecoder.utf8Response(managerResponse);
+        print('Response: $decodedFacilityResponse');
+
+        manager.facility = Facility.fromJson(decodedFacilityResponse);
+      } catch (e) {
+        print(e);
       }
+
+      DataManager().signedIn = manager;
+      print('Signed in as $manager');
+      Navigator.pop(context);
     } catch (e) {
       print(e);
       signInFailed(context);
@@ -76,16 +94,18 @@ class AuthBloc {
 
   void signUp({String account, String password, String name}) async {
     try {
-      Response response = await Dio().post(
-        "http://holinoti.tk:8080/holinoti/managers",
-        options: Options(headers: {"Content-Type": "application/json"}),
-        data: {
+      http.Response managerResponse = await http.post(
+        "http://holinoti.tk:8080/holinoti/managers/register",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+        body: jsonEncode({
           'account': account,
           'password': password,
           'name': name,
-        },
+        },),
       );
-      print(response);
+
+      var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
+      print('Response: $decodedManagerResponse');
     } catch (e) {
       print(e);
     }
