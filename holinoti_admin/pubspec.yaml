@@ -41,6 +41,7 @@ dependencies:
 
   # HttpClient
   http: ^0.12.0+4
+  http_auth: ^0.2.9
 
   # UI
   flutter_platform_widgets: ^0.32.4

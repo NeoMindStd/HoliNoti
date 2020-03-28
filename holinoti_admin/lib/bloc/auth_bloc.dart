@@ -5,10 +5,11 @@ import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
-import 'package:holinoti_admin/utils/http_decoder.dart';
-import 'package:http/http.dart' as http;
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
+import 'package:holinoti_admin/utils/http_decoder.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -42,6 +43,14 @@ class AuthBloc {
   // TODO 비밀번호 암호화 하여 전달
   void signIn(BuildContext context, {String account, String password}) async {
     try {
+      http_auth.BasicAuthClient client =
+          http_auth.BasicAuthClient(account, password);
+      http.Response loginResponse = await client.get(
+        "http://holinoti.tk:8080/holinoti/managers/login",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+      );
+      print('Response: $loginResponse');
+
       http.Response managerResponse = await http.get(
         "http://holinoti.tk:8080/holinoti/managers/account=$account",
         headers: {"Content-Type": "application/json; charset=utf-8"},
@@ -49,30 +58,40 @@ class AuthBloc {
 
       var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
       print('Response: $decodedManagerResponse');
+      switch (decodedManagerResponse['userType']) {
+        case 'admin':
+          decodedManagerResponse['userType'] = Enums.UserType.admin;
+          break;
+        case 'employee':
+          decodedManagerResponse['userType'] = Enums.UserType.employee;
+          break;
+        case 'temporary':
+          decodedManagerResponse['userType'] = Enums.UserType.temporary;
+          break;
+        default:
+          decodedManagerResponse['userType'] = null;
+          break;
+      }
 
       Manager manager = Manager.fromJson(decodedManagerResponse);
 
-      if (manager.password == password) {
-        try {
-          http.Response facilityResponse = await http.get(
-            "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
-            headers: {"Content-Type": "application/json; charset=utf-8"},
-          );
+      try {
+        http.Response facilityResponse = await client.get(
+          "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
+          headers: {"Content-Type": "application/json; charset=utf-8"},
+        );
 
-          var decodedFacilityResponse = HttpDecoder.utf8Response(managerResponse);
-          print('Response: $decodedFacilityResponse');
+        var decodedFacilityResponse = HttpDecoder.utf8Response(managerResponse);
+        print('Response: $decodedFacilityResponse');
 
-          manager.facility = Facility.fromJson(decodedFacilityResponse);
-        } catch (e) {
-          print(e);
-        }
-
-        DataManager().signedIn = manager;
-        print('Signed in as $manager');
-        Navigator.pop(context);
-      } else {
-        signInFailed(context);
+        manager.facility = Facility.fromJson(decodedFacilityResponse);
+      } catch (e) {
+        print(e);
       }
+
+      DataManager().signedIn = manager;
+      print('Signed in as $manager');
+      Navigator.pop(context);
     } catch (e) {
       print(e);
       signInFailed(context);
@@ -88,16 +107,15 @@ class AuthBloc {
       http.Response managerResponse = await http.post(
         "http://holinoti.tk:8080/holinoti/managers",
         headers: {"Content-Type": "application/json; charset=utf-8"},
-          body: {
-            'account': account,
-            'password': password,
-            'name': name,
-          },
+        body: {
+          'account': account,
+          'password': password,
+          'name': name,
+        },
       );
 
       var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
       print('Response: $decodedManagerResponse');
-
     } catch (e) {
       print(e);
     }

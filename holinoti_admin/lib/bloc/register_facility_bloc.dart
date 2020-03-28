@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
+import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
-import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -43,9 +43,9 @@ class RegisterFacilityBloc {
           body: openingInfoToJson(openingInfo),
         );
 
-        var decodedOpeningInfoResponse = HttpDecoder.utf8Response(openingInfoResponse);
+        var decodedOpeningInfoResponse =
+            HttpDecoder.utf8Response(openingInfoResponse);
         print('Response: $decodedOpeningInfoResponse');
-
       } catch (e) {
         print(e);
       }
