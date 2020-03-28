@@ -38,7 +38,6 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 #### General
 - Add the licenses page
 - Add the privacy policy page
-- Change to use security key for rest api
 
 #### App for Admin
 - Implement features that edit and delete facilities, update and delete operating hours, manage member information and membership withdrawal
