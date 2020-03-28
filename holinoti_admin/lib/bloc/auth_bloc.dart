@@ -58,20 +58,8 @@ class AuthBloc {
 
       var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
       print('Response: $decodedManagerResponse');
-      switch (decodedManagerResponse['userType']) {
-        case 'admin':
-          decodedManagerResponse['userType'] = Enums.UserType.admin;
-          break;
-        case 'employee':
-          decodedManagerResponse['userType'] = Enums.UserType.employee;
-          break;
-        case 'temporary':
-          decodedManagerResponse['userType'] = Enums.UserType.temporary;
-          break;
-        default:
-          decodedManagerResponse['userType'] = null;
-          break;
-      }
+      decodedManagerResponse['userType'] = Enums.fromString(
+          Enums.UserType.values, decodedManagerResponse['userType']);
 
       Manager manager = Manager.fromJson(decodedManagerResponse);
 
