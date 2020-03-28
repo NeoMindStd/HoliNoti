@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
-import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
+import 'package:holinoti_admin/utils/http_decoder.dart';
+import 'package:http/http.dart' as http;
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
@@ -21,34 +22,41 @@ class RegisterFacilityBloc {
   void registerFacility(
       BuildContext context, String name, String address) async {
     try {
-      Response facilityResponse = await Dio().post(
-        "http://holinoti.tk:8080/holinoti/facilities/",
-        options: Options(headers: {"Content-Type": "application/json"}),
-        data: facilityToJson(facility),
+      http.Response facilityResponse = await http.post(
+        "http://holinoti.tk:8080/holinoti/facilities",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+        body: facilityToJson(facility),
       );
-      print("Response: $facilityResponse");
+
+      var decodedFacilityResponse = HttpDecoder.utf8Response(facilityResponse);
+      print('Response: $decodedFacilityResponse');
+
       DataManager().signedIn.facility =
-          Facility.fromJson(facilityResponse.data);
+          Facility.fromJson(decodedFacilityResponse);
       print('Added: ${DataManager().signedIn.facility}');
 
       openingInfo.facilityCode = DataManager().signedIn.facilityCode;
       try {
-        Response openingInfoResponse = await Dio().post(
-          "http://holinoti.tk:8080/holinoti/opening-infos/",
-          options: Options(headers: {"Content-Type": "application/json"}),
-          data: openingInfoToJson(openingInfo),
+        http.Response openingInfoResponse = await http.post(
+          "http://holinoti.tk:8080/holinoti/opening-infos",
+          headers: {"Content-Type": "application/json; charset=utf-8"},
+          body: openingInfoToJson(openingInfo),
         );
-        print("Response: $openingInfoResponse");
+
+        var decodedOpeningInfoResponse = HttpDecoder.utf8Response(openingInfoResponse);
+        print('Response: $decodedOpeningInfoResponse');
+
       } catch (e) {
         print(e);
       }
 
       try {
-        await Dio().put(
+        await http.put(
           "http://holinoti.tk:8080/holinoti/managers/id=${DataManager().signedIn.id}",
-          options: Options(headers: {"Content-Type": "application/json"}),
-          data: managerToJson(DataManager().signedIn),
+          headers: {"Content-Type": "application/json; charset=utf-8"},
+          body: managerToJson(DataManager().signedIn),
         );
+
         print(managerToJson(DataManager().signedIn));
         print('Updated: ${DataManager().signedIn}');
       } catch (e) {

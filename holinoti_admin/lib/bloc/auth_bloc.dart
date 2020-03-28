@@ -5,7 +5,8 @@ import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/manager.dart';
-import 'package:holinoti_admin/third_party_libraries/dio/lib/dio.dart';
+import 'package:holinoti_admin/utils/http_decoder.dart';
+import 'package:http/http.dart' as http;
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:rxdart/rxdart.dart';
@@ -41,19 +42,27 @@ class AuthBloc {
   // TODO 비밀번호 암호화 하여 전달
   void signIn(BuildContext context, {String account, String password}) async {
     try {
-      Response managerResponse = await Dio().get(
-        "http://holinoti.tk:8080/holinoti/managers/account=${account}",
-        options: Options(headers: {"Content-Type": "application/json"}),
+      http.Response managerResponse = await http.get(
+        "http://holinoti.tk:8080/holinoti/managers/account=$account",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
       );
-      Manager manager = Manager.fromJson(managerResponse.data);
+
+      var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
+      print('Response: $decodedManagerResponse');
+
+      Manager manager = Manager.fromJson(decodedManagerResponse);
 
       if (manager.password == password) {
         try {
-          Response facilityResponse = await Dio().get(
+          http.Response facilityResponse = await http.get(
             "http://holinoti.tk:8080/holinoti/facilities/${manager.facilityCode}",
-            options: Options(headers: {"Content-Type": "application/json"}),
+            headers: {"Content-Type": "application/json; charset=utf-8"},
           );
-          manager.facility = Facility.fromJson(facilityResponse.data);
+
+          var decodedFacilityResponse = HttpDecoder.utf8Response(managerResponse);
+          print('Response: $decodedFacilityResponse');
+
+          manager.facility = Facility.fromJson(decodedFacilityResponse);
         } catch (e) {
           print(e);
         }
@@ -76,16 +85,19 @@ class AuthBloc {
 
   void signUp({String account, String password, String name}) async {
     try {
-      Response response = await Dio().post(
+      http.Response managerResponse = await http.post(
         "http://holinoti.tk:8080/holinoti/managers",
-        options: Options(headers: {"Content-Type": "application/json"}),
-        data: {
-          'account': account,
-          'password': password,
-          'name': name,
-        },
+        headers: {"Content-Type": "application/json; charset=utf-8"},
+          body: {
+            'account': account,
+            'password': password,
+            'name': name,
+          },
       );
-      print(response);
+
+      var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
+      print('Response: $decodedManagerResponse');
+
     } catch (e) {
       print(e);
     }
