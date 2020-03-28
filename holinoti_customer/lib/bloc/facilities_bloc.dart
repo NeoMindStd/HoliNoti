@@ -3,7 +3,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
 import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/screens/facility.dart';
-import 'package:holinoti_customer/third_party_libraries/dio/lib/dio.dart';
+import 'package:holinoti_customer/utils/http_decoder.dart';
+import 'package:http/http.dart' as http;
 
 class FacilitiesBloc {
   List<Facility> facilities = [];
@@ -13,14 +14,15 @@ class FacilitiesBloc {
   Future<List<Facility>> requestFacilities() async {
     if (facilities.isNotEmpty) return facilities;
     try {
-      Response facilityResponse = await Dio().get(
-        "http://holinoti.tk:8080/holinoti/facilities/",
-        options: Options(headers: {"Content-Type": "application/json"}),
+      http.Response facilityResponse = await http.get(
+        "http://holinoti.tk:8080/holinoti/facilities",
+        headers: {"Content-Type": "application/json; charset=utf-8"},
       );
 
-      print('Response: ${facilityResponse.data}');
+      var decodedResponse = HttpDecoder.utf8Response(facilityResponse);
+      print('Response: $decodedResponse');
 
-      for (Map facilityJson in facilityResponse.data) {
+      for (Map facilityJson in decodedResponse) {
         facilities.add(Facility.fromJson(facilityJson));
       }
       return facilities;
