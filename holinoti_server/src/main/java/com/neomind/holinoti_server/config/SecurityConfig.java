@@ -31,9 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET,"/managers/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/managers/account=*").permitAll()
+                .antMatchers(HttpMethod.GET,"/managers/phone_number=*").permitAll()
                 .antMatchers(HttpMethod.POST,"/managers/register").permitAll()
                 .antMatchers(HttpMethod.GET,"/facilities").permitAll()
                 .antMatchers(HttpMethod.GET,"/facilities/code=*").permitAll()
+                .antMatchers(HttpMethod.GET,"/facilities/facility_images/id=*").permitAll()
+                .antMatchers(HttpMethod.GET,"/facilities/facility_images/facility_code=*").permitAll()
                 .antMatchers(HttpMethod.GET,"/opening-infos").permitAll()
                 .antMatchers(HttpMethod.GET,"/opening-infos/id=*").permitAll()
                 .antMatchers(HttpMethod.GET,"/opening-infos/facility_code=*").permitAll()
@@ -42,15 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/managers/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.DELETE,"/managers/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.PUT,"/facilities/code=*").hasAuthority(UserType.employee.name())
+                .antMatchers(HttpMethod.PUT,"/facilities/facility_images/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.POST,"/opening-infos/code=*").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.PUT,"/opening-infos/code=*").hasAuthority(UserType.employee.name())
+                .antMatchers(HttpMethod.PUT,"/opening-infos/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.DELETE,"/opening-infos/code=*").hasAuthority(UserType.employee.name())
 
                 .antMatchers(HttpMethod.POST,"/facilities").hasAuthority(UserType.manager.name())
+                .antMatchers(HttpMethod.POST,"/facilities/facility_images").hasAuthority(UserType.manager.name())
                 .antMatchers(HttpMethod.DELETE,"/facilities/code=*").hasAuthority(UserType.manager.name())
+                .antMatchers(HttpMethod.DELETE,"/facilities/facility_images/id=*").hasAuthority(UserType.manager.name())
 
                 .antMatchers(HttpMethod.GET,"/managers").hasAuthority(UserType.admin.name())
-                .antMatchers(HttpMethod.GET,"/managers/id=*").hasAuthority(UserType.admin.name());
+                .antMatchers(HttpMethod.GET,"/managers/id=*").hasAuthority(UserType.admin.name())
+                .antMatchers(HttpMethod.GET,"/facilities/facility_images").hasAuthority(UserType.admin.name());
+
     }
 
     @Override

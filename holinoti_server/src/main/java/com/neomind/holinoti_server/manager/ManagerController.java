@@ -42,6 +42,11 @@ public class ManagerController {
         return managerRepository.findByFacilityCode(facilityCode);
     }
 
+    @RequestMapping(path = "/phone_number={phoneNumber}", method = RequestMethod.GET)
+    public Manager getManagerByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+        return managerRepository.findByPhoneNumber(phoneNumber);
+    }
+
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public ResponseEntity addManager(@RequestBody Manager manager) {
         Manager newManager = managerService.register(manager);
@@ -61,6 +66,7 @@ public class ManagerController {
         target.setName(manager.getName());
         target.setFacilityCode(manager.getFacilityCode());
         target.setUserType(manager.getUserType());
+        target.setPhoneNumber(manager.getPhoneNumber());
 
         managerRepository.save(target);
     }
