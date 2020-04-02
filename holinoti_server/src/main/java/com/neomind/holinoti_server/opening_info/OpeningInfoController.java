@@ -22,13 +22,13 @@ public class OpeningInfoController {
         return openingInfoRepository.findAll();
     }
 
-    @RequestMapping(path = "/id={id}", method = RequestMethod.GET)
-    public OpeningInfo getOpeningInfo(@PathVariable("id") int id) {
+    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.GET)
+    public OpeningInfo getOpeningInfo(@PathVariable("openingInfoId") int id) {
         return openingInfoRepository.findById(id).get();
     }
 
     @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
-    public List<OpeningInfo> getOpeningInfos(@PathVariable("facilityCode") int facilityCode) {
+    public List<OpeningInfo> getOpeningInfosByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
         return openingInfoRepository.findOpeningInfosByFacilityCode(facilityCode);
     }
 
@@ -40,10 +40,10 @@ public class OpeningInfoController {
         return ResponseEntity.created(createdURI).body(newOpeningInfo);
     }
 
-    @RequestMapping(path = "/{facilityCode}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateOpeningInfo(@RequestBody OpeningInfo openingInfo,
-                                  @PathVariable("facilityCode") int id) {
+                                  @PathVariable("openingInfoId") int id) {
         OpeningInfo target = openingInfoRepository.findById(id).get();
 
         target.setFacilityCode(openingInfo.getFacilityCode());
@@ -55,8 +55,8 @@ public class OpeningInfoController {
         openingInfoRepository.save(target);
     }
 
-    @RequestMapping(path = "/{managerId}", method = RequestMethod.DELETE)
-    public void deleteOpeningInfo(@PathVariable("managerId") int id) {
+    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.DELETE)
+    public void deleteOpeningInfo(@PathVariable("openingInfoId") int id) {
         openingInfoRepository.deleteById(id);
     }
 }
