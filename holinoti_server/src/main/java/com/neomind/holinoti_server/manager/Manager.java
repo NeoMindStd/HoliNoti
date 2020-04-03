@@ -30,4 +30,6 @@ public class Manager implements Serializable {
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     private UserType userType;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 }
