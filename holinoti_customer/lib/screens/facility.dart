@@ -13,7 +13,7 @@ class FacilityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppBar appbar = AppBar(
-      title: const Text('고객용 UI 예시'),
+      title: const Text('가게 검색'),
     );
 
     return Scaffold(
