@@ -15,13 +15,33 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Container(
-
-      child: Text('Boring'),
-      color:Colors.blue,
-    );
 
     final List<Widget> _routePages = [
+      Container(
+        child: Column(
+          children: <Widget>[
+            Text('환영합니다'),
+            Image.asset(Strings.Assets.RESTAURANT_JPG),
+            PlatformButton(
+              android: (BuildContext context) => MaterialRaisedButtonData(
+                child:Text(
+                  '로그인',
+                  style: optionStyle,
+                ),
+              ),
+            ),
+            PlatformButton(
+              android: (BuildContext context) => MaterialRaisedButtonData(
+                child:Text(
+                '로그인없이',
+                style: optionStyle,
+              ),
+              ),
+            ),
+          ],
+        ),
+        color:Colors.blue,
+      ),
       PlatformButton(
         androidFlat: (BuildContext context) => MaterialFlatButtonData(
           child: Text(//메인 화면 텍스트
