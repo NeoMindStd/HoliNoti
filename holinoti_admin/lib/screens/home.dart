@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
       PlatformButton(
         androidFlat: (BuildContext context) => MaterialFlatButtonData(
           child: Text(
-            "가게 등록 + 운영 시간 등록 페이지",
+            "가게 등록 페이지",
             style: optionStyle,
           ),
           onPressed: () => _homeBloc.moveToRegisterFacilityPage(
@@ -73,8 +73,8 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text(Strings.HomePage.HOME),
+              icon: Icon(Icons.store),
+              title: Text(Strings.HomePage.SHOP_MENU),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.store),

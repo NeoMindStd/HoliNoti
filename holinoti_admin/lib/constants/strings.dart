@@ -26,7 +26,7 @@ class GlobalPage {
 }
 
 class HomePage {
-  static const HOME = "홈";
+  static const SHOP_MENU = "가게 목록";
   static const RESISTER_SHOP = "가게 등록";
   static const REGISTER_TEMP_HOLIDAY = "임시 휴일 등록";
 }

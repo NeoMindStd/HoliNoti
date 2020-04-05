@@ -13,6 +13,7 @@ class RegisterFacilityBloc {
   Facility facility;
   OpeningInfo openingInfo;
 
+
   RegisterFacilityBloc() {
     facility = Facility();
     openingInfo = OpeningInfo();
@@ -123,6 +124,7 @@ class RegisterFacilityBloc {
         sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
     _openingInfoSubject.add(openingInfo);
   }
+
 
   void dispose() {
     _facilitySubject.close();
