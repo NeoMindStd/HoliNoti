@@ -1,102 +1,65 @@
-import 'package:flutter/cupertino.dart';
+//로그인 설정
+/*
+로그인 확인 가능한거 넣고 로그아웃 하는것도 넣을것
+ */
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget{//로그인 구현
-  State createState() => LoginState();
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginState extends State<Login>{//
-  String userName = "";
-  String password = "";
-  Widget build(BuildContext context){
-    return Center(
-      child:Column(
-        children:<Widget>[
-          makeRowContainer('아이디',true),
-          makeRowContainer('비밀번호',false),
-          Container(child: RaisedButton(
-              child: Text('로그인',style:TextStyle(fontSize: 21)),
-              onPressed:(){
-                if(userName =='dart'&&password=='flutter'){
-                  setState((){
-                    userName="";
-                    password='';
-                  });
-                }
-                else
-                  Scaffold.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content:Text('일치하지 않습니다')));
-              }
-          ),
-            margin:EdgeInsets.only(top:12),
-          ),
-        ],
-        mainAxisAlignment: MainAxisAlignment.center,
-      ),
-    );
+class _LoginPageState extends State<LoginPage> {
+  final formKey = new GlobalKey<FormState>();
+
+  String _email;
+  String _password;
+
+  void validateAndSave() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print('Form is valid Email: $_email, password: $_password');
+    } else {
+      print('Form is invalid Email: $_email, password: $_password');
+    }
   }
 
-  Widget makeRowContainer(String title, bool isUserName){
-    return Container(
-      child:Row(
-        children:<Widget>[
-          makeText(title),
-          makeTextField(isUserName),
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('login demo'),
       ),
-      padding:EdgeInsets.only(left: 60, right: 60, top:8, bottom: 8),
-    );
-  }
-  Widget makeText(String title){
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize:21,
-        background:Paint()..color=Colors.green,
-      ),
-    );
-  }
-  Widget makeTextField(bool isUserName){
-    return Container(
-      child:TextField(
-        controller:TextEditingController(),
-        style: TextStyle(fontSize: 21, color: Colors.black),
-        textAlign: TextAlign.center,
-        decoration:InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(
-                color: Colors.red,
-                width:2.0
-            ),
+      body: new Container(
+        padding: EdgeInsets.all(16),
+        child: new Form(
+          key: formKey,
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new TextFormField(
+                decoration: new InputDecoration(labelText: 'Email'),
+                validator: (value) =>
+                value.isEmpty ? 'Email can\'t be empty' : null,
+                onSaved: (value) => _email = value,
+              ),
+              new TextFormField(
+                obscureText: true,
+                decoration: new InputDecoration(labelText: 'Password'),
+                validator: (value) =>
+                value.isEmpty ? 'Password can\'t be empty' : null,
+                onSaved: (value) => _password = value,
+              ),
+              new RaisedButton(
+                child: new Text(
+                  'Login',
+                  style: new TextStyle(fontSize: 20.0),
+                ),
+                onPressed: validateAndSave,
+              ),
+            ],
           ),
-          contentPadding:EdgeInsets.all(12),
-        ),
-        onChanged:(String str){
-          if(isUserName)
-            userName = str;
-          else
-            password=str;
-        },
-      ),
-      width:200,
-      padding: EdgeInsets.only(left: 16),
-    );
-  }
-}
-class BackHome extends StatelessWidget{
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title:Text("로그인"),
-      ),
-      body:Center(
-        child:RaisedButton(
-          onPressed:(){
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
         ),
       ),
     );
