@@ -12,7 +12,7 @@ class FacilitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('고객용 UI 예시'),
+          title: const Text('가게 목록'),
         ),
         body: FutureBuilder<List<Facility>>(
             initialData: [],
