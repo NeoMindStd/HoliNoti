@@ -5,10 +5,16 @@ import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/bloc/register_facility_bloc.dart';
 import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/screens/widgets/global/lower_half.dart';
+import 'package:holinoti_admin/screens/widgets/global/upper_half.dart';
+import 'package:holinoti_admin/screens/widgets/home/facility_list_card.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
   final HomeBloc _homeBloc;
+  final AppBar appBar = AppBar(
+    title: const Text('관리자용 UI 예시'),
+  );
 
   HomePage(this._homeBloc);
 
@@ -18,10 +24,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _routePages = [
-      Text(
-        '어플 홈 화면',
-        style: optionStyle,
-      ),
+    SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            LowerHalf(
+              appBarHeight: appBar.preferredSize.height,
+            ),
+            UpperHalf(
+              appBarHeight: appBar.preferredSize.height,
+            ),
+            FacilitiesListCard(appBar.preferredSize.height),
+          ],
+        ),
+    ),
       PlatformButton(
         androidFlat: (BuildContext context) => MaterialFlatButtonData(
           child: Text(
@@ -48,9 +63,7 @@ class HomePage extends StatelessWidget {
       initialData: 0,
       stream: _homeBloc.tapIndexStream,
       builder: (context, snapshot) => Scaffold(
-        appBar: AppBar(
-          title: const Text('관리자용 UI 예시'),
-        ),
+        appBar:appBar,
         body: Center(
           child: _routePages[snapshot.data],
         ),
@@ -74,11 +87,11 @@ class HomePage extends StatelessWidget {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.store),
-              title: Text(Strings.HomePage.SHOP_MENU),
+              title: Text(Strings.HomePage.FACILITY_LIST),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              title: Text(Strings.HomePage.RESISTER_SHOP),
+              icon: Icon(Icons.add),
+              title: Text(Strings.HomePage.RESISTER_FACILITY),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.hotel),

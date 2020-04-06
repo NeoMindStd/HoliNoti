@@ -27,86 +27,34 @@ class RegisterOpeningInfoPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            LowerHalf(
-              appBarHeight: appBar.preferredSize.height,
-            ),
-            UpperHalf(
-              appBarHeight: appBar.preferredSize.height,
-            ),
+            LowerHalf(appBarHeight: appBar.preferredSize.height,),
+            UpperHalf(appBarHeight: appBar.preferredSize.height,),
             CenterCard(
-              appBarHeight: appBar.preferredSize.height,
               child: Column(
                 children: <Widget>[
-                  const ListTile(
-                    leading: Icon(Icons.store),
-                    title: Text('가게1'),
-                    subtitle: Text('남김말1'),
-                  ),
-                  ButtonBar(
+                  Row(
                     children: <Widget>[
-                      FlatButton(
-                        child: const Text('수정'),
-                        onPressed: () {},
+                      InkWell(
+                        child: Text("비정기 휴일 등록"),
+                        onTap: () {
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now().add(Duration(days: -1)),
+                            lastDate: DateTime.now().add(Duration(days: 365)),
+                          );
+                        },
                       ),
-                      FlatButton(
-                        child: const Text('삭제'),
-                        onPressed: () {},
-                      )
                     ],
                   ),
-                  const ListTile(
-                    leading: Icon(Icons.store),
-                    title: Text('가게2'),
-                    subtitle: Text('남김말2'),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "휴업 사유",
+                    ),
+                    autofocus: true,
                   ),
-                  ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        child: const Text('수정'),
-                        onPressed: () {},
-                      ),
-                      FlatButton(
-                        child: const Text('삭제'),
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                  const ListTile(
-                    leading: Icon(Icons.store),
-                    title: Text('가게3'),
-                    subtitle: Text('남김말3'),
-                  ),
-                  ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        child: const Text('수정'),
-                        onPressed: () {},
-                      ),
-                      FlatButton(
-                        child: const Text('삭제'),
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                  const ListTile(
-                    leading: Icon(Icons.store),
-                    title: Text('가게4'),
-                    subtitle: Text('남김말4'),
-                  ),
-                  ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        child: const Text('수정'),
-                        onPressed: () {},
-                      ),
-                      FlatButton(
-                        child: const Text('삭제'),
-                        onPressed: () {},
-                      )
-                    ],
-                  )
                 ],
-              )
+              ),
             ),
           ],
         ),

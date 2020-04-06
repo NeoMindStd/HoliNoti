@@ -9,7 +9,7 @@ class CenterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height / 200 + appBarHeight),
+            top: MediaQuery.of(context).size.height / 4 + appBarHeight),
         padding: EdgeInsets.only(left: 10, right: 10),
         child: Card(
           shape: RoundedRectangleBorder(

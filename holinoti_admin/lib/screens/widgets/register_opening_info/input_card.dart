@@ -139,6 +139,32 @@ class InputCard extends StatelessWidget {
                 ),
               ],
             ),
+            Row(
+              children: <Widget>[
+                InkWell(
+                  child: Text("비정기 휴일 등록"),
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now().add(Duration(days: -1)),
+                      lastDate: DateTime.now().add(Duration(days: 365)),
+                    );
+                  },
+                ),
+              ],
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "휴업 사유",
+              ),
+              autofocus: true,
+            ),
+            CheckboxListTile(value: true,
+                controlAffinity: ListTileControlAffinity.leading,
+                title: Text('구독자들에게 알림 전송'),
+                onChanged: (bool value){}
+                )
           ]
         )
   );
