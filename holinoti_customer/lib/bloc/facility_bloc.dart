@@ -10,8 +10,6 @@ class FacilityBloc {
 
   Future<List<OpeningInfo>> requestOpeningInfo() async {
     if (facility.openingInfo.isNotEmpty) return facility.openingInfo;
-    else return facility.openingInfo;//임시 점검 코드 아래는 서버 연결 잠시 끊어놓은거 실전에는 지울것
-    /*
     try {
       http.Response facilityResponse = await http.get(
         "http://holinoti.tk:8080/holinoti/opening-infos/facility_code=${facility.code}",
@@ -28,7 +26,7 @@ class FacilityBloc {
     } catch (e) {
       print(e);
       return [];
-    }*/
+    }
   }
 
   void dispose() {}

@@ -21,16 +21,6 @@ class HomeBloc {
           builder: (context) => FacilitiesPage(facilitiesBloc),
         ),
       );
-  //즐겨찾기 이동하는 버튼 구현할것
-  /*void moveToFavoitPage(
-      BuildContext context, FacilitiesBloc facilitiesBloc) =>
-      Navigator.push(
-        context,
-        platformPageRoute(
-          context: context,
-          builder: (context) => FavoritPage(FavoritPage),
-        ),
-      );*/
 
   void dispose() {
     _tapIndexSubject.close();
