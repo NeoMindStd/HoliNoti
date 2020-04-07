@@ -1,3 +1,6 @@
+import 'package:holinoti_customer/constants/nos.dart' as Nos;
+import 'package:sprintf/sprintf.dart';
+
 class ApiKeys {
   // TODO: Holiday Notifier Rest API Key
   // TODO: Map View Rest API Key
@@ -10,6 +13,8 @@ class Assets {
 class GlobalPage {
   static const APP_NAME = "HolidayNotifier";
   static const APP_NAME_KR = "휴일 알리미";
+  static const SIGN_IN = "로그인";
+  static const SIGN_UP = "회원 가입";
   static const NAME = "이름";
   static const ALERT_TITLE = '안내';
   static const ALERT_INPUT = '입력';
@@ -23,4 +28,36 @@ class GlobalPage {
 
 class HomePage {
   static const HOME = "홈";
+}
+
+class AuthPage {
+  static const ACCOUNT = "계정";
+  static const PASSWORD = "비밀번호";
+  static const FORGOT_YOUR_PASSWORD = "비밀번호를 잊으셨나요?";
+  static const DO_YOU_HAVE_NOT_AN_ACCOUNT = "계정이 없으신가요?";
+  static const ALREADY_HAVE_YOU_AN_ACCOUNT = "계정이 이미 있으신가요?";
+  static const PROHIBITED_CHARACTERS = [
+    "!",
+    "@",
+    "#",
+    "\$",
+    "&",
+    "*",
+    "~",
+  ];
+  static const PASSWORD_CONDITION =
+      "비밀번호는 영문자와 숫자, 특수문자(%s)를 사용 가능하며, 영문자, 숫자, 특수문자 중 2가지 이상이 조합된 %d자 이상 %d자 이하의 문장이어야 합니다.";
+  static const TERMS_AND_CONDITION = "이용 약관";
+  static const ERROR_TO_SHORT = "너무 짧습니다.";
+  static const ERROR_TO_LONG = "너무 깁니다.";
+  static const ERROR_PROHIBITED_CHARACTERS = "%s 는 사용하실 수 없습니다.";
+  static const ERROR_REQUIRE_COMBINE = "영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.";
+
+  static String get passwordCondition => sprintf(AuthPage.PASSWORD_CONDITION, [
+    AuthPage.PROHIBITED_CHARACTERS
+        .toString()
+        .substring(1, AuthPage.PROHIBITED_CHARACTERS.toString().length - 1),
+    Nos.AuthPage.MIN_NO_OF_CHARACTERS,
+    Nos.AuthPage.MAX_NO_OF_CHARACTERS,
+  ]);
 }

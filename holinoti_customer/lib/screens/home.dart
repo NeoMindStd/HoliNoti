@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/facilities_bloc.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
   final HomeBloc _homeBloc;
@@ -57,7 +59,18 @@ class HomePage extends StatelessWidget {
         ),
         endDrawer: Drawer(
           child: ListView(
-            children: <Widget>[],
+            children: <Widget>[
+              DataManager().signedIn == null
+                  ? Container()
+                  : Text(
+                  "${DataManager().signedIn.account}(${DataManager().signedIn.name})님 반갑습니다!"),
+              PlatformButton(
+                child: Text(DataManager().signedIn == null
+                    ? Strings.GlobalPage.SIGN_IN
+                    : "로그아웃"),
+                onPressed: () => _homeBloc.moveToAuthPage(context, AuthBloc()),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
