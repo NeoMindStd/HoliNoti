@@ -1,7 +1,6 @@
 import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/data/opening_info.dart';
-import 'package:holinoti_customer/utils/http_decoder.dart';
-import 'package:http/http.dart' as http;
+import 'package:holinoti_customer/third_party_libraries/dio/lib/dio.dart';
 
 class FacilityBloc {
   final Facility facility;
@@ -10,25 +9,22 @@ class FacilityBloc {
 
   Future<List<OpeningInfo>> requestOpeningInfo() async {
     if (facility.openingInfo.isNotEmpty) return facility.openingInfo;
-    else return facility.openingInfo;//임시 점검 코드 아래는 서버 연결 잠시 끊어놓은거 실전에는 지울것
-    /*
     try {
-      http.Response facilityResponse = await http.get(
+      Response openingInfoResponse = await Dio().get(
         "http://holinoti.tk:8080/holinoti/opening-infos/facility_code=${facility.code}",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
+        options: Options(headers: {"Content-Type": "application/json"}),
       );
 
-      var decodedResponse = HttpDecoder.utf8Response(facilityResponse);
-      print('Response: $decodedResponse');
+      print('Response: ${openingInfoResponse.data}');
 
-      for (Map openingInfoJson in decodedResponse) {
+      for (Map openingInfoJson in openingInfoResponse.data) {
         facility.openingInfo.add(OpeningInfo.fromJson(openingInfoJson));
       }
       return facility.openingInfo;
     } catch (e) {
       print(e);
       return [];
-    }*/
+    }
   }
 
   void dispose() {}
