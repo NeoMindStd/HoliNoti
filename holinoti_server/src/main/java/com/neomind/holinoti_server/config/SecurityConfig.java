@@ -26,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO Auto-generated method stub
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET,"/managers/login").permitAll()
@@ -47,14 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/managers/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.PUT,"/facilities/code=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.PUT,"/facilities/facility_images/id=*").hasAuthority(UserType.employee.name())
+                .antMatchers(HttpMethod.POST,"/facilities/facility_images").hasAuthority(UserType.employee.name())
+                .antMatchers(HttpMethod.DELETE,"/facilities/facility_images/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.POST,"/opening-infos/code=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.PUT,"/opening-infos/id=*").hasAuthority(UserType.employee.name())
                 .antMatchers(HttpMethod.DELETE,"/opening-infos/code=*").hasAuthority(UserType.employee.name())
 
                 .antMatchers(HttpMethod.POST,"/facilities").hasAuthority(UserType.manager.name())
-                .antMatchers(HttpMethod.POST,"/facilities/facility_images").hasAuthority(UserType.manager.name())
                 .antMatchers(HttpMethod.DELETE,"/facilities/code=*").hasAuthority(UserType.manager.name())
-                .antMatchers(HttpMethod.DELETE,"/facilities/facility_images/id=*").hasAuthority(UserType.manager.name())
 
                 .antMatchers(HttpMethod.GET,"/managers").hasAuthority(UserType.admin.name())
                 .antMatchers(HttpMethod.GET,"/managers/id=*").hasAuthority(UserType.admin.name())
