@@ -25,5 +25,9 @@ public class Facility implements Serializable {
     private String address;
     @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "site_url")
+    private String siteUrl;
+    @Column(name = "comment")
+    private String comment;
 
 }

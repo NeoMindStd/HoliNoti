@@ -1,4 +1,4 @@
-import 'package:holinoti_customer/data/manager.dart';
+import 'package:holinoti_customer/data/user.dart';
 
 class DataManager {
   static final DataManager _dataManager = new DataManager._internal();
@@ -7,7 +7,7 @@ class DataManager {
 
   DataManager._internal();
 
-  Manager signedIn;
+  User signedIn;
 
   dispose() {
     signedIn = null;

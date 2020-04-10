@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
-import 'package:holinoti_admin/data/facility.dart';
-import 'package:holinoti_admin/data/manager.dart';
+import 'package:holinoti_admin/data/user.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
@@ -60,27 +59,15 @@ class AuthBloc {
 
       var decodedManagerResponse = HttpDecoder.utf8Response(managerResponse);
       print('Response: $decodedManagerResponse');
-      decodedManagerResponse['userType'] = Enums.fromString(
-          Enums.UserType.values, decodedManagerResponse['userType']);
+      decodedManagerResponse['authority'] = Enums.fromString(
+          Enums.Authority.values, decodedManagerResponse['authority']);
 
-      Manager manager = Manager.fromJson(decodedManagerResponse);
+      User user = User.fromJson(decodedManagerResponse);
 
-      try {
-        http.Response facilityResponse = await client.get(
-          "http://holinoti.tk:8080/holinoti/facilities/code=${manager.facilityCode}",
-          headers: {"Content-Type": "application/json; charset=utf-8"},
-        );
+      // TODO 시설 목록 받아오기
 
-        var decodedFacilityResponse = HttpDecoder.utf8Response(managerResponse);
-        print('Response: $decodedFacilityResponse');
-
-        manager.facility = Facility.fromJson(decodedFacilityResponse);
-      } catch (e) {
-        print(e);
-      }
-
-      DataManager().signedIn = manager;
-      print('Signed in as $manager');
+      DataManager().signedIn = user;
+      print('Signed in as $user');
       Navigator.pop(context);
     } catch (e) {
       print(e);

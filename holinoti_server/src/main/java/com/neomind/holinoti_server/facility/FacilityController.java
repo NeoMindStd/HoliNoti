@@ -1,6 +1,5 @@
 package com.neomind.holinoti_server.facility;
 
-import com.neomind.holinoti_server.manager.Manager;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,13 +27,12 @@ public class FacilityController {
         return facilityRepository.findById(code).get();
     }
     @RequestMapping(path = "/phone_number={phoneNumber}", method = RequestMethod.GET)
-    public Manager getFacilityByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+    public Facility getFacilityByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return facilityRepository.findByPhoneNumber(phoneNumber);
     }
 
     @PostMapping
     public ResponseEntity addFacility(@RequestBody Facility facility) {
-        System.out.println(facility);
         Facility newFacility = facilityRepository.save(facility);
         URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
         return ResponseEntity.created(createdURI).body(newFacility);
@@ -46,9 +44,10 @@ public class FacilityController {
                                @PathVariable("facilityCode") int code) {
         Facility target = facilityRepository.findById(code).get();
 
-        target.setCode(facility.getCode());
         target.setName(facility.getName());
         target.setAddress(facility.getAddress());
+        target.setSiteUrl(facility.getSiteUrl());
+        target.setComment(facility.getComment());
 
         facilityRepository.save(target);
     }

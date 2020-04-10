@@ -1,6 +1,5 @@
 package com.neomind.holinoti_server.facility_image;
 
-import com.neomind.holinoti_server.manager.Manager;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,7 +34,6 @@ public class FacilityImageController {
 
     @PostMapping
     public ResponseEntity addFacilityImage(@RequestBody FacilityImage facilityImage) {
-        System.out.println(facilityImage);
         FacilityImage newFacilityImage = facilityImageRepository.save(facilityImage);
         URI createdURI = linkTo(FacilityImageController.class).slash(newFacilityImage.getFacilityCode()).toUri();
         return ResponseEntity.created(createdURI).body(newFacilityImage);
@@ -47,6 +45,7 @@ public class FacilityImageController {
                                   @PathVariable("facilityImageId") int id) {
         FacilityImage target = facilityImageRepository.findById(id).get();
 
+        target.setPath(facilityImage.getPath());
         target.setFacilityCode(facilityImage.getFacilityCode());
 
         facilityImageRepository.save(target);

@@ -1,7 +1,7 @@
 package com.neomind.holinoti_server.config;
 
-import com.neomind.holinoti_server.manager.ManagerService;
-import com.neomind.holinoti_server.manager.UserType;
+import com.neomind.holinoti_server.user.UserService;
+import com.neomind.holinoti_server.user.Authority;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private ManagerService managerService;
+    private UserService userService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -28,43 +28,59 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET,"/managers/login/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/managers/account=*/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/managers/phone_number=*/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/managers/register/**").permitAll()
+                /// Facility
                 .antMatchers(HttpMethod.GET,"/facilities/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/facilities/code=*/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/facilities/phone_number=*/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/facilities/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.PUT,"/facilities/code=*/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.DELETE,"/facilities/code=*/**").hasAuthority(Authority.normal.name())
+
+                /// FacilityImage
+                .antMatchers(HttpMethod.GET,"/facilities/facility_images/**").hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET,"/facilities/facility_images/id=*/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/facilities/facility_images/facility_code=*/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/facilities/facility_images/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.PUT,"/facilities/facility_images/id=*/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.DELETE,"/facilities/facility_images/id=*/**").hasAuthority(Authority.normal.name())
+
+                /// OpeningInfo
                 .antMatchers(HttpMethod.GET,"/opening-infos/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/opening-infos/id=*/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/opening-infos/facility_code=*/**").permitAll()
 
-                .antMatchers(HttpMethod.GET,"/managers/facility_code=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.PUT,"/managers/id=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.DELETE,"/managers/id=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.PUT,"/facilities/code=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.PUT,"/facilities/facility_images/id=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.POST,"/facilities/facility_images/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.DELETE,"/facilities/facility_images/id=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.POST,"/opening-infos/code=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.PUT,"/opening-infos/id=*/**").hasAuthority(UserType.employee.name())
-                .antMatchers(HttpMethod.DELETE,"/opening-infos/code=*/**").hasAuthority(UserType.employee.name())
+                .antMatchers(HttpMethod.POST,"/opening-infos/code=*/**").hasAuthority(Authority.normal.name())
 
-                .antMatchers(HttpMethod.POST,"/facilities/**").hasAuthority(UserType.manager.name())
-                .antMatchers(HttpMethod.DELETE,"/facilities/code=*/**").hasAuthority(UserType.manager.name())
+                .antMatchers(HttpMethod.PUT,"/opening-infos/id=*/**").hasAuthority(Authority.normal.name())
 
-                .antMatchers(HttpMethod.GET,"/managers/**").hasAuthority(UserType.admin.name())
-                .antMatchers(HttpMethod.GET,"/managers/id=*/**").hasAuthority(UserType.admin.name())
-                .antMatchers(HttpMethod.GET,"/facilities/facility_images/**").hasAuthority(UserType.admin.name())
+                .antMatchers(HttpMethod.DELETE,"/opening-infos/code=*/**").hasAuthority(Authority.normal.name())
 
-                .and().httpBasic();
+                /// RelationAF
 
+                /// User
+                .antMatchers(HttpMethod.GET,"/users/**").hasAuthority(Authority.admin.name())
+                .antMatchers(HttpMethod.GET,"/users/login/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/account=*/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/phone_number=*/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/id=*/**").hasAuthority(Authority.admin.name())
+
+                .antMatchers(HttpMethod.POST,"/users/register/**").permitAll()
+
+                .antMatchers(HttpMethod.PUT,"/users/id=*/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.DELETE,"/users/id=*/**").hasAuthority(Authority.normal.name())
+
+                .and().csrf().disable().httpBasic();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(managerService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 }
