@@ -13,8 +13,8 @@ class Assets {
 class GlobalPage {
   static const APP_NAME = "HolidayNotifier";
   static const APP_NAME_KR = "휴일 알리미";
-  static const SIGN_IN = "로그인";
-  static const SIGN_UP = "회원 가입";
+  static const LOGIN = "로그인";
+  static const REGISTER = "회원 가입";
   static const NAME = "이름";
   static const ALERT_TITLE = '안내';
   static const ALERT_INPUT = '입력';
@@ -54,10 +54,10 @@ class AuthPage {
   static const ERROR_REQUIRE_COMBINE = "영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.";
 
   static String get passwordCondition => sprintf(AuthPage.PASSWORD_CONDITION, [
-    AuthPage.PROHIBITED_CHARACTERS
-        .toString()
-        .substring(1, AuthPage.PROHIBITED_CHARACTERS.toString().length - 1),
-    Nos.AuthPage.MIN_NO_OF_CHARACTERS,
-    Nos.AuthPage.MAX_NO_OF_CHARACTERS,
-  ]);
+        AuthPage.PROHIBITED_CHARACTERS
+            .toString()
+            .substring(1, AuthPage.PROHIBITED_CHARACTERS.toString().length - 1),
+        Nos.AuthPage.MIN_NO_OF_CHARACTERS,
+        Nos.AuthPage.MAX_NO_OF_CHARACTERS,
+      ]);
 }

@@ -1,4 +1,4 @@
-enum AuthMode { signIn, signUp }
+enum AuthMode { login, register }
 
 enum Authority { admin, normal }
 

@@ -10,9 +10,7 @@ class HomeBloc {
   final _tapIndexSubject = PublishSubject<int>();
   get tapIndexStream => _tapIndexSubject.stream;
 
-  void onTapChanged(int index) {
-    _tapIndexSubject.add(index);
-  }
+  void onTapChanged(int index) => _tapIndexSubject.add(index);
 
   void moveToAuthPage(BuildContext context, AuthBloc authBloc) =>
       Navigator.push(

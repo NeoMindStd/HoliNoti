@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/data/user.dart';
 
-class SignUpCard extends StatelessWidget {
+class RegisterCard extends StatelessWidget {
   final AuthBloc _authBloc;
   final _formKey = GlobalKey<FormState>();
 
-  SignUpCard(this._authBloc);
+  RegisterCard(this._authBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class SignUpCard extends StatelessWidget {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        Strings.GlobalPage.SIGN_UP,
+                        Strings.GlobalPage.REGISTER,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 28,
@@ -126,7 +127,7 @@ class SignUpCard extends StatelessWidget {
                           child: Container(),
                         ),
                         FlatButton(
-                          child: Text(Strings.GlobalPage.SIGN_UP),
+                          child: Text(Strings.GlobalPage.REGISTER),
                           color: Color(0xFF4B9DFE),
                           textColor: Colors.white,
                           padding: EdgeInsets.only(
@@ -135,10 +136,12 @@ class SignUpCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5)),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              _authBloc.signUp(
-                                account: accountController.text,
-                                password: passwordController.text,
-                                name: nameController.text,
+                              _authBloc.register(
+                                User(
+                                  account: accountController.text,
+                                  password: passwordController.text,
+                                  name: nameController.text,
+                                ),
                               );
                             }
                           },
@@ -162,9 +165,9 @@ class SignUpCard extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
               FlatButton(
-                onPressed: () => _authBloc.setAuthMode(Enums.AuthMode.signIn),
+                onPressed: () => _authBloc.setAuthMode(Enums.AuthMode.login),
                 textColor: Colors.black87,
-                child: Text(Strings.GlobalPage.SIGN_IN),
+                child: Text(Strings.GlobalPage.LOGIN),
               )
             ],
           ),

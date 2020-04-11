@@ -22,7 +22,8 @@ class RegisterFacilityPage extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.check),
           onPressed: () => _registerFacilityBloc.registerFacility(
-              context, _nameController.text, _addressController.text),
+            context,
+          ),
         ),
       ],
     );

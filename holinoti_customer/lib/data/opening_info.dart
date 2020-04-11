@@ -40,9 +40,8 @@ class OpeningInfo {
       };
 
   @override
-  String toString() {
-    return 'OpeningInfo{id: $id, facilityCode: $facilityCode, businessDayStart: $businessDayStart, openingHoursStart: $openingHoursStart, businessDayEnd: $businessDayEnd, openingHoursEnd: $openingHoursEnd}';
-  }
+  String toString() =>
+      'OpeningInfo{id: $id, facilityCode: $facilityCode, businessDayStart: $businessDayStart, openingHoursStart: $openingHoursStart, businessDayEnd: $businessDayEnd, openingHoursEnd: $openingHoursEnd}';
 }
 
 OpeningInfo openingInfoFromJson(String string) =>

@@ -6,13 +6,11 @@ class UpperHalf extends StatelessWidget {
   UpperHalf({this.appBarHeight = 0});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: (MediaQuery.of(context).size.height - appBarHeight) / 2,
-      child: Image.asset(
-        Strings.Assets.RESTAURANT_JPG,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Container(
+        height: (MediaQuery.of(context).size.height - appBarHeight) / 2,
+        child: Image.asset(
+          Strings.Assets.RESTAURANT_JPG,
+          fit: BoxFit.cover,
+        ),
+      );
 }

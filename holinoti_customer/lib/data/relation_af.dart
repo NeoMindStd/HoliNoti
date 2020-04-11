@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
-import 'package:holinoti_customer/data/facility.dart';
 
 class RelationAF {
   int id;
@@ -31,11 +30,12 @@ class RelationAF {
       };
 
   @override
-  String toString() {
-    return 'RelationAF{id: $id, userId: $userId, facilityCode: $facilityCode, role: $role}';
-  }
+  String toString() =>
+      'RelationAF{id: $id, userId: $userId, facilityCode: $facilityCode, role: $role}';
 }
 
-RelationAF relationAFFromJson(String string) => RelationAF.fromJson(json.decode(string));
+RelationAF relationAFFromJson(String string) =>
+    RelationAF.fromJson(json.decode(string));
 
-String relationAFToJson(RelationAF relationAF) => json.encode(relationAF.toJson());
+String relationAFToJson(RelationAF relationAF) =>
+    json.encode(relationAF.toJson());

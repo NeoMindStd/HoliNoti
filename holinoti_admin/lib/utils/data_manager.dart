@@ -7,9 +7,9 @@ class DataManager {
 
   DataManager._internal();
 
-  User signedIn;
+  User loggedInUser;
 
   dispose() {
-    signedIn = null;
+    loggedInUser = null;
   }
 }

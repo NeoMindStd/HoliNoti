@@ -20,6 +20,7 @@ class FacilityCard extends StatelessWidget {
               children: <Widget>[
                 Text("시설명: ${_facilityBloc.facility.name}"),
                 Text("주소: ${_facilityBloc.facility.address}"),
+                Text("소개: ${_facilityBloc.facility.comment}"),
               ],
             ),
           ),

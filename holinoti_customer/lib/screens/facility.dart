@@ -33,6 +33,9 @@ class FacilityPage extends StatelessWidget {
                 children: <Widget>[
                   Text('이름: ${_facilityBloc.facility.name}'),
                   Text('주소: ${_facilityBloc.facility.address}'),
+                  Text("전화번호: ${_facilityBloc.facility.phoneNumber}"),
+                  Text("사이트 주소: ${_facilityBloc.facility.siteUrl}"),
+                  Text("소개: ${_facilityBloc.facility.comment}"),
                   FutureBuilder<List<OpeningInfo>>(
                       initialData: [],
                       future: _facilityBloc.requestOpeningInfo(),

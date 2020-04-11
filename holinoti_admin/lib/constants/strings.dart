@@ -13,8 +13,8 @@ class Assets {
 class GlobalPage {
   static const APP_NAME = "HolidayNotifier";
   static const APP_NAME_KR = "휴일 알리미";
-  static const SIGN_IN = "로그인";
-  static const SIGN_UP = "회원 가입";
+  static const LOGIN = "로그인";
+  static const REGISTER = "회원 가입";
   static const NAME = "이름";
   static const ALERT_TITLE = '안내';
   static const ALERT_INPUT = '입력';

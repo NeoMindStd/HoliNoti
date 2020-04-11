@@ -13,8 +13,8 @@ class InputCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CenterCard(
-        appBarHeight: appBarHeight,
-        child: Column(
+      appBarHeight: appBarHeight,
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text("가게 정보 등록 페이지"),
@@ -160,12 +160,10 @@ class InputCard extends StatelessWidget {
               ),
               autofocus: true,
             ),
-            CheckboxListTile(value: true,
+            CheckboxListTile(
+                value: true,
                 controlAffinity: ListTileControlAffinity.leading,
                 title: Text('구독자들에게 알림 전송'),
-                onChanged: (bool value){}
-                )
-          ]
-        )
-  );
+                onChanged: (bool value) {})
+          ]));
 }

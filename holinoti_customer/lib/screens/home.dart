@@ -60,13 +60,13 @@ class HomePage extends StatelessWidget {
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[
-              DataManager().signedIn == null
+              DataManager().loggedInUser == null
                   ? Container()
                   : Text(
-                  "${DataManager().signedIn.account}(${DataManager().signedIn.name})님 반갑습니다!"),
+                      "${DataManager().loggedInUser.account}(${DataManager().loggedInUser.name})님 반갑습니다!"),
               PlatformButton(
-                child: Text(DataManager().signedIn == null
-                    ? Strings.GlobalPage.SIGN_IN
+                child: Text(DataManager().loggedInUser == null
+                    ? Strings.GlobalPage.LOGIN
                     : "로그아웃"),
                 onPressed: () => _homeBloc.moveToAuthPage(context, AuthBloc()),
               ),

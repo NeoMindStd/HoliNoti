@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:holinoti_admin/bloc/auth_bloc.dart';
-import 'package:holinoti_admin/constants/enums.dart' as Enums;
-import 'package:holinoti_admin/constants/strings.dart' as Strings;
-import 'package:holinoti_admin/screens/widgets/global/center_card.dart';
+import 'package:holinoti_customer/bloc/auth_bloc.dart';
+import 'package:holinoti_customer/constants/enums.dart' as Enums;
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/screens/widgets/global/center_card.dart';
 
-class SignInCard extends StatelessWidget {
+class LoginCard extends StatelessWidget {
   final AuthBloc _authBloc;
 
-  SignInCard(this._authBloc);
+  LoginCard(this._authBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class SignInCard extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  Strings.GlobalPage.SIGN_IN,
+                  Strings.GlobalPage.LOGIN,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28,
@@ -92,14 +92,14 @@ class SignInCard extends StatelessWidget {
                     child: Container(),
                   ),
                   FlatButton(
-                    child: Text(Strings.GlobalPage.SIGN_IN),
+                    child: Text(Strings.GlobalPage.LOGIN),
                     color: Color(0xFF4B9DFE),
                     textColor: Colors.white,
                     padding: EdgeInsets.only(
                         left: 38, right: 38, top: 15, bottom: 15),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
-                    onPressed: () => _authBloc.signIn(
+                    onPressed: () => _authBloc.login(
                       context,
                       account: accountController.text,
                       password: passwordController.text,
@@ -123,10 +123,10 @@ class SignInCard extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                _authBloc.setAuthMode(Enums.AuthMode.signUp);
+                _authBloc.setAuthMode(Enums.AuthMode.register);
               },
               textColor: Colors.black87,
-              child: Text(Strings.GlobalPage.SIGN_UP),
+              child: Text(Strings.GlobalPage.REGISTER),
             )
           ],
         )

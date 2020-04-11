@@ -27,8 +27,12 @@ class RegisterOpeningInfoPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            LowerHalf(appBarHeight: appBar.preferredSize.height,),
-            UpperHalf(appBarHeight: appBar.preferredSize.height,),
+            LowerHalf(
+              appBarHeight: appBar.preferredSize.height,
+            ),
+            UpperHalf(
+              appBarHeight: appBar.preferredSize.height,
+            ),
             CenterCard(
               child: Column(
                 children: <Widget>[

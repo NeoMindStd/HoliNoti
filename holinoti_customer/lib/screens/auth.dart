@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
+import 'package:holinoti_customer/screens/widgets/auth/login_card.dart';
 import 'package:holinoti_customer/screens/widgets/auth/page_title.dart';
-import 'package:holinoti_customer/screens/widgets/auth/sigin_in_card.dart';
-import 'package:holinoti_customer/screens/widgets/auth/sign_up_card.dart';
+import 'package:holinoti_customer/screens/widgets/auth/register_card.dart';
 import 'package:holinoti_customer/screens/widgets/global/lower_half.dart';
 import 'package:holinoti_customer/screens/widgets/global/upper_half.dart';
 
@@ -29,9 +29,9 @@ class AuthPage extends StatelessWidget {
                     children: <Widget>[
                       LowerHalf(),
                       UpperHalf(),
-                      snapshot.data == Enums.AuthMode.signIn
-                          ? SignInCard(_authBloc)
-                          : SignUpCard(_authBloc),
+                      snapshot.data == Enums.AuthMode.login
+                          ? LoginCard(_authBloc)
+                          : RegisterCard(_authBloc),
                       PageTitle(),
                     ],
                   );

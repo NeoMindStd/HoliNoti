@@ -5,13 +5,11 @@ class LowerHalf extends StatelessWidget {
   LowerHalf({this.appBarHeight = 0});
 
   @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        height: (MediaQuery.of(context).size.height - appBarHeight) / 2,
-        color: Color(0xFFECF0F3),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: (MediaQuery.of(context).size.height - appBarHeight) / 2,
+          color: Color(0xFFECF0F3),
+        ),
+      );
 }

@@ -15,15 +15,14 @@ class User {
   /// json 매핑시 제외
   List<Facility> facilities;
 
-  User({
-    this.id = -1,
-    this.account,
-    this.password,
-    this.name = "",
-    this.authority,
-    this.email = "",
-    this.phoneNumber = ""
-  }) {
+  User(
+      {this.id = -1,
+      this.account,
+      this.password,
+      this.name = "",
+      this.authority,
+      this.email = "",
+      this.phoneNumber = ""}) {
     facilities ??= [];
   }
 
@@ -48,9 +47,8 @@ class User {
       };
 
   @override
-  String toString() {
-    return 'User{id: $id, account: $account, name: $name, authority: $authority, email: $email, phoneNumber: $phoneNumber}';
-  }
+  String toString() =>
+      'User{id: $id, account: $account, name: $name, authority: $authority, email: $email, phoneNumber: $phoneNumber}';
 }
 
 User userFromJson(String string) => User.fromJson(json.decode(string));

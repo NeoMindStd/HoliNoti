@@ -9,8 +9,6 @@ import 'package:http/http.dart' as http;
 class FacilitiesBloc {
   List<Facility> facilities = [];
 
-  FacilitiesBloc();
-
   Future<List<Facility>> requestFacilities() async {
     if (facilities.isNotEmpty) return facilities;
     try {
@@ -25,11 +23,10 @@ class FacilitiesBloc {
       for (Map facilityJson in decodedResponse) {
         facilities.add(Facility.fromJson(facilityJson));
       }
-      return facilities;
     } catch (e) {
       print(e);
-      return [];
     }
+    return facilities;
   }
 
   void moveToFacilityPage(BuildContext context, Facility facility) =>

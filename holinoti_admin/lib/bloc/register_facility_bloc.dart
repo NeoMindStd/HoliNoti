@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/data/facility.dart';
-import 'package:holinoti_admin/data/user.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
-import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
@@ -13,15 +11,13 @@ class RegisterFacilityBloc {
   Facility facility;
   OpeningInfo openingInfo;
 
-
   RegisterFacilityBloc() {
     facility = Facility();
     openingInfo = OpeningInfo();
   }
 
   // TODO 이미 시설이 있는경우 등록하지 않게 해야함
-  void registerFacility(
-      BuildContext context, String name, String address) async {
+  void registerFacility(BuildContext context) async {
     try {
       http.Response facilityResponse = await http.post(
         "http://holinoti.tk:8080/holinoti/facilities",
@@ -83,6 +79,21 @@ class RegisterFacilityBloc {
     _facilitySubject.add(facility);
   }
 
+  void setFacilityPhoneNumber(String phoneNumber) {
+    facility.phoneNumber = phoneNumber;
+    _facilitySubject.add(facility);
+  }
+
+  void setFacilitySiteUrl(String siteUrl) {
+    facility.siteUrl = siteUrl;
+    _facilitySubject.add(facility);
+  }
+
+  void setFacilityComment(String comment) {
+    facility.comment = comment;
+    _facilitySubject.add(facility);
+  }
+
   final _openingInfoSubject = PublishSubject<OpeningInfo>();
   get openingInfoStream => _openingInfoSubject.stream;
 
@@ -125,7 +136,6 @@ class RegisterFacilityBloc {
         sprintf('%02d:%02d', [timeOfDay.hour, timeOfDay.minute]);
     _openingInfoSubject.add(openingInfo);
   }
-
 
   void dispose() {
     _facilitySubject.close();

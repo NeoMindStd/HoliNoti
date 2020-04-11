@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _routePages = [
-    SingleChildScrollView(
+      SingleChildScrollView(
         child: Stack(
           children: <Widget>[
             LowerHalf(
@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
             FacilitiesListCard(appBar.preferredSize.height),
           ],
         ),
-    ),
+      ),
       PlatformButton(
         androidFlat: (BuildContext context) => MaterialFlatButtonData(
           child: Text(
@@ -63,20 +63,20 @@ class HomePage extends StatelessWidget {
       initialData: 0,
       stream: _homeBloc.tapIndexStream,
       builder: (context, snapshot) => Scaffold(
-        appBar:appBar,
+        appBar: appBar,
         body: Center(
           child: _routePages[snapshot.data],
         ),
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[
-              DataManager().signedIn == null
+              DataManager().loggedInUser == null
                   ? Container()
                   : Text(
-                      "${DataManager().signedIn.account}(${DataManager().signedIn.name})님 반갑습니다!"),
+                      "${DataManager().loggedInUser.account}(${DataManager().loggedInUser.name})님 반갑습니다!"),
               PlatformButton(
-                child: Text(DataManager().signedIn == null
-                    ? Strings.GlobalPage.SIGN_IN
+                child: Text(DataManager().loggedInUser == null
+                    ? Strings.GlobalPage.LOGIN
                     : "로그아웃"),
                 onPressed: () => _homeBloc.moveToAuthPage(context, AuthBloc()),
               ),
