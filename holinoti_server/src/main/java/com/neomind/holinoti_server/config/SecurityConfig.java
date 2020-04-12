@@ -65,11 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 /// User
                 .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(Authority.admin.name())
-                .antMatchers(HttpMethod.POST, "/users/login/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/account=*/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/phone_number=*/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/id=*/**").hasAuthority(Authority.admin.name())
 
+                .antMatchers(HttpMethod.POST, "/users/login/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/register/**").permitAll()
 
                 .antMatchers(HttpMethod.PUT, "/users/id=*/**").hasAuthority(Authority.normal.name())

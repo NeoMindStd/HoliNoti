@@ -26,7 +26,10 @@ public class UserController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public User login() throws Exception {
-        return userService.getCurrentUser();
+        System.out.println("login attempted...");
+        User currentUser = userService.getCurrentUser();
+        System.out.println("login:" + currentUser.toString());
+        return currentUser;
     }
 
     @RequestMapping(path = "/id={userId}", method = RequestMethod.GET)

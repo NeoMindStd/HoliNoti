@@ -18,15 +18,30 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
-    private static RelationAFRepository relationAFRepository;
+    private RelationAFRepository relationAFRepository;
     private UserRepository userRepository;
 
-    public static Role getUserRoleOfFacility(int uid, int fid) {
-        return relationAFRepository.findByUserIdAndFacilityCode(uid, fid).get(0).getRole();
+    public Role getUserRoleOfFacility(int uid, int fCode) {
+        return relationAFRepository.findByUserIdAndFacilityCode(uid, fCode).get(0).getRole();
     }
 
-    public static boolean isAccessible(int uid, int fid, Role role) {
-        return getUserRoleOfFacility(uid, fid).ordinal() <= role.ordinal();
+    public boolean isAccessible(int uid, int fCode, Role role) throws Exception {
+        try {
+            return getUserRoleOfFacility(uid, fCode).ordinal() <= role.ordinal();
+        } catch (Exception e) {
+            throw new Exception("Prohibited: Low Grade Role");
+        }
+    }
+
+    public boolean isAccessible(int fCode) throws Exception {
+        int uid = userRepository.findByAccount(
+                SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        try {
+            return isAccessible(uid, fCode,
+                    relationAFRepository.findByUserIdAndFacilityCode(uid, fCode).get(0).getRole());
+        } catch (Exception e) {
+            throw new Exception("Prohibited: Low Grade Role");
+        }
     }
 
     public User register(User user) {
@@ -39,7 +54,7 @@ public class UserService implements UserDetailsService {
 
     public User getCurrentUser() throws Exception {
         final String currentUserAccount = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println("Login:" + currentUserAccount);
+        System.out.println("currentUserAccount:" + currentUserAccount);
         if (currentUserAccount == null || currentUserAccount.equals("anonymousUser") || currentUserAccount.equals("")) {
             throw new Exception("Bad Account");
         }

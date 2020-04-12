@@ -1,5 +1,6 @@
 package com.neomind.holinoti_server.facility;
 
+import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class FacilityController {
     FacilityRepository facilityRepository;
     FacilityService facilityService;
+    UserService userService;
 
     @GetMapping
     public List<Facility> getAllFacilities() {
@@ -49,7 +51,9 @@ public class FacilityController {
     @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateFacility(@RequestBody Facility facility,
-                               @PathVariable("facilityCode") int code) {
+                               @PathVariable("facilityCode") int code) throws Exception {
+        if (!userService.isAccessible(code)) throw new Exception("Prohibited: Low Grade Role");
+
         Facility target = facilityRepository.findById(code).get();
 
         target.setName(facility.getName());
