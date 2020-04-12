@@ -18,43 +18,43 @@ class InputCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text("가게 정보 등록 페이지"),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "가게 이름",
+              ),
+              autofocus: true,
+              onChanged: _registerFacilityBloc.setFacilityName,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "가게 주소",
+              ),
+              autofocus: true,
+              onChanged: _registerFacilityBloc.setFacilityAddress,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "가게 사이트 주소",
+              ),
+              autofocus: true,
+              onChanged: _registerFacilityBloc.setFacilitySiteUrl,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "가게 연락처",
+              ),
+              autofocus: true,
+              onChanged: _registerFacilityBloc.setFacilityPhoneNumber,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "소개",
+              ),
+              autofocus: true,
+              onChanged: _registerFacilityBloc.setFacilityComment,
+            ),
             Row(
               children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "가게 이름",
-                  ),
-                  autofocus: true,
-                  onChanged: _registerFacilityBloc.setFacilityName,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "가게 주소",
-                  ),
-                  autofocus: true,
-                  onChanged: _registerFacilityBloc.setFacilityAddress,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "가게 사이트 주소",
-                  ),
-                  autofocus: true,
-                  onChanged: _registerFacilityBloc.setFacilitySiteUrl,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "가게 연락처",
-                  ),
-                  autofocus: true,
-                  onChanged: _registerFacilityBloc.setFacilityPhoneNumber,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: "사장님 남김말",
-                  ),
-                  autofocus: true,
-                  onChanged: _registerFacilityBloc.setFacilityComment,
-                ),
                 Text("영업일: "),
                 StreamBuilder<OpeningInfo>(
                   initialData: _registerFacilityBloc.openingInfo,

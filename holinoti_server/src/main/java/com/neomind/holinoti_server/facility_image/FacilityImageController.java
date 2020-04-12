@@ -42,7 +42,7 @@ public class FacilityImageController {
     @RequestMapping(path = "/id={facilityImageId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateFacilityImage(@RequestBody FacilityImage facilityImage,
-                                  @PathVariable("facilityImageId") int id) {
+                                    @PathVariable("facilityImageId") int id) {
         FacilityImage target = facilityImageRepository.findById(id).get();
 
         target.setPath(facilityImage.getPath());

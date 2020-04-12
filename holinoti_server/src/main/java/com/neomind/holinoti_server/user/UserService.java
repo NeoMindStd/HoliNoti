@@ -6,6 +6,7 @@ import com.neomind.holinoti_server.utils.EncodingManger;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,8 +18,16 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
-    private UserRepository userRepository;
     private static RelationAFRepository relationAFRepository;
+    private UserRepository userRepository;
+
+    public static Role getUserRoleOfFacility(int uid, int fid) {
+        return relationAFRepository.findByUserIdAndFacilityCode(uid, fid).get(0).getRole();
+    }
+
+    public static boolean isAccessible(int uid, int fid, Role role) {
+        return getUserRoleOfFacility(uid, fid).ordinal() <= role.ordinal();
+    }
 
     public User register(User user) {
         user.setPassword(new EncodingManger().encode(user.getPassword()));
@@ -28,12 +37,13 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public static Role getUserRoleOfFacility(int uid, int fid) {
-        return relationAFRepository.findByUserIdAndFacilityCode(uid, fid).get(0).getRole();
-    }
-    
-    public static boolean isAccessible(int uid, int fid, Role role) {
-        return getUserRoleOfFacility(uid,fid).ordinal() <= role.ordinal();
+    public User getCurrentUser() throws Exception {
+        final String currentUserAccount = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("Login:" + currentUserAccount);
+        if (currentUserAccount == null || currentUserAccount.equals("anonymousUser") || currentUserAccount.equals("")) {
+            throw new Exception("Bad Account");
+        }
+        return userRepository.findByAccount(currentUserAccount);
     }
 
     @Override

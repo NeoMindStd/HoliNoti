@@ -15,6 +15,8 @@ class RegisterCard extends StatelessWidget {
     final TextEditingController accountController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneNumberController = TextEditingController();
 
     final TextFormField accountField = TextFormField(
       decoration: InputDecoration(
@@ -68,6 +70,58 @@ class RegisterCard extends StatelessWidget {
       controller: nameController,
       validator: (_) => null,
     );
+    final TextFormField emailField = TextFormField(
+      decoration: InputDecoration(
+        labelText: Strings.GlobalPage.EMAIL,
+        hasFloatingPlaceholder: true,
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: emailController.clear,
+        ),
+      ),
+      controller: emailController,
+      validator: (_) => null,
+    );
+    final TextFormField phoneNumberField = TextFormField(
+      decoration: InputDecoration(
+        labelText: Strings.GlobalPage.PHONE_NUMBER,
+        hasFloatingPlaceholder: true,
+        suffixIcon: IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: phoneNumberController.clear,
+        ),
+      ),
+      controller: phoneNumberController,
+      validator: (_) => null,
+    );
+
+    // 테스트를 위한 임시 위젯. TODO 릴리즈 단계에서 삭제
+    final StreamBuilder<Enums.Authority> authorityStream = StreamBuilder(
+      initialData: _authBloc.authority,
+      stream: _authBloc.authorityStream,
+      builder: (context, snapshot) => Row(
+        children: <Widget>[
+          Flexible(
+            child: RadioListTile<Enums.Authority>(
+              dense: true,
+              title: Text("관리자"),
+              value: Enums.Authority.admin,
+              groupValue: snapshot.data,
+              onChanged: (value) => _authBloc.setAuthority(value),
+            ),
+          ),
+          Flexible(
+            child: RadioListTile<Enums.Authority>(
+              dense: true,
+              title: Text("일반"),
+              value: Enums.Authority.normal,
+              groupValue: snapshot.data,
+              onChanged: (value) => _authBloc.setAuthority(value),
+            ),
+          ),
+        ],
+      ),
+    );
 
     return Form(
       key: _formKey,
@@ -113,6 +167,18 @@ class RegisterCard extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
+                    emailField,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    phoneNumberField,
+                    SizedBox(
+                      height: 20,
+                    ),
+                    authorityStream,
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       Strings.AuthPage.passwordCondition,
                       style: TextStyle(color: Colors.grey),
@@ -136,11 +202,16 @@ class RegisterCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5)),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
+                              print(
+                                  '_authBloc.authority: ${_authBloc.authority}');
                               _authBloc.register(
                                 User(
                                   account: accountController.text,
                                   password: passwordController.text,
                                   name: nameController.text,
+                                  email: emailController.text,
+                                  phoneNumber: phoneNumberController.text,
+                                  authority: _authBloc.authority,
                                 ),
                               );
                             }

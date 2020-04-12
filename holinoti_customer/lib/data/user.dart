@@ -41,7 +41,7 @@ class User {
         'account': account,
         'password': password,
         'name': name,
-        'userType': authority,
+        'authority': Enums.toString(authority),
         'email': email,
         'phoneNumber': phoneNumber,
       };

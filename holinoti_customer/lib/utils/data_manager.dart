@@ -1,4 +1,5 @@
 import 'package:holinoti_customer/data/user.dart';
+import 'package:http_auth/http_auth.dart' as http_auth;
 
 /// Singleton
 class DataManager {
@@ -8,9 +9,11 @@ class DataManager {
 
   DataManager._internal();
 
-  User loggedInUser;
+  User currentUser;
+  http_auth.BasicAuthClient client;
 
   dispose() {
-    loggedInUser = null;
+    currentUser = null;
+    client = null;
   }
 }

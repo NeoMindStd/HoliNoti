@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FacilityImageRepository extends JpaRepository<FacilityImage, Integer>{
+public interface FacilityImageRepository extends JpaRepository<FacilityImage, Integer> {
     public List<FacilityImage> findFacilityImagesByFacilityCode(int facilityCode);
 }

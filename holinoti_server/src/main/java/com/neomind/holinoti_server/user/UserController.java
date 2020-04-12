@@ -20,11 +20,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() { return userRepository.findAll(); }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "SUCCESS!!";
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public User login() throws Exception {
+        return userService.getCurrentUser();
     }
 
     @RequestMapping(path = "/id={userId}", method = RequestMethod.GET)
@@ -57,7 +59,7 @@ public class UserController {
     @RequestMapping(path = "/id={userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody User user,
-                              @PathVariable("userId") int id) {
+                           @PathVariable("userId") int id) {
         User target = userRepository.findById(id).get();
 
         target.setAccount(user.getAccount());

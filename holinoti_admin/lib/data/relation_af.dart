@@ -26,7 +26,7 @@ class RelationAF {
         'id': id,
         'userId': userId,
         'facilityCode': facilityCode,
-        'role': role,
+        'role': Enums.toString(role),
       };
 
   @override

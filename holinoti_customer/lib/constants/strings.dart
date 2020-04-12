@@ -16,6 +16,8 @@ class GlobalPage {
   static const LOGIN = "로그인";
   static const REGISTER = "회원 가입";
   static const NAME = "이름";
+  static const EMAIL = "이메일";
+  static const PHONE_NUMBER = "전화번호";
   static const ALERT_TITLE = '안내';
   static const ALERT_INPUT = '입력';
   static const BUTTON_CONFIRM = '확인';

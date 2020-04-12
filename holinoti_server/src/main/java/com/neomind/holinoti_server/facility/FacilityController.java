@@ -16,6 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/facilities", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FacilityController {
     FacilityRepository facilityRepository;
+    FacilityService facilityService;
 
     @GetMapping
     public List<Facility> getAllFacilities() {
@@ -26,6 +27,7 @@ public class FacilityController {
     public Facility getFacility(@PathVariable("facilityCode") int code) {
         return facilityRepository.findById(code).get();
     }
+
     @RequestMapping(path = "/phone_number={phoneNumber}", method = RequestMethod.GET)
     public Facility getFacilityByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return facilityRepository.findByPhoneNumber(phoneNumber);
@@ -34,8 +36,14 @@ public class FacilityController {
     @PostMapping
     public ResponseEntity addFacility(@RequestBody Facility facility) {
         Facility newFacility = facilityRepository.save(facility);
-        URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
-        return ResponseEntity.created(createdURI).body(newFacility);
+        try {
+            facilityService.linkSupervisorAndFacility(newFacility.getCode());
+            URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
+            return ResponseEntity.created(createdURI).body(newFacility);
+        } catch (Exception e) {
+            deleteFacility(newFacility.getCode());
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.PUT)

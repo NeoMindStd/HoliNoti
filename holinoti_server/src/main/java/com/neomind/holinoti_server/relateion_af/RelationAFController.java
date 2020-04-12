@@ -18,7 +18,9 @@ public class RelationAFController {
     RelationAFRepository relationAFRepository;
 
     @GetMapping
-    public List<RelationAF> getAllRelationAFs() { return relationAFRepository.findAll(); }
+    public List<RelationAF> getAllRelationAFs() {
+        return relationAFRepository.findAll();
+    }
 
     @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.GET)
     public RelationAF getRelationAFById(@PathVariable("relationAFId") int id) {
@@ -45,7 +47,7 @@ public class RelationAFController {
     @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateRelationAF(@RequestBody RelationAF relationAF,
-                              @PathVariable("relationAFId") int id) {
+                                 @PathVariable("relationAFId") int id) {
         RelationAF target = relationAFRepository.findById(id).get();
 
         target.setUserId(relationAF.getUserId());

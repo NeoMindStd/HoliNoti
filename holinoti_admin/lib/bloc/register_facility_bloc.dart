@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
+import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
@@ -19,47 +20,36 @@ class RegisterFacilityBloc {
   // TODO 이미 시설이 있는경우 등록하지 않게 해야함
   void registerFacility(BuildContext context) async {
     try {
-      http.Response facilityResponse = await http.post(
-        "http://holinoti.tk:8080/holinoti/facilities",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: facilityToJson(facility),
-      );
+      http.Response facilityResponse = await DataManager().client.post(
+            "http://holinoti.tk:8080/holinoti/facilities",
+            headers: {"Content-Type": "application/json; charset=utf-8"},
+            body: facilityToJson(facility),
+          );
 
       var decodedFacilityResponse = HttpDecoder.utf8Response(facilityResponse);
       print('Response: $decodedFacilityResponse');
 
-      // TODO 변경된 사항 적용
-//      DataManager().signedIn.facility =
-//          Facility.fromJson(decodedFacilityResponse);
-//      print('Added: ${DataManager().signedIn.facility}');
-//
-//      openingInfo.facilityCode = DataManager().signedIn.facilityCode;
-//      try {
-//        http.Response openingInfoResponse = await http.post(
-//          "http://holinoti.tk:8080/holinoti/opening-infos",
-//          headers: {"Content-Type": "application/json; charset=utf-8"},
-//          body: openingInfoToJson(openingInfo),
-//        );
-//
-//        var decodedOpeningInfoResponse =
-//            HttpDecoder.utf8Response(openingInfoResponse);
-//        print('Response: $decodedOpeningInfoResponse');
-//      } catch (e) {
-//        print(e);
-//      }
-//
-//      try {
-//        await http.put(
-//          "http://holinoti.tk:8080/holinoti/managers/id=${DataManager().signedIn.id}",
-//          headers: {"Content-Type": "application/json; charset=utf-8"},
-//          body: userToJson(DataManager().signedIn),
-//        );
-//
-//        print(userToJson(DataManager().signedIn));
-//        print('Updated: ${DataManager().signedIn}');
-//      } catch (e) {
-//        print(e);
-//      }
+      DataManager()
+          .currentUser
+          .facilities
+          .add(Facility.fromJson(decodedFacilityResponse));
+
+      print('Added: ${DataManager().currentUser.facilities.last}');
+
+      openingInfo.facilityCode = DataManager().currentUser.facilities.last.code;
+      try {
+        http.Response openingInfoResponse = await DataManager().client.post(
+              "http://holinoti.tk:8080/holinoti/opening-infos",
+              headers: {"Content-Type": "application/json; charset=utf-8"},
+              body: openingInfoToJson(openingInfo),
+            );
+
+        var decodedOpeningInfoResponse =
+            HttpDecoder.utf8Response(openingInfoResponse);
+        print('Response: $decodedOpeningInfoResponse');
+      } catch (e) {
+        print(e);
+      }
     } catch (e) {
       print(e);
     }
