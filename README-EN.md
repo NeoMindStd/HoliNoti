@@ -25,11 +25,12 @@ The project was started to minimize such experience.
 ## Dev env
 
 ### CLIENTS
-- Framework: Flutter 1.12.13+hotfix.8 • channel stable
-- IDE: Android Studio 3.6.1 JRE: 1.8 (use androidx.* artifacts) 
+- Framework: Flutter 1.12.13+hotfix.9 • channel stable
+- IDE: Android Studio 3.6.2 JRE: 1.8 (use androidx.* artifacts) 
 - Language: Dart 2.7.1
 - App native languages
-  * android: Java 1.8 (Gradle 5.6.4 build, plugin 3.5.3), Kotlin 1.3.10
+  * android: Open JDK 11 (Gradle 6.3 build, plugin 3.6.2), Kotlin 1.3.10
+  * android-ndk: 21.0.6113669
   * iOS: Swift
 
 ### SERVER 

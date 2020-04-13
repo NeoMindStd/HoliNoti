@@ -17,18 +17,17 @@ Language: [한국어](README.md) | [ENGLISH](README-EN.md)
 **정식 릴리즈되지 않은 코드를 빌드, 사용시 어떠한 법적 책임도 지지 않음을 명시합니다.**
 [기타 라이센스 관련 사항은 이곳을 참고해주세요](https://github.com/NeoMindStd/Holinoti/blob/master/LICENSE)
 #### 프로젝트에 대해서
-주변 맛집, 카페, PC방, 도서관이 갑자기 여행, 공사 등의 이유로 임시 휴일일 때 헛걸음 하신적 있으신가요?
-가게에 휴일공지도 하고, 조금 큰 시설의 경우 자체적으로 공지도 하지만 통합적인 공지 플랫폼이 없어 난처했던 경험 많이들 하셨을 것으로 생각합니다.
-이 프로젝트는 그런 경험을 최소화하기 위해 시작되었습니다.
+주변 맛집, 카페, PC방, 도서관이 갑자기 여행이나 공사 등의 이유로 임시 휴일일 때 헛걸음한 경험을 한 번쯤은 갖고 있을 것입니다. 가게의 문이나 창문에 휴업 공지를 하고, 도서관 등의 큰 시설은 자체적인 홈페이지 등의 플랫폼으로 공지하고 있지만, 통합적인 공지 플랫폼이 없어 일일이 확인하기 귀찮고, 자그마한 가게나 식당의 경우 이러한 공지 플랫폼마저 없어 확인할 방법이 없습니다. 이 프로젝트를 통해 이런 난처한 경험을 줄이고, 일정과 동선을 계획할 때 방문할 시설의 휴업 여부를 고려할 수 있도록 하여 시간과 비용을 절약할 수 있을 것으로 기대합니다.
 
 ## 개발 환경
 
 ### CLIENTS
-- Framework: Flutter 1.12.13+hotfix.8 • channel stable
-- IDE: Android Studio 3.6.1 JRE: 1.8 (use androidx.* artifacts) 
+- Framework: Flutter 1.12.13+hotfix.9 • channel stable
+- IDE: Android Studio 3.6.2 JRE: 1.8 (use androidx.* artifacts) 
 - Language: Dart 2.7.1
 - App native languages
-  * android: Java 1.8 (Gradle 5.6.4 build, plugin 3.5.3), Kotlin 1.3.10
+  * android: Open JDK 11 (Gradle 6.3 build, plugin 3.6.2), Kotlin 1.3.10
+  * android-ndk: 21.0.6113669
   * iOS: Swift
 
 ### SERVER 
