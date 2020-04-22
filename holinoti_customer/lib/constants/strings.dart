@@ -8,6 +8,9 @@ class ApiKeys {
 
 class Assets {
   static const RESTAURANT_JPG = "assets/restaurant.jpg";
+  static const TEMP_IMAGE_S = "assets/tempimageS.jpg";//임시 이미지(flutter 로고)
+  static const TEMP_IMAGE_M = "assets/tempimageM.jpg";
+  static const TEMP_IMAGE_L = "assets/tempimageL.jpg";
 }
 
 class GlobalPage {
@@ -62,4 +65,8 @@ class AuthPage {
         Nos.AuthPage.MIN_NO_OF_CHARACTERS,
         Nos.AuthPage.MAX_NO_OF_CHARACTERS,
       ]);
+}
+class SettingPage{
+  static const SETTINGS = "설정";
+
 }

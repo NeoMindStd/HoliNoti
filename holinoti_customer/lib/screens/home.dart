@@ -4,6 +4,8 @@ import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/facilities_bloc.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/screens/profile.dart';
+import 'package:holinoti_customer/screens/setting.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -52,8 +54,23 @@ class HomePage extends StatelessWidget {
       stream: _homeBloc.tapIndexStream,
       builder: (context, snapshot) => Scaffold(
         appBar: AppBar(
-          title: const Text('고객용 UI 예시'),
-        ),
+            leading: IconButton(icon: Icon(Icons.home), onPressed: () {}),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => settingScreen()));
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.account_circle),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => profileScreen()));
+                },
+              ),
+            ]),
         body: Center(
           child: _routePages[snapshot.data],
         ),
@@ -80,11 +97,11 @@ class HomePage extends StatelessWidget {
               title: Text(Strings.HomePage.HOME),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
+              icon: Icon(Icons.notifications),
               title: Text("임시1"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.hotel),
+              icon: Icon(Icons.list),
               title: Text("임시2"),
             ),
           ],
