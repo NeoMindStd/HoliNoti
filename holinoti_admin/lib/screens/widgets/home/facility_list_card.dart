@@ -13,29 +13,30 @@ class FacilitiesListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CenterCard(
-      appBarHeight: appBarHeight,
-      child: Column(
-          children: (dummyFacilities
-              .map((facility) => Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.store),
-                        title: Text(facility['name']),
-                        subtitle: Text(facility['comment']),
-                      ),
-                      ButtonBar(
-                        children: <Widget>[
-                          FlatButton(
-                            child: const Text('수정'),
-                            onPressed: () {},
-                          ),
-                          FlatButton(
-                            child: const Text('삭제'),
-                            onPressed: () {},
-                          ),
-                        ],
-                      )
-                    ],
-                  ))
-              .toList())));
-}
+        appBarHeight: appBarHeight,
+        child: Column(
+            children: (dummyFacilities
+                .map((facility) => Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.store),
+                  title: Text(facility['name']),
+                  subtitle: Text(facility['comment']),
+                ),
+                ButtonBar(
+                  children: <Widget>[
+                    FlatButton(
+                      child: const Text('수정'),
+                      onPressed: () {},
+                    ),
+                    FlatButton(
+                      child: const Text('삭제'),
+                      onPressed: () {},
+                    ),
+                  ],
+                )
+              ],
+            ))
+                .toList())));
+  }
+

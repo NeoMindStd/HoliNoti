@@ -4,8 +4,10 @@ import 'package:holinoti_admin/bloc/register_facility_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/opening_info.dart';
 import 'package:holinoti_admin/screens/widgets/global/center_card.dart';
+import 'dart:io';
 
 class InputCard extends StatelessWidget {
+  File _image;
   final RegisterFacilityBloc _registerFacilityBloc;
   final double appBarHeight;
 
@@ -32,6 +34,13 @@ class InputCard extends StatelessWidget {
               autofocus: true,
               onChanged: _registerFacilityBloc.setFacilityAddress,
             ),
+            Text("가게 위치"),
+            Container(
+              margin: const EdgeInsets.all(10),
+              width: 300,
+              height: 300,
+              child: (_image != null) ? Image.file(_image) : Placeholder(),
+            ),
             TextField(
               decoration: InputDecoration(
                 labelText: "가게 사이트 주소",
@@ -45,6 +54,26 @@ class InputCard extends StatelessWidget {
               ),
               autofocus: true,
               onChanged: _registerFacilityBloc.setFacilityPhoneNumber,
+            ),
+            Text("가게 사진 추가"),
+            Container(
+              margin: const EdgeInsets.all(10),
+              width: 200,
+              height: 200,
+              child: (_image != null) ? Image.file(_image) : Placeholder(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  child:Text("갤러리에서 추가"),
+                  onPressed: () {},
+                ),
+                RaisedButton(
+                  child:Text("사진찍기로 추가"),
+                  onPressed: () {},
+                ),
+              ],
             ),
             TextField(
               decoration: InputDecoration(

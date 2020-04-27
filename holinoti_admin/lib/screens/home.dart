@@ -13,7 +13,22 @@ import 'package:holinoti_admin/utils/data_manager.dart';
 class HomePage extends StatelessWidget {
   final HomeBloc _homeBloc;
   final AppBar appBar = AppBar(
-    title: const Text('관리자용 UI 예시'),
+    leading: GestureDetector(
+      onTap: () {},
+      child: Icon(
+        Icons.home,
+      ),
+    ),
+    actions: <Widget>[
+      IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () {},
+      ),
+      IconButton(
+        icon: const Icon(Icons.person_outline),
+        onPressed: () {},
+      )
+    ],
   );
 
   HomePage(this._homeBloc);
@@ -23,6 +38,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final List<Widget> _routePages = [
       SingleChildScrollView(
         child: Stack(
