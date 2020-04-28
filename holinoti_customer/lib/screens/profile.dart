@@ -1,125 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:holinoti_customer/constants/strings.dart';
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/constants/themes.dart' as Themes;
+import 'package:holinoti_customer/screens/widgets/global/menu/menu_block.dart';
+import 'package:holinoti_customer/screens/widgets/global/menu/menu_content.dart';
+import 'package:holinoti_customer/screens/widgets/global/menu/menu_title.dart';
 
-const TextStyle profileTitleText =
-    TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0);
-const TextStyle profileButton = TextStyle(fontSize: 15.0);
-const EdgeInsets profileMargin = EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 5.0);
-
-BoxDecoration boxBorder() {
-  return BoxDecoration(
-    border: Border.all(),
-    borderRadius: BorderRadius.all(Radius.circular(25.0)),
-  );
-}
-
-class profileScreen extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("개인 정보")),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              profileTitle(),
-              profileList(),
-            ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text(Strings.ProfilePage.PERSONAL_INFO)),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ProfileTitle(),
+                ProfileList(),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 //프로필
-class profileTitle extends StatelessWidget {
+class ProfileTitle extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: profileMargin,
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        children: <Widget>[
-          Image.asset("assets/tempimageS.jpg"), //프로필 사진
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text("name", style: profileButton), //이름
-                  Text(" / ", style: profileButton),
-                  Text("email@email.com", style: profileButton), //이메일
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Text("id", style: profileButton), //사용자 id
-                  Text(" / ", style: profileButton),
-                  Text("010-0000-0000", style: profileButton), //전화번호
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-//내용 출력
-class profileList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: profileMargin,
-      padding: const EdgeInsets.all(10.0),
-      decoration: boxBorder(),
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => Container(
+        margin: Themes.GlobalPage.blockMargin,
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
           children: <Widget>[
-            Text("  " + AuthPage.ACCOUNT, style: profileTitleText),
-            FlatButton(
-              onPressed: () {},
-              child: Text("사업자 인증 및 신규 시설 등록", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("프로필 이미지 변경", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("이메일 변경", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("연락처 변경", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("비밀번호 변경", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("지문 변경", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("개인정보 공개 범위 설정", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("회원 탈퇴", style: profileButton),
-            ),
-            FlatButton(
-              onPressed: () {},
-              child: Text("로그아웃", style: profileButton),
+            Image.asset(Strings.Assets.TEMP_IMAGE_S), //프로필 사진
+            Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text("name", style: Themes.GlobalPage.blockContents), //이름
+                    Text(" / ", style: Themes.GlobalPage.blockContents),
+                    Text("email@email.com",
+                        style: Themes.GlobalPage.blockContents), //이메일
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text("id", style: Themes.GlobalPage.blockContents), //사용자 id
+                    Text(" / ", style: Themes.GlobalPage.blockContents),
+                    Text("010-0000-0000",
+                        style: Themes.GlobalPage.blockContents), //전화번호
+                  ],
+                ),
+              ],
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
+}
+
+//내용 출력
+class ProfileList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => MenuBlock(
+        title: MenuTitle(Strings.AuthPage.ACCOUNT),
+        children: <Widget>[
+          MenuContent(
+              Strings.ProfilePage.VERIFY_OWNER_AND_REGISTER_NEW_FACILITIES),
+          MenuContent(Strings.ProfilePage.CHANGE_PROFILE_IMG),
+          MenuContent(Strings.ProfilePage.CHANGE_EMAIL),
+          MenuContent(Strings.ProfilePage.CHANGE_PHONE_NUMBER),
+          MenuContent(Strings.ProfilePage.CHANGE_PASSWORD),
+          MenuContent(Strings.ProfilePage.CHANGE_FINGERPRINT),
+          MenuContent(Strings.ProfilePage.SET_DISCLOSURE_SCOPE_PERSONAL_INFO),
+          MenuContent(Strings.ProfilePage.USER_SECESSION),
+          MenuContent(Strings.ProfilePage.LOGOUT),
+        ],
+      );
 }

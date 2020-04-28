@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.blue));
     return MaterialApp(
       title: Strings.GlobalPage.APP_NAME_KR,
-      home: SplashScreen(),
+      home: SplashPage(),
     );
   }
 }

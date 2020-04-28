@@ -7,10 +7,11 @@ class ApiKeys {
 }
 
 class Assets {
-  static const RESTAURANT_JPG = "assets/restaurant.jpg";
-  static const TEMP_IMAGE_S = "assets/tempimageS.jpg";//임시 이미지(flutter 로고)
-  static const TEMP_IMAGE_M = "assets/tempimageM.jpg";
-  static const TEMP_IMAGE_L = "assets/tempimageL.jpg";
+  static const ROOT_PATH = "assets/";
+  static const RESTAURANT_JPG = ROOT_PATH + "restaurant.jpg";
+  static const TEMP_IMAGE_S = ROOT_PATH + "tempimageS.jpg";
+  static const TEMP_IMAGE_M = ROOT_PATH + "tempimageM.jpg";
+  static const TEMP_IMAGE_L = ROOT_PATH + "tempimageL.jpg";
 }
 
 class GlobalPage {
@@ -66,7 +67,32 @@ class AuthPage {
         Nos.AuthPage.MAX_NO_OF_CHARACTERS,
       ]);
 }
-class SettingPage{
-  static const SETTINGS = "설정";
 
+class ProfilePage {
+  static const PERSONAL_INFO = "개인 정보";
+  static const VERIFY_OWNER_AND_REGISTER_NEW_FACILITIES = "사업자 인증 및 신규 시설 등록";
+  static const CHANGE_PROFILE_IMG = "프로필 이미지 변경";
+  static const CHANGE_EMAIL = "이메일 변경";
+  static const CHANGE_PHONE_NUMBER = "연락처 변경";
+  static const CHANGE_PASSWORD = "비밀번호 변경";
+  static const CHANGE_FINGERPRINT = "지문 변경";
+  static const SET_DISCLOSURE_SCOPE_PERSONAL_INFO = "개인정보 공개 범위 설정";
+  static const USER_SECESSION = "회원 탈퇴";
+  static const LOGOUT = "로그아웃";
+}
+
+class SettingPage {
+  static const SETTINGS = "설정";
+  static const APP_SETTING = "앱 설정";
+  static const ALARM_SETTING = "알림 설정";
+  static const SLEEP_TIME_SETTING = "방해금지 시간대 설정";
+  static const PASSWORD_FINGERPRINT_LOCK = "암호 / 지문 장금";
+  static const APP_INFO = "앱 정보";
+  static const BUILD_VER = "빌드 버전";
+  static const COMMUNITY_RULE = "커뮤니티 이용규칙";
+  static const PRIVACY_POLICIES = "개인정보 처리방침";
+  static const OPEN_SRC_LICENSES = "오픈소스 라이선스";
+  static const ETC = "기타";
+  static const NOTICE = "공지사항";
+  static const CONTACT = "문의하기";
 }

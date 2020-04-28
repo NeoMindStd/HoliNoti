@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
 
 import 'home.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return SplashScreenState();
+    return SplashPageState();
   }
 }
 
-class SplashScreenState extends State<SplashScreen> {
+class SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -21,7 +22,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return new Timer(Duration(seconds: 2), onDoneLoading); //스플래시 떠 있는 시간
+    return Timer(Duration(seconds: 2), onDoneLoading);
   }
 
   onDoneLoading() async {
@@ -33,9 +34,9 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white, //배경 색
+        color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/tempimageL.jpg'), //로고 이미지
+          image: AssetImage(Strings.Assets.TEMP_IMAGE_L),
         ),
       ),
     );

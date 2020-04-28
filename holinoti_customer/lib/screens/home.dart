@@ -5,7 +5,7 @@ import 'package:holinoti_customer/bloc/facilities_bloc.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/screens/profile.dart';
-import 'package:holinoti_customer/screens/setting.dart';
+import 'package:holinoti_customer/screens/settings.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -60,14 +60,14 @@ class HomePage extends StatelessWidget {
                 icon: Icon(Icons.settings),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => settingScreen()));
+                      MaterialPageRoute(builder: (context) => SettingsPage()));
                 },
               ),
               IconButton(
                 icon: Icon(Icons.account_circle),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => profileScreen()));
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
                 },
               ),
             ]),
