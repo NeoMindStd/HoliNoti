@@ -1,5 +1,6 @@
 package com.neomind.holinoti_server.facility_image;
 
+import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/facilities/facility_images", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FacilityImageController {
     FacilityImageRepository facilityImageRepository;
+    UserService userService;
 
     @GetMapping
     public List<FacilityImage> getAllFacilityImages() {
@@ -33,7 +35,8 @@ public class FacilityImageController {
     }
 
     @PostMapping
-    public ResponseEntity addFacilityImage(@RequestBody FacilityImage facilityImage) {
+    public ResponseEntity addFacilityImage(@RequestBody FacilityImage facilityImage) throws Exception {
+        if (!userService.isAccessible(facilityImage.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         FacilityImage newFacilityImage = facilityImageRepository.save(facilityImage);
         URI createdURI = linkTo(FacilityImageController.class).slash(newFacilityImage.getFacilityCode()).toUri();
         return ResponseEntity.created(createdURI).body(newFacilityImage);
@@ -42,7 +45,8 @@ public class FacilityImageController {
     @RequestMapping(path = "/id={facilityImageId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateFacilityImage(@RequestBody FacilityImage facilityImage,
-                                    @PathVariable("facilityImageId") int id) {
+                                    @PathVariable("facilityImageId") int id) throws Exception {
+        if (!userService.isAccessible(facilityImage.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         FacilityImage target = facilityImageRepository.findById(id).get();
 
         target.setPath(facilityImage.getPath());
@@ -52,7 +56,9 @@ public class FacilityImageController {
     }
 
     @RequestMapping(path = "/id={facilityImageId}", method = RequestMethod.DELETE)
-    public void deleteFacilityImage(@PathVariable("facilityImageId") int id) {
+    public void deleteFacilityImage(@PathVariable("facilityImageId") int id) throws Exception {
+        if (!userService.isAccessible(facilityImageRepository.findById(id).get().getFacilityCode()))
+            throw new Exception("Prohibited: Low Grade Role");
         facilityImageRepository.deleteById(id);
     }
 }

@@ -78,6 +78,7 @@ public class UserController {
 
     @RequestMapping(path = "/id={userId}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable("userId") int id) {
+        userService.deleteAllRowInRelationAFByUser(id);
         userRepository.deleteById(id);
     }
 }

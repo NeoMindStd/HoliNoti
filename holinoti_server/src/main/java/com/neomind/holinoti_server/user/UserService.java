@@ -1,7 +1,7 @@
 package com.neomind.holinoti_server.user;
 
-import com.neomind.holinoti_server.relateion_af.RelationAFRepository;
-import com.neomind.holinoti_server.relateion_af.Role;
+import com.neomind.holinoti_server.facility.FacilityRepository;
+import com.neomind.holinoti_server.relateion_af.*;
 import com.neomind.holinoti_server.utils.EncodingManger;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,15 +11,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
     private RelationAFRepository relationAFRepository;
     private UserRepository userRepository;
+    private RelationAFService relationAFService;
 
     public Role getUserRoleOfFacility(int uid, int fCode) {
         return relationAFRepository.findByUserIdAndFacilityCode(uid, fCode).get(0).getRole();
@@ -73,5 +78,27 @@ public class UserService implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.
                 User(user.getAccount(), user.getPassword(), authorities);
+    }
+
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+        return validatorResult;
+    }
+
+    public void deleteAllRowInRelationAFByUser(int id){
+        List<RelationAF> relationAFList = relationAFRepository.findByUserId(id);
+        ArrayList<Integer> facilityCodes = new ArrayList<Integer>();
+        for (RelationAF relationAF : relationAFList) {
+            facilityCodes.add(relationAF.getFacilityCode());
+        }
+        relationAFRepository.deleteInBatch(relationAFList);
+        for (int code : facilityCodes) {
+            relationAFService.deleteAllFacilityWithoutSupervisor(code);
+        }
     }
 }

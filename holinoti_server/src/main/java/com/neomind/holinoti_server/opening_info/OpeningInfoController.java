@@ -1,5 +1,6 @@
 package com.neomind.holinoti_server.opening_info;
 
+import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/opening-infos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class OpeningInfoController {
     OpeningInfoRepository openingInfoRepository;
+    UserService userService;
 
     @GetMapping
     public List<OpeningInfo> getAllOpeningInfos() {
@@ -33,7 +35,8 @@ public class OpeningInfoController {
     }
 
     @PostMapping
-    public ResponseEntity addOpeningInfo(@RequestBody OpeningInfo openingInfo) {
+    public ResponseEntity addOpeningInfo(@RequestBody OpeningInfo openingInfo) throws Exception {
+        if (!userService.isAccessible(openingInfo.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         System.out.println(openingInfo);
         OpeningInfo newOpeningInfo = openingInfoRepository.save(openingInfo);
         URI createdURI = linkTo(OpeningInfoController.class).slash(newOpeningInfo.getFacilityCode()).toUri();
@@ -43,7 +46,8 @@ public class OpeningInfoController {
     @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateOpeningInfo(@RequestBody OpeningInfo openingInfo,
-                                  @PathVariable("openingInfoId") int id) {
+                                  @PathVariable("openingInfoId") int id) throws Exception {
+        if (!userService.isAccessible(openingInfo.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         OpeningInfo target = openingInfoRepository.findById(id).get();
 
         target.setFacilityCode(openingInfo.getFacilityCode());
@@ -56,7 +60,9 @@ public class OpeningInfoController {
     }
 
     @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.DELETE)
-    public void deleteOpeningInfo(@PathVariable("openingInfoId") int id) {
+    public void deleteOpeningInfo(@PathVariable("openingInfoId") int id) throws Exception {
+        if (!userService.isAccessible(openingInfoRepository.findById(id).get().getFacilityCode()))
+            throw new Exception("Prohibited: Low Grade Role");
         openingInfoRepository.deleteById(id);
     }
 }
