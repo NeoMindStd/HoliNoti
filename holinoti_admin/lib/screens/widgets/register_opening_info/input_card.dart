@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:holinoti_admin/bloc/register_facility_bloc.dart';
+import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/opening_info.dart';
 import 'package:holinoti_admin/screens/widgets/global/center_card.dart';
 
 class InputCard extends StatelessWidget {
-  final RegisterFacilityBloc _registerFacilityBloc;
+  final FacilityInputBloc _registerFacilityBloc;
   final double appBarHeight;
 
   InputCard(this._registerFacilityBloc, this.appBarHeight);
