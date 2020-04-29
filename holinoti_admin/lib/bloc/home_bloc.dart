@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
-import 'package:holinoti_admin/bloc/register_facility_bloc.dart';
+import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/screens/auth.dart';
-import 'package:holinoti_admin/screens/register_faility.dart';
+import 'package:holinoti_admin/screens/facility.dart';
 import 'package:holinoti_admin/screens/register_opening_info.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -23,13 +23,12 @@ class HomeBloc {
         ),
       );
 
-  void moveToRegisterFacilityPage(
-          BuildContext context, RegisterFacilityBloc registerFacilityBloc) =>
+  void moveToFacilityPage(BuildContext context, FacilityBloc facilityBloc) =>
       Navigator.push(
         context,
         platformPageRoute(
           context: context,
-          builder: (context) => RegisterFacilityPage(registerFacilityBloc),
+          builder: (context) => FacilityPage(facilityBloc),
         ),
       );
 

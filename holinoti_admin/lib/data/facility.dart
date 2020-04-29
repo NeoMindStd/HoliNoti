@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/data/facility_image.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
 
@@ -16,7 +17,7 @@ class Facility {
   List<FacilityImage> facilityImages;
 
   Facility({
-    this.code = -1,
+    this.code = Nos.Global.NOT_ASSIGNED_ID,
     this.name,
     this.address = "",
     this.phoneNumber = "",

@@ -104,6 +104,7 @@ class AuthBloc {
 
       DataManager().currentUser.facilities =
           decodedFacilitiesResponse.map((e) => Facility.fromJson(e)).toList();
+      DataManager().dataBloc.setUser(DataManager().currentUser);
 
       print('Facilities: ${DataManager().currentUser.facilities}');
 

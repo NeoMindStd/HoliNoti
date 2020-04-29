@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
+import 'package:holinoti_admin/constants/nos.dart' as Nos;
 
 class RelationAF {
   int id;
@@ -9,7 +10,7 @@ class RelationAF {
   Enums.Role role;
 
   RelationAF({
-    this.id = -1,
+    this.id = Nos.Global.NOT_ASSIGNED_ID,
     this.userId,
     this.facilityCode,
     this.role,
