@@ -5,6 +5,8 @@ import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/screens/profile.dart';
+import 'package:holinoti_admin/screens/settings.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
 import 'package:holinoti_admin/screens/widgets/home/facility_list_column.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
@@ -28,12 +30,16 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline),
-            onPressed: () {},
-          )
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            ),
+          ),
         ],
       ),
       AppBar(
@@ -59,12 +65,16 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline),
-            onPressed: () {},
-          )
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            ),
+          ),
         ],
       ),
       AppBar(
@@ -72,12 +82,16 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(Icons.person_outline),
-            onPressed: () {},
-          )
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            ),
+          ),
         ],
       ),
     ];
