@@ -4,6 +4,8 @@ import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
 import 'package:holinoti_customer/screens/auth.dart';
 import 'package:holinoti_customer/screens/facility.dart';
+import 'package:holinoti_customer/screens/profile.dart';
+import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HomeBloc {
@@ -20,6 +22,19 @@ class HomeBloc {
           builder: (context) => AuthPage(AuthBloc()),
         ),
       );
+
+  void moveToProfilePage(BuildContext context) => Navigator.push(
+        context,
+        platformPageRoute(
+          context: context,
+          builder: (context) => ProfilePage(),
+        ),
+      );
+
+  void moveToAuthOrProfilePage(BuildContext context) =>
+      DataManager().currentUser == null
+          ? moveToAuthPage(context, AuthBloc())
+          : moveToProfilePage(context);
 
   void moveToFacilityPage(BuildContext context, FacilityBloc facilityBloc) =>
       Navigator.push(

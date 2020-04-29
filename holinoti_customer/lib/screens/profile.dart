@@ -4,6 +4,7 @@ import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_block.dart';
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_content.dart';
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_title.dart';
+import 'package:holinoti_customer/utils/data_manager.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -46,17 +47,19 @@ class ProfileTitle extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text("name", style: Themes.GlobalPage.blockContents), //이름
+                    Text(DataManager().currentUser.name,
+                        style: Themes.GlobalPage.blockContents), //이름
                     Text(" / ", style: Themes.GlobalPage.blockContents),
-                    Text("email@email.com",
+                    Text(DataManager().currentUser.email,
                         style: Themes.GlobalPage.blockContents), //이메일
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Text("id", style: Themes.GlobalPage.blockContents), //사용자 id
+                    Text(DataManager().currentUser.account,
+                        style: Themes.GlobalPage.blockContents), //사용자 id
                     Text(" / ", style: Themes.GlobalPage.blockContents),
-                    Text("010-0000-0000",
+                    Text(DataManager().currentUser.phoneNumber,
                         style: Themes.GlobalPage.blockContents), //전화번호
                   ],
                 ),

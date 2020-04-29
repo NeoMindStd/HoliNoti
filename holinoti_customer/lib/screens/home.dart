@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/constants/themes.dart' as Themes;
+import 'package:holinoti_customer/screens/settings.dart';
 import 'package:holinoti_customer/screens/widgets/home/facility_list_column.dart';
-import 'package:holinoti_customer/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
   final HomeBloc _homeBloc;
@@ -31,7 +29,8 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(
@@ -39,7 +38,7 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => _homeBloc.moveToAuthOrProfilePage(context),
           )
         ],
         backgroundColor: Themes.Colors.WHITE,
@@ -55,7 +54,8 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(
@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => _homeBloc.moveToAuthOrProfilePage(context),
           )
         ],
         backgroundColor: Themes.Colors.WHITE,
@@ -77,7 +77,8 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
             icon: const Icon(
@@ -85,7 +86,7 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => _homeBloc.moveToAuthOrProfilePage(context),
           )
         ],
         backgroundColor: Themes.Colors.WHITE,
@@ -158,22 +159,6 @@ class HomePage extends StatelessWidget {
         appBar: _appBars[snapshot.data],
         body: Center(
           child: _routePages[snapshot.data],
-        ),
-        endDrawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DataManager().currentUser == null
-                  ? Container()
-                  : Text(
-                      "${DataManager().currentUser.account}(${DataManager().currentUser.name})님 반갑습니다!"),
-              PlatformButton(
-                child: Text(DataManager().currentUser == null
-                    ? Strings.GlobalPage.LOGIN
-                    : "로그아웃"),
-                onPressed: () => _homeBloc.moveToAuthPage(context, AuthBloc()),
-              ),
-            ],
-          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
