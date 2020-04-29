@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/constants/nos.dart' as Nos;
 
 class OpeningInfo {
   int id;
@@ -11,8 +12,8 @@ class OpeningInfo {
   String openingHoursEnd;
 
   OpeningInfo(
-      {this.id = -1,
-      this.facilityCode = -1,
+      {this.id = Nos.Global.NOT_ASSIGNED_ID,
+      this.facilityCode = Nos.Global.NOT_ASSIGNED_ID,
       this.businessDayStart,
       this.openingHoursStart = "09:00",
       this.businessDayEnd,

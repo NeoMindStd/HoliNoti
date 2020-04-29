@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/facilities_bloc.dart';
+import 'package:holinoti_customer/bloc/facility_bloc.dart';
 import 'package:holinoti_customer/screens/auth.dart';
-import 'package:holinoti_customer/screens/facilities.dart';
+import 'package:holinoti_customer/screens/facility.dart';
+import 'package:holinoti_customer/screens/widgets/home/facilities.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HomeBloc {
@@ -21,13 +23,12 @@ class HomeBloc {
         ),
       );
 
-  void moveToFacilitiesPage(
-          BuildContext context, FacilitiesBloc facilitiesBloc) =>
+  void moveToFacilityPage(BuildContext context, FacilityBloc facilityBloc) =>
       Navigator.push(
         context,
         platformPageRoute(
           context: context,
-          builder: (context) => FacilitiesPage(facilitiesBloc),
+          builder: (context) => FacilityPage(facilityBloc),
         ),
       );
 

@@ -34,6 +34,7 @@ class GlobalPage {
 
 class HomePage {
   static const HOME = "홈";
+  static const FACILITY_LIST = "시설 목록";
 }
 
 class AuthPage {

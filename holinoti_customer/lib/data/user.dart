@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/data/facility.dart';
+import 'package:holinoti_customer/constants/nos.dart' as Nos;
 
 class User {
   int id;
@@ -16,7 +17,7 @@ class User {
   List<Facility> facilities;
 
   User(
-      {this.id = -1,
+      {this.id = Nos.Global.NOT_ASSIGNED_ID,
       this.account,
       this.password,
       this.name = "",
