@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_block.dart';
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_content.dart';
 import 'package:holinoti_customer/screens/widgets/global/menu/menu_title.dart';
@@ -7,7 +8,17 @@ import 'package:holinoti_customer/screens/widgets/global/menu/menu_title.dart';
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text(Strings.SettingPage.SETTINGS)),
+        appBar: AppBar(
+          backgroundColor: Themes.Colors.WHITE,
+          title: const Text(
+            Strings.SettingPage.SETTINGS,
+            style: TextStyle(
+              color: Themes.Colors.ORANGE,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          iconTheme: IconThemeData(size: 28, color: Themes.Colors.ORANGE),
+        ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(

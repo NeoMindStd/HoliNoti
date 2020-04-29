@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
 
 class OpeningInfo {
   int id;

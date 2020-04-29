@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
-import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/screens/widgets/facility/facility_card.dart';
-import 'package:holinoti_customer/screens/widgets/global/lower_half.dart';
-import 'package:holinoti_customer/screens/widgets/global/upper_half.dart';
 
 class FacilityPage extends StatelessWidget {
   // To adjust the layout according to the screen size
@@ -17,18 +14,20 @@ class FacilityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      leading: Icon(
-        Icons.arrow_back,
-      ),
-      actions: <Widget>[
-        IconButton(icon: Icon(Icons.favorite),)
-      ],
-    ),
-    body: SafeArea(
-      child: SingleChildScrollView(
-        child: FacilityCard(_facilityBloc),
-      ),
-    ),
-  );
+        appBar: AppBar(
+          leading: Icon(
+            Icons.arrow_back,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.favorite),
+            )
+          ],
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: FacilityCard(_facilityBloc),
+          ),
+        ),
+      );
 }

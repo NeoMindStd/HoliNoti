@@ -5,6 +5,7 @@ import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/profile.dart';
 import 'package:holinoti_admin/screens/settings.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
@@ -26,73 +27,121 @@ class HomePage extends StatelessWidget {
       AppBar(
         leading: Icon(
           Icons.home,
+          color: Themes.Colors.ORANGE,
+          size: 28,
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfilePage()),
             ),
           ),
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
-        title: Text("신규 시설 등록"),
+        title: Text(
+          "신규 시설 등록",
+          style: TextStyle(
+              color: Themes.Colors.ORANGE, fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(
+              Icons.delete,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.check),
+            icon: const Icon(
+              Icons.check,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () async {
               await _facilityInputBloc.registerFacility();
               _homeBloc.onTapChanged(0);
             },
           )
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
         leading: Icon(
           Icons.notifications_none,
+          color: Themes.Colors.ORANGE,
+          size: 28,
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfilePage()),
             ),
           ),
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
-        title: Text("공지목록"),
+        title: Text(
+          "공지 목록",
+          style: TextStyle(
+              color: Themes.Colors.ORANGE, fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SettingsPage())),
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ProfilePage()),
             ),
           ),
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
     ];
 
@@ -120,7 +169,11 @@ class HomePage extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: "검색",
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(
+                    Icons.search,
+                    color: Themes.Colors.ORANGE,
+                    size: 28,
+                  ),
                 ),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(20),
@@ -192,31 +245,59 @@ class HomePage extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
+              icon: Icon(Icons.home, color: Themes.Colors.APRICOT, size: 28),
+              activeIcon: Icon(
+                Icons.home,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
               title: Text(Strings.HomePage.FACILITY_LIST),
-              backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add),
+              icon: Icon(
+                Icons.add,
+                color: Themes.Colors.APRICOT,
+                size: 28,
+              ),
+              activeIcon: Icon(
+                Icons.add,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
               title: Text(Strings.HomePage.RESISTER_FACILITY),
-              backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: Icon(
+                Icons.notifications,
+                color: Themes.Colors.APRICOT,
+                size: 28,
+              ),
+              activeIcon: Icon(
+                Icons.notifications,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
               title: Text(""),
-              backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.hotel),
+              icon: Icon(
+                Icons.format_list_bulleted,
+                color: Themes.Colors.APRICOT,
+                size: 28,
+              ),
+              activeIcon: Icon(
+                Icons.format_list_bulleted,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
               title: Text(Strings.HomePage.REGISTER_TEMP_HOLIDAY),
-              backgroundColor: Colors.blue,
             ),
           ],
           type: BottomNavigationBarType.fixed,
           currentIndex: snapshot.data,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          backgroundColor: Colors.white,
+          backgroundColor: Themes.Colors.ORANGE,
           onTap: _homeBloc.onTapChanged,
         ),
       ),

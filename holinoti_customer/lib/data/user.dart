@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
-import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
+import 'package:holinoti_customer/data/facility.dart';
 
 class User {
   int id;

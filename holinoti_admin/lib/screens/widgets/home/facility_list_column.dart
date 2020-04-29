@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/user.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
@@ -37,7 +38,7 @@ class FacilitiesListColumn extends StatelessWidget {
                                     Text(
                                       (facility as Facility).name,
                                       style: TextStyle(
-                                        color: Colors.blue,
+                                        color: Themes.Colors.ORANGE,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),

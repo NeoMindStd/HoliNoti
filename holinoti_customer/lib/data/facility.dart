@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/data/facility_image.dart';
 import 'package:holinoti_customer/data/opening_info.dart';
-import 'package:holinoti_customer/constants/nos.dart' as Nos;
 
 class Facility {
   int code;

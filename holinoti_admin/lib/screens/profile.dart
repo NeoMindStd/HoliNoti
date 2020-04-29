@@ -8,7 +8,17 @@ import 'package:holinoti_admin/screens/widgets/global/menu/menu_title.dart';
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text(Strings.ProfilePage.PERSONAL_INFO)),
+        appBar: AppBar(
+          backgroundColor: Themes.Colors.WHITE,
+          title: const Text(
+            Strings.ProfilePage.PERSONAL_INFO,
+            style: TextStyle(
+              color: Themes.Colors.ORANGE,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          iconTheme: IconThemeData(size: 28, color: Themes.Colors.ORANGE),
+        ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(

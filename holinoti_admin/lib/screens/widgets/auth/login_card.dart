@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/widgets/global/center_card.dart';
 
 class LoginCard extends StatelessWidget {
@@ -92,8 +93,11 @@ class LoginCard extends StatelessWidget {
                     child: Container(),
                   ),
                   FlatButton(
-                    child: Text(Strings.GlobalPage.LOGIN),
-                    color: Color(0xFF4B9DFE),
+                    child: Text(
+                      Strings.GlobalPage.LOGIN,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    color: Themes.Colors.ORANGE,
                     textColor: Colors.white,
                     padding: EdgeInsets.only(
                         left: 38, right: 38, top: 15, bottom: 15),
@@ -125,8 +129,11 @@ class LoginCard extends StatelessWidget {
               onPressed: () {
                 _authBloc.setAuthMode(Enums.AuthMode.register);
               },
-              textColor: Colors.black87,
-              child: Text(Strings.GlobalPage.REGISTER),
+              textColor: Themes.Colors.ORANGE,
+              child: Text(
+                Strings.GlobalPage.REGISTER,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             )
           ],
         )

@@ -3,7 +3,7 @@ import 'package:holinoti_admin/data/user.dart';
 import 'package:http_auth/http_auth.dart' as http_auth;
 
 class DataManager {
-  static final DataManager _dataManager = new DataManager._internal();
+  static final DataManager _dataManager = DataManager._internal();
   static final DataBloc _dataBloc = DataBloc();
 
   factory DataManager() => _dataManager;

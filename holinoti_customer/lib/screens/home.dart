@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_customer/bloc/auth_bloc.dart';
-import 'package:holinoti_customer/bloc/facilities_bloc.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
-import 'package:holinoti_customer/screens/profile.dart';
-import 'package:holinoti_customer/screens/settings.dart';
-import 'package:holinoti_customer/screens/widgets/home/facilities.dart';
+import 'package:holinoti_customer/constants/themes.dart' as Themes;
+import 'package:holinoti_customer/screens/widgets/home/facility_list_column.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,17 +21,28 @@ class HomePage extends StatelessWidget {
       AppBar(
         leading: Icon(
           Icons.home,
+          color: Themes.Colors.ORANGE,
+          size: 28,
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           )
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
         leading: Icon(
@@ -41,27 +50,45 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           )
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
         title: Text("공지목록"),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              color: Themes.Colors.ORANGE,
+              size: 28,
+            ),
             onPressed: () {},
           )
         ],
+        backgroundColor: Themes.Colors.WHITE,
       ),
     ];
 
@@ -89,7 +116,11 @@ class HomePage extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: "검색",
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(
+                    Icons.search,
+                    color: Themes.Colors.ORANGE,
+                    size: 28,
+                  ),
                 ),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(20),
@@ -107,14 +138,14 @@ class HomePage extends StatelessWidget {
       SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            Text("알림목록"),
+            Text("알림 목록"),
           ],
         ),
       ),
       SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            Text("공지목록"),
+            Text("공지 목록"),
           ],
         ),
       ),
@@ -123,56 +154,73 @@ class HomePage extends StatelessWidget {
     return StreamBuilder<int>(
       initialData: 0,
       stream: _homeBloc.tapIndexStream,
-      builder: (context, snapshot) =>
-          Scaffold(
-            appBar: _appBars[snapshot.data],
-            body: Center(
-              child: _routePages[snapshot.data],
-            ),
-            endDrawer: Drawer(
-              child: ListView(
-                children: <Widget>[
-                  DataManager().currentUser == null
-                      ? Container()
-                      : Text(
-                      "${DataManager().currentUser.account}(${DataManager()
-                          .currentUser.name})님 반갑습니다!"),
-                  PlatformButton(
-                    child: Text(DataManager().currentUser == null
-                        ? Strings.GlobalPage.LOGIN
-                        : "로그아웃"),
-                    onPressed: () =>
-                        _homeBloc.moveToAuthPage(context, AuthBloc()),
-                  ),
-                ],
+      builder: (context, snapshot) => Scaffold(
+        appBar: _appBars[snapshot.data],
+        body: Center(
+          child: _routePages[snapshot.data],
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DataManager().currentUser == null
+                  ? Container()
+                  : Text(
+                      "${DataManager().currentUser.account}(${DataManager().currentUser.name})님 반갑습니다!"),
+              PlatformButton(
+                child: Text(DataManager().currentUser == null
+                    ? Strings.GlobalPage.LOGIN
+                    : "로그아웃"),
+                onPressed: () => _homeBloc.moveToAuthPage(context, AuthBloc()),
               ),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.store),
-                  title: Text(Strings.HomePage.FACILITY_LIST),
-                  backgroundColor: Colors.blue,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  title: Text("알림목록"),
-                  backgroundColor: Colors.blue,
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.hotel),
-                  title: Text("공지목록"),
-                  backgroundColor: Colors.blue,
-                ),
-              ],
-              type: BottomNavigationBarType.fixed,
-              currentIndex: snapshot.data,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              backgroundColor: Colors.white,
-              onTap: _homeBloc.onTapChanged,
-            ),
+            ],
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Themes.Colors.APRICOT, size: 28),
+              activeIcon: Icon(
+                Icons.home,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
+              title: Text(Strings.HomePage.HOME),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.notifications,
+                color: Themes.Colors.APRICOT,
+                size: 28,
+              ),
+              activeIcon: Icon(
+                Icons.notifications,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
+              title: Text("알림 목록"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.format_list_bulleted,
+                color: Themes.Colors.APRICOT,
+                size: 28,
+              ),
+              activeIcon: Icon(
+                Icons.format_list_bulleted,
+                color: Themes.Colors.WHITE,
+                size: 28,
+              ),
+              title: Text("공지 목록"),
+            ),
+          ],
+          type: BottomNavigationBarType.fixed,
+          currentIndex: snapshot.data,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          backgroundColor: Themes.Colors.ORANGE,
+          onTap: _homeBloc.onTapChanged,
+        ),
+      ),
     );
   }
 }

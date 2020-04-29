@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/data/user.dart';
 
 class RegisterCard extends StatelessWidget {
@@ -193,8 +194,11 @@ class RegisterCard extends StatelessWidget {
                           child: Container(),
                         ),
                         FlatButton(
-                          child: Text(Strings.GlobalPage.REGISTER),
-                          color: Color(0xFF4B9DFE),
+                          child: Text(
+                            Strings.GlobalPage.REGISTER,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          color: Themes.Colors.ORANGE,
                           textColor: Colors.white,
                           padding: EdgeInsets.only(
                               left: 38, right: 38, top: 15, bottom: 15),
@@ -237,8 +241,13 @@ class RegisterCard extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: () => _authBloc.setAuthMode(Enums.AuthMode.login),
-                textColor: Colors.black87,
-                child: Text(Strings.GlobalPage.LOGIN),
+                textColor: Themes.Colors.ORANGE,
+                child: Text(
+                  Strings.GlobalPage.LOGIN,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               )
             ],
           ),
@@ -248,7 +257,8 @@ class RegisterCard extends StatelessWidget {
               child: Text(
                 Strings.AuthPage.TERMS_AND_CONDITION,
                 style: TextStyle(
-                  color: Colors.blue,
+                  color: Themes.Colors.ORANGE,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               onPressed: () {},
