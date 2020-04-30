@@ -1,5 +1,8 @@
 package com.neomind.holinoti_server.relateion_af;
 
+import com.neomind.holinoti_server.facility.FacilityRepository;
+import com.neomind.holinoti_server.facility.FacilityService;
+import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -7,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -16,6 +20,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/relation_afs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RelationAFController {
     RelationAFRepository relationAFRepository;
+    FacilityRepository facilityRepository;
+    FacilityService facilityService;
+    UserService userService;
+    RelationAFService relationAFService;
 
     @GetMapping
     public List<RelationAF> getAllRelationAFs() {
@@ -38,7 +46,8 @@ public class RelationAFController {
     }
 
     @PostMapping
-    public ResponseEntity addRelationAF(@RequestBody RelationAF relationAF) {
+    public ResponseEntity addRelationAF(@RequestBody RelationAF relationAF) throws Exception {
+        if (!userService.isAccessible(relationAF.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         RelationAF newRelationAF = relationAFRepository.save(relationAF);
         URI createdURI = linkTo(RelationAFController.class).slash(newRelationAF.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newRelationAF);
@@ -47,18 +56,30 @@ public class RelationAFController {
     @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateRelationAF(@RequestBody RelationAF relationAF,
-                                 @PathVariable("relationAFId") int id) {
+                                 @PathVariable("relationAFId") int id) throws Exception {
+        if (!userService.isAccessible(relationAF.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         RelationAF target = relationAFRepository.findById(id).get();
 
         target.setUserId(relationAF.getUserId());
         target.setFacilityCode(relationAF.getFacilityCode());
+        if(target.getRole() == Role.supervisor && relationAF.getRole() != Role.supervisor){
+            relationAFService.deleteAllFacilityWithoutSupervisor(target.getFacilityCode());
+        }
+
         target.setRole(relationAF.getRole());
 
         relationAFRepository.save(target);
     }
 
     @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.DELETE)
-    public void deleteRelationAF(@PathVariable("relationAFId") int id) {
+    public void deleteRelationAF(@PathVariable("relationAFId") int id) throws Exception {
+        RelationAF target = relationAFRepository.findById(id).get();
+
+        if (!userService.isAccessible(target.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         relationAFRepository.deleteById(id);
+
+        if(target.getRole() == Role.supervisor){
+            relationAFService.deleteAllFacilityWithoutSupervisor(target.getFacilityCode());
+        }
     }
 }

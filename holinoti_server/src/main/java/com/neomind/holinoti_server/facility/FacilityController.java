@@ -43,7 +43,12 @@ public class FacilityController {
             URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
             return ResponseEntity.created(createdURI).body(newFacility);
         } catch (Exception e) {
-            deleteFacility(newFacility.getCode());
+            try{
+                deleteFacility(newFacility.getCode());
+            }
+            catch(Exception ex) {
+                ex.printStackTrace();
+            }
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -65,7 +70,9 @@ public class FacilityController {
     }
 
     @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.DELETE)
-    public void deleteFacility(@PathVariable("facilityCode") int code) {
+    public void deleteFacility(@PathVariable("facilityCode") int code)  throws Exception {
+        if (!userService.isAccessible(code)) throw new Exception("Prohibited: Low Grade Role");
+        facilityService.deleteAllRowInRelationAF(code);
         facilityRepository.deleteById(code);
     }
 }

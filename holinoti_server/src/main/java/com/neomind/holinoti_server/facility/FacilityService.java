@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FacilityService {
@@ -25,5 +27,10 @@ public class FacilityService {
                         .role(Role.supervisor)
                         .build()
         );
+    }
+
+    public void deleteAllRowInRelationAF(int code){
+        List<RelationAF> relationAFList = relationAFRepository.findByFacilityCode(code);
+        relationAFRepository.deleteInBatch(relationAFList);
     }
 }

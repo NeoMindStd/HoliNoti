@@ -51,21 +51,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/facilities/facility_images/id=*/**").hasAuthority(Authority.normal.name())
 
                 /// OpeningInfo
-                .antMatchers(HttpMethod.GET, "/opening-infos/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/opening-infos/**").hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, "/opening-infos/id=*/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/opening-infos/facility_code=*/**").permitAll()
 
-                .antMatchers(HttpMethod.POST, "/opening-infos/code=*/**").hasAuthority(Authority.normal.name())
+                .antMatchers(HttpMethod.POST, "/opening-infos/**").hasAuthority(Authority.normal.name())
 
                 .antMatchers(HttpMethod.PUT, "/opening-infos/id=*/**").hasAuthority(Authority.normal.name())
 
-                .antMatchers(HttpMethod.DELETE, "/opening-infos/code=*/**").hasAuthority(Authority.normal.name())
+                .antMatchers(HttpMethod.DELETE, "/opening-infos/id=*/**").hasAuthority(Authority.normal.name())
 
                 /// RelationAF
+                .antMatchers(HttpMethod.GET, "/relation_afs/**").hasAuthority(Authority.admin.name())
+                .antMatchers(HttpMethod.GET, "/relation_afs/id=*/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/relation_afs/user_id=*/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/relation_afs/facility_code=*/**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/relation_afs/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.PUT, "/relation_afs/id=*/**").hasAuthority(Authority.normal.name())
+
+                .antMatchers(HttpMethod.DELETE, "/relation_afs/id=*/**").hasAuthority(Authority.normal.name())
 
                 /// User
                 .antMatchers(HttpMethod.GET, "/users/**").hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, "/users/account=*/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/users/email=*/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/phone_number=*/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/id=*/**").hasAuthority(Authority.admin.name())
 
