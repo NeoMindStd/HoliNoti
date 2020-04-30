@@ -2,9 +2,7 @@ package com.neomind.holinoti_server.relateion_af;
 
 import com.neomind.holinoti_server.facility.FacilityRepository;
 import com.neomind.holinoti_server.facility.FacilityService;
-import com.neomind.holinoti_server.user.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +17,12 @@ public class RelationAFService {
     public void deleteAllFacilityWithoutSupervisor(int facilityCode) {
         List<RelationAF> relationAFListByFacilityCode = relationAFRepository.findByFacilityCode(facilityCode);
         boolean isHaveSupervisor = false;
-        for (RelationAF rel:relationAFListByFacilityCode) {
+        for (RelationAF rel : relationAFListByFacilityCode) {
             if (rel.getRole() == Role.supervisor)
                 isHaveSupervisor = true;
             //targetRelationAFList.add(rel);
         }
-        if(!isHaveSupervisor){
+        if (!isHaveSupervisor) {
             facilityService.deleteAllRowInRelationAF(facilityCode);
             facilityRepository.deleteById(facilityCode);
         }

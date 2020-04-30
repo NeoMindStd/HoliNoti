@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
+import 'package:holinoti_admin/screens/web_view.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_block.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_content.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_title.dart';
@@ -53,8 +54,24 @@ class AppInfo extends StatelessWidget {
         children: <Widget>[
           MenuContent(Strings.SettingPage.BUILD_VER),
           MenuContent(Strings.SettingPage.COMMUNITY_RULE),
-          MenuContent(Strings.SettingPage.PRIVACY_POLICIES),
-          MenuContent(Strings.SettingPage.OPEN_SRC_LICENSES),
+          MenuContent(
+            Strings.SettingPage.PRIVACY_POLICIES,
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => WebViewPage(
+                        Strings.SettingPage.PRIVACY_POLICIES,
+                        "http://holinoti.tk:8080/holinoti/privacy_policies.html"))),
+          ),
+          MenuContent(
+            Strings.SettingPage.OPEN_SRC_LICENSES,
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => WebViewPage(
+                        Strings.SettingPage.OPEN_SRC_LICENSES,
+                        "http://holinoti.tk:8080/holinoti/open_src_licenses.html"))),
+          ),
         ],
       );
 }

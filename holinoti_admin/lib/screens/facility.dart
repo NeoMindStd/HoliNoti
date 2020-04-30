@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/screens/widgets/facility/facility_card.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
 import 'package:holinoti_admin/screens/widgets/global/lower_half.dart';
 import 'package:holinoti_admin/screens/widgets/global/upper_half.dart';
 
+// ignore: must_be_immutable
 class FacilityPage extends StatelessWidget {
   // To adjust the layout according to the screen size
   // so that our layout remains responsive ,we need to
@@ -28,7 +30,12 @@ class FacilityPage extends StatelessWidget {
         return snapshot.data
             ? Scaffold(
                 appBar: AppBar(
-                  title: Text("신규 시설 등록"),
+                  title: Text(
+                    "시설 정보 수정",
+                    style: TextStyle(
+                        color: Themes.Colors.ORANGE,
+                        fontWeight: FontWeight.bold),
+                  ),
                   actions: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.delete),
@@ -41,6 +48,9 @@ class FacilityPage extends StatelessWidget {
                           _facilityBloc.updateMode = false;
                         })
                   ],
+                  iconTheme:
+                      IconThemeData(size: 28, color: Themes.Colors.ORANGE),
+                  backgroundColor: Themes.Colors.WHITE,
                 ),
                 body: SafeArea(
                   child: SingleChildScrollView(
@@ -89,6 +99,9 @@ class FacilityPage extends StatelessWidget {
                       ],
                     ),
                   ],
+                  iconTheme:
+                      IconThemeData(size: 28, color: Themes.Colors.ORANGE),
+                  backgroundColor: Themes.Colors.WHITE,
                 ),
                 body: SafeArea(
                   child: SingleChildScrollView(

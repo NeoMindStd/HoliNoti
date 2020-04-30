@@ -1,7 +1,9 @@
 package com.neomind.holinoti_server.user;
 
-import com.neomind.holinoti_server.facility.FacilityRepository;
-import com.neomind.holinoti_server.relateion_af.*;
+import com.neomind.holinoti_server.relateion_af.RelationAF;
+import com.neomind.holinoti_server.relateion_af.RelationAFRepository;
+import com.neomind.holinoti_server.relateion_af.RelationAFService;
+import com.neomind.holinoti_server.relateion_af.Role;
 import com.neomind.holinoti_server.utils.EncodingManger;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -90,7 +92,7 @@ public class UserService implements UserDetailsService {
         return validatorResult;
     }
 
-    public void deleteAllRowInRelationAFByUser(int id){
+    public void deleteAllRowInRelationAFByUser(int id) {
         List<RelationAF> relationAFList = relationAFRepository.findByUserId(id);
         ArrayList<Integer> facilityCodes = new ArrayList<Integer>();
         for (RelationAF relationAF : relationAFList) {

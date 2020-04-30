@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -62,7 +61,7 @@ public class RelationAFController {
 
         target.setUserId(relationAF.getUserId());
         target.setFacilityCode(relationAF.getFacilityCode());
-        if(target.getRole() == Role.supervisor && relationAF.getRole() != Role.supervisor){
+        if (target.getRole() == Role.supervisor && relationAF.getRole() != Role.supervisor) {
             relationAFService.deleteAllFacilityWithoutSupervisor(target.getFacilityCode());
         }
 
@@ -78,7 +77,7 @@ public class RelationAFController {
         if (!userService.isAccessible(target.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
         relationAFRepository.deleteById(id);
 
-        if(target.getRole() == Role.supervisor){
+        if (target.getRole() == Role.supervisor) {
             relationAFService.deleteAllFacilityWithoutSupervisor(target.getFacilityCode());
         }
     }

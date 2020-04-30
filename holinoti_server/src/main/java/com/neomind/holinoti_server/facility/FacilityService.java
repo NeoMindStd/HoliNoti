@@ -29,7 +29,7 @@ public class FacilityService {
         );
     }
 
-    public void deleteAllRowInRelationAF(int code){
+    public void deleteAllRowInRelationAF(int code) {
         List<RelationAF> relationAFList = relationAFRepository.findByFacilityCode(code);
         relationAFRepository.deleteInBatch(relationAFList);
     }

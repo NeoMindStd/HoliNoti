@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
+import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/screens/widgets/facility/facility_card.dart';
 
 class FacilityPage extends StatelessWidget {
@@ -23,6 +24,8 @@ class FacilityPage extends StatelessWidget {
               icon: Icon(Icons.favorite),
             )
           ],
+          iconTheme: IconThemeData(size: 28, color: Themes.Colors.ORANGE),
+          backgroundColor: Themes.Colors.WHITE,
         ),
         body: SafeArea(
           child: SingleChildScrollView(

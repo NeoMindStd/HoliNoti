@@ -36,7 +36,8 @@ public class FacilityImageController {
 
     @PostMapping
     public ResponseEntity addFacilityImage(@RequestBody FacilityImage facilityImage) throws Exception {
-        if (!userService.isAccessible(facilityImage.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
+        if (!userService.isAccessible(facilityImage.getFacilityCode()))
+            throw new Exception("Prohibited: Low Grade Role");
         FacilityImage newFacilityImage = facilityImageRepository.save(facilityImage);
         URI createdURI = linkTo(FacilityImageController.class).slash(newFacilityImage.getFacilityCode()).toUri();
         return ResponseEntity.created(createdURI).body(newFacilityImage);
@@ -46,7 +47,8 @@ public class FacilityImageController {
     @ResponseStatus(HttpStatus.OK)
     public void updateFacilityImage(@RequestBody FacilityImage facilityImage,
                                     @PathVariable("facilityImageId") int id) throws Exception {
-        if (!userService.isAccessible(facilityImage.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
+        if (!userService.isAccessible(facilityImage.getFacilityCode()))
+            throw new Exception("Prohibited: Low Grade Role");
         FacilityImage target = facilityImageRepository.findById(id).get();
 
         target.setPath(facilityImage.getPath());
