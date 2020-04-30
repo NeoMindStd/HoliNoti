@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/screens/facility.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
@@ -13,7 +14,7 @@ class FacilitiesBloc {
     if (facilities.isNotEmpty) return facilities;
     try {
       http.Response facilityResponse = await http.get(
-        "http://holinoti.tk:8080/holinoti/facilities",
+        Strings.HttpApis.FACILITIES,
         headers: {"Content-Type": "application/json; charset=utf-8"},
       );
 

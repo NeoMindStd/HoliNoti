@@ -1,3 +1,4 @@
+import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/data/opening_info.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
@@ -12,7 +13,7 @@ class FacilityBloc {
     if (facility.openingInfo.isNotEmpty) return facility.openingInfo;
     try {
       http.Response facilityResponse = await http.get(
-        "http://holinoti.tk:8080/holinoti/opening-infos/facility_code=${facility.code}",
+        Strings.HttpApis.oisByFCodeURI(facility.code),
         headers: {"Content-Type": "application/json; charset=utf-8"},
       );
 

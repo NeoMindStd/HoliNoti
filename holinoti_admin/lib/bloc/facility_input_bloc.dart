@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/nos.dart' as Nos;
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/data/opening_info.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
@@ -31,13 +32,19 @@ class FacilityInputBloc {
     try {
       http.Response facilityResponse = _registerMode
           ? await DataManager().client.post(
-                "http://holinoti.tk:8080/holinoti/facilities",
-                headers: {"Content-Type": "application/json; charset=utf-8"},
+                Strings.HttpApis.FACILITIES,
+                headers: {
+                  Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                },
                 body: facilityToJson(facility),
               )
           : await DataManager().client.put(
-                "http://holinoti.tk:8080/holinoti/facilities/code=${facility.code}",
-                headers: {"Content-Type": "application/json; charset=utf-8"},
+                Strings.HttpApis.facilityByCodeURI(facility.code),
+                headers: {
+                  Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                },
                 body: facilityToJson(facility),
               );
 
@@ -65,18 +72,24 @@ class FacilityInputBloc {
 
       openingInfo.facilityCode = DataManager().currentUser.facilities.last.code;
       try {
-        http.Response openingInfoResponse = openingInfo.id ==
-                Nos.Global.NOT_ASSIGNED_ID
-            ? await DataManager().client.post(
-                  "http://holinoti.tk:8080/holinoti/opening-infos",
-                  headers: {"Content-Type": "application/json; charset=utf-8"},
-                  body: openingInfoToJson(openingInfo),
-                )
-            : await DataManager().client.put(
-                  "http://holinoti.tk:8080/holinoti/opening-infos/id=${openingInfo.id}",
-                  headers: {"Content-Type": "application/json; charset=utf-8"},
-                  body: openingInfoToJson(openingInfo),
-                );
+        http.Response openingInfoResponse =
+            openingInfo.id == Nos.Global.NOT_ASSIGNED_ID
+                ? await DataManager().client.post(
+                      Strings.HttpApis.OPENING_INFO,
+                      headers: {
+                        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                      },
+                      body: openingInfoToJson(openingInfo),
+                    )
+                : await DataManager().client.put(
+                      Strings.HttpApis.oiByIdURI(openingInfo.id),
+                      headers: {
+                        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                      },
+                      body: openingInfoToJson(openingInfo),
+                    );
 
         var decodedOpeningInfoResponse =
             HttpDecoder.utf8Response(openingInfoResponse);

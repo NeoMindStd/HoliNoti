@@ -29,6 +29,7 @@ class IconTextTile extends StatelessWidget {
       );
 }
 
+// ignore: must_be_immutable
 class FacilityCard extends StatelessWidget {
   File _image;
   final FacilityBloc _facilityBloc;

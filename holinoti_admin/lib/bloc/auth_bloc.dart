@@ -50,7 +50,7 @@ class AuthBloc {
     _authoritySubject.add(authority);
   }
 
-  // TODO 비밀번호 암호화 하여 전달
+  // TODO 패킷 암호화 하여 전달
   void login(BuildContext context, {String account, String password}) async {
     try {
       /*************************************************************************
@@ -58,8 +58,11 @@ class AuthBloc {
        *************************************************************************/
       DataManager().client = http_auth.BasicAuthClient(account, password);
       http.Response userResponse = await DataManager().client.post(
-        "http://holinoti.tk:8080/holinoti/users/login",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
+        Strings.HttpApis.LOGIN_URI,
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
       );
 
       var decodedUserResponse = HttpDecoder.utf8Response(userResponse);
@@ -76,8 +79,11 @@ class AuthBloc {
        *************************************************************************/
 
       http.Response relationAFsResponse = await DataManager().client.get(
-        "http://holinoti.tk:8080/holinoti/relation_afs/user_id=${DataManager().currentUser.id}",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
+        Strings.HttpApis.relationAFsByUIdURI(DataManager().currentUser.id),
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
       );
       List decodedRelationAFResponse =
           HttpDecoder.utf8Response(relationAFsResponse);
@@ -97,8 +103,11 @@ class AuthBloc {
       for (RelationAF relationAF in decodedRelationAFResponse) {
         decodedFacilitiesResponse
             .add(HttpDecoder.utf8Response(await DataManager().client.get(
-          "http://holinoti.tk:8080/holinoti/facilities/code=${relationAF.facilityCode}",
-          headers: {"Content-Type": "application/json; charset=utf-8"},
+          Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+          },
         )));
       }
 
@@ -115,14 +124,17 @@ class AuthBloc {
     }
   }
 
-  void loginFailed(BuildContext context) =>
-      AppDialog(context).showConfirmDialog("아이디 또는 비밀번호가 잘못되었습니다.");
+  void loginFailed(BuildContext context) => AppDialog(context)
+      .showConfirmDialog(Strings.AuthPage.ERROR_WRONG_ACCOUNT);
 
   void register(User user) async {
     try {
       http.Response userResponse = await http.post(
-        "http://holinoti.tk:8080/holinoti/users/register",
-        headers: {"Content-Type": "application/json; charset=utf-8"},
+        Strings.HttpApis.REGISTER_URI,
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
         body: userToJson(user),
       );
 

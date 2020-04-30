@@ -6,6 +6,59 @@ class ApiKeys {
   // TODO: Map View Rest API Key
 }
 
+class HttpApis {
+  static const SITE_URL = "http://holinoti.tk:8080";
+  static const API_ROOT = "/holinoti";
+  static const FACILITIES = "/facilities";
+  static String facilityByCodeURI(int facilityCode) =>
+      sprintf("%s%s%s/code=%d", [SITE_URL, API_ROOT, FACILITIES, facilityCode]);
+  static String facilityByPHURI(String phoneNumber) => sprintf(
+      "%s%s%s/phone_number=%s", [SITE_URL, API_ROOT, FACILITIES, phoneNumber]);
+
+  static const FACILITY_IMAGES = "/facility_images";
+  static String fIMGByIdURI(int facilityImageId) => sprintf("%s%s%s%s/id=%d",
+      [SITE_URL, API_ROOT, FACILITIES, FACILITY_IMAGES, facilityImageId]);
+  static String fIMGsByFCodeURI(int facilityCode) => sprintf(
+      "%s%s%s%s/facility_code=%d",
+      [SITE_URL, API_ROOT, FACILITIES, FACILITY_IMAGES, facilityCode]);
+
+  static const OPENING_INFO = "/opening-infos";
+  static String oiByIdURI(int openingInfoId) => sprintf(
+      "%s%s%s/id=%d", [SITE_URL, API_ROOT, OPENING_INFO, openingInfoId]);
+  static String oisByFCodeURI(int facilityCode) => sprintf(
+      "%s%s%s/facility_code=%d",
+      [SITE_URL, API_ROOT, OPENING_INFO, facilityCode]);
+
+  static const RELATION_AFS = "/relation_afs";
+  static String relationAFByIdURI(int relationAFId) =>
+      sprintf("%s%s%s/id=%d", [SITE_URL, API_ROOT, RELATION_AFS, relationAFId]);
+  static String relationAFsByFCodeURI(int facilityCode) => sprintf(
+      "%s%s%s/facility_code=%d",
+      [SITE_URL, API_ROOT, RELATION_AFS, facilityCode]);
+  static String relationAFsByUIdURI(int userId) =>
+      sprintf("%s%s%s/user_id=%d", [SITE_URL, API_ROOT, RELATION_AFS, userId]);
+
+  static const USERS = "/users";
+  static const String LOGIN_URI = "$SITE_URL$API_ROOT$USERS/login";
+  static const String REGISTER_URI = "$SITE_URL$API_ROOT$USERS/register";
+  static String userByAccURI(String userAccount) =>
+      sprintf("%s%s%s/account=%s", [SITE_URL, API_ROOT, USERS, userAccount]);
+  static String userByEmailURI(String email) =>
+      sprintf("%s%s%s/email=%s", [SITE_URL, API_ROOT, USERS, email]);
+  static String userByPHURI(String phoneNumber) => sprintf(
+      "%s%s%s/phone_number=%s", [SITE_URL, API_ROOT, USERS, phoneNumber]);
+  static String userByIdURI(int userId) =>
+      sprintf("%s%s%s/id=%d", [SITE_URL, API_ROOT, USERS, userId]);
+
+  static const String PRIVACY_POLICIES =
+      "$SITE_URL$API_ROOT/privacy_policies.html";
+  static const String OPEN_SRC_LICENSES =
+      "$SITE_URL$API_ROOT/open_src_licenses.html";
+
+  static const HEADER_NAME_CONTENT_TYPE = "Content-Type";
+  static const HEADER_VALUE_CONTENT_TYPE = "application/json; charset=utf-8";
+}
+
 class Assets {
   static const ROOT_PATH = "assets/";
   static const RESTAURANT_JPG = ROOT_PATH + "restaurant.jpg";
@@ -59,6 +112,7 @@ class AuthPage {
   static const ERROR_TO_LONG = "너무 깁니다.";
   static const ERROR_PROHIBITED_CHARACTERS = "%s 는 사용하실 수 없습니다.";
   static const ERROR_REQUIRE_COMBINE = "영문자, 숫자, 특수문자 중 2가지 이상을 사용해야 합니다.";
+  static const ERROR_WRONG_ACCOUNT = "아이디 또는 비밀번호가 잘못되었습니다.";
 
   static String get passwordCondition => sprintf(AuthPage.PASSWORD_CONDITION, [
         AuthPage.PROHIBITED_CHARACTERS

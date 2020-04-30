@@ -61,7 +61,7 @@ class AppInfo extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => WebViewPage(
                         Strings.SettingPage.PRIVACY_POLICIES,
-                        "http://holinoti.tk:8080/holinoti/privacy_policies.html"))),
+                        Strings.HttpApis.PRIVACY_POLICIES))),
           ),
           MenuContent(
             Strings.SettingPage.OPEN_SRC_LICENSES,
@@ -70,7 +70,7 @@ class AppInfo extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => WebViewPage(
                         Strings.SettingPage.OPEN_SRC_LICENSES,
-                        "http://holinoti.tk:8080/holinoti/open_src_licenses.html"))),
+                        Strings.HttpApis.OPEN_SRC_LICENSES))),
           ),
         ],
       );
