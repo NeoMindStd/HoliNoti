@@ -12,9 +12,11 @@ import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
+import static com.neomind.holinoti_server.constants.Strings.PathString;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/facilities", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathString.FACILITIES, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FacilityController {
     FacilityRepository facilityRepository;
     FacilityService facilityService;
@@ -25,12 +27,12 @@ public class FacilityController {
         return facilityRepository.findAll();
     }
 
-    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.GET)
     public Facility getFacility(@PathVariable("facilityCode") int code) {
         return facilityRepository.findById(code).get();
     }
 
-    @RequestMapping(path = "/phone_number={phoneNumber}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.PHONE_NUMBER_PATH + "{phoneNumber}", method = RequestMethod.GET)
     public Facility getFacilityByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return facilityRepository.findByPhoneNumber(phoneNumber);
     }
@@ -52,7 +54,7 @@ public class FacilityController {
         }
     }
 
-    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.PUT)
+    @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateFacility(@RequestBody Facility facility,
                                @PathVariable("facilityCode") int code) throws Exception {
@@ -68,7 +70,7 @@ public class FacilityController {
         facilityRepository.save(target);
     }
 
-    @RequestMapping(path = "/code={facilityCode}", method = RequestMethod.DELETE)
+    @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.DELETE)
     public void deleteFacility(@PathVariable("facilityCode") int code) throws Exception {
         if (!userService.isAccessible(code)) throw new Exception("Prohibited: Low Grade Role");
         facilityService.deleteAllRowInRelationAF(code);
