@@ -4,7 +4,8 @@ CREATE TABLE `facility` (
   `address` varchar(255),
   `phone_number` char(30),
   `site_url` VARCHAR(255),
-  `comment` VARCHAR(255)
+  `comment` VARCHAR(255),
+  `coordinates`  GEOMETRY
 );
 
 CREATE TABLE `facility_image` (
