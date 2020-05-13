@@ -5,7 +5,9 @@ CREATE TABLE `facility` (
   `phone_number` char(30),
   `site_url` VARCHAR(255),
   `comment` VARCHAR(255),
-  `coordinates`  GEOMETRY
+  `coordinates`  GEOMETRY,
+  FULLTEXT FULLTEXT_ADDRESS(`address`),
+  FULLTEXT FULLTEXT_NAME(`name`)
 );
 
 CREATE TABLE `facility_image` (
