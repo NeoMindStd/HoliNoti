@@ -151,3 +151,7 @@ class SettingPage {
   static const NOTICE = "공지사항";
   static const CONTACT = "문의하기";
 }
+
+class NoticePage{
+  static const NOTICE_TITLE="공지 목록";
+}
