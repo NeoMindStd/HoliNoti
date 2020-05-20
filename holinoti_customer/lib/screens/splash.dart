@@ -26,17 +26,17 @@ class SplashPageState extends State<SplashPage> {
   //자동로그인
   void autoLogIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final _userId = prefs.getInt('User Id') ?? null;
+    final _userId = prefs.getString('User Id') ?? null;
     final _userPassword = prefs.getString('User Password') ?? null;
 
     if (DataManager().currentUser != null) {
       setState(() {
-        prefs.setInt('User Id', DataManager().currentUser.id);
+        prefs.setString('User Id', DataManager().currentUser.account);
         prefs.setString('User Password', DataManager().currentUser.password);
       });
     } else {
       setState(() {
-        DataManager().currentUser.id = _userId;
+        DataManager().currentUser.account = _userId;
         DataManager().currentUser.password = _userPassword;
       });
     }
