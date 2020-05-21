@@ -2,6 +2,7 @@ package com.neomind.holinoti_server.facility;
 
 import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,13 @@ public class FacilityController {
             }
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(path = PathString.X_PATH + "{x}" + PathString.Y_PATH + "{y}" +
+            PathString.DISTANCE_PATH + "{distanceM}", method = RequestMethod.GET)
+    public List<Facility> getFacilitiesByCoordinates(@PathVariable("x")double x,@PathVariable("y")double y,
+                                                   @PathVariable("distanceM") int side){
+       return facilityService.queryByDistance(x,y,side);
     }
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)

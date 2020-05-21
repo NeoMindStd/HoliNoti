@@ -29,11 +29,21 @@ public class Strings {
         public static final String PHONE_NUMBER_PATH = "/phone_number=";
         public static final String PHONE_NUMBER_PATH_REGEXP = PHONE_NUMBER_PATH + REGEXP;
 
+        public static final String X_PATH = "/x=";
+        public static final String X_PATH_REGEXP = X_PATH + REGEXP;
+
+        public static final String Y_PATH = "/y=";
+        public static final String Y_PATH_REGEXP = Y_PATH + REGEXP;
+
+        public static final String DISTANCE_PATH = "/distance_m=";
+        public static final String DISTANCE_PATH_REGEXP = DISTANCE_PATH + REGEXP;
+
         /// Facility
         public static final String FACILITIES = "/facilities";
         public static final String FACILITIES_URL = FACILITIES + "/**";
         public static final String FACILITIES_URL_BY_CODE = FACILITIES + CODE_PATH_REGEXP;
         public static final String FACILITIES_URL_BY_PHONE_NUMBER = FACILITIES + PHONE_NUMBER_PATH_REGEXP;
+
 
         /// FacilityImage
         public static final String FACILITIES_IMAGES = "/facility_images";
