@@ -43,6 +43,7 @@ public class Strings {
         public static final String FACILITIES_URL = FACILITIES + "/**";
         public static final String FACILITIES_URL_BY_CODE = FACILITIES + CODE_PATH_REGEXP;
         public static final String FACILITIES_URL_BY_PHONE_NUMBER = FACILITIES + PHONE_NUMBER_PATH_REGEXP;
+        public static final String FACILITIES_URL_BY_DISTANCE = FACILITIES + X_PATH + "*" + Y_PATH + "*" + DISTANCE_PATH_REGEXP;
 
 
         /// FacilityImage

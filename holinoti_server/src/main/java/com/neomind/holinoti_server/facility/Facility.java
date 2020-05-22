@@ -5,9 +5,9 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
-import org.springframework.context.annotation.Bean;
-import com.bedatadriven.jackson.datatype.jts.JtsModule;
-import org.springframework.data.geo.Point;
+
+//import com.vividsolutions.jts.geom.Point; //Maybe required future update.
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,16 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@NamedStoredProcedureQuery(name = "Facility.findAllByCoordinates",
-                procedureName = "DISTANCE", parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "lon", type = Double.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "lat", type = Double.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "side", type = Integer.class)},
-                resultClasses = Facility.class
-)
-
 public class Facility implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code", nullable = false)
@@ -45,15 +36,9 @@ public class Facility implements Serializable {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "coordinates")
+    @Column(name = "coordinates", columnDefinition = "geometry")
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Point coordinates;
-
-    @Bean
-    public JtsModule jtsModule()
-    {
-        return new JtsModule();
-    }
 }
 

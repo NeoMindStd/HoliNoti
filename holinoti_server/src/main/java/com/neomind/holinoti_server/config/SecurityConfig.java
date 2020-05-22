@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_URL).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_URL_BY_CODE).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_URL_BY_PHONE_NUMBER).permitAll()
+                .antMatchers(HttpMethod.GET, PathString.FACILITIES_URL_BY_DISTANCE).permitAll()
 
                 .antMatchers(HttpMethod.POST, PathString.FACILITIES_URL).hasAuthority(Authority.normal.name())
 

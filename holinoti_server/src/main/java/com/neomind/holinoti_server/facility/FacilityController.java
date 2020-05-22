@@ -74,6 +74,7 @@ public class FacilityController {
         target.setAddress(facility.getAddress());
         target.setSiteUrl(facility.getSiteUrl());
         target.setComment(facility.getComment());
+        target.setCoordinates(facility.getCoordinates());
 
         facilityRepository.save(target);
     }
