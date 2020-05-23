@@ -1,0 +1,24 @@
+DELIMITER //
+
+CREATE PROCEDURE DISTANCE(lon double, lat double, side int)
+
+BEGIN
+
+SET @lon = lon;
+SET @lat = lat;
+
+SET @MBR_length = side;
+
+SET @lon_diff = @MBR_length / 2 / ST_DISTANCE_SPHERE(POINT(@lon, @lat), POINT(@lon + IF(@lon < 0, 1, -1), @lat));
+SET @lat_diff = @MBR_length / 2 / ST_DISTANCE_SPHERE(POINT(@lon, @lat), POINT(@lon, @lat + IF(@lat < 0, 1, -1)));
+
+SET @diagonal = CONCAT('LINESTRING(', @lon -  IF(@lon < 0, 1, -1) * @lon_diff, ' ', @lat -  IF(@lon < 0, 1, -1) * @lat_diff, ',', @lon +  IF(@lon < 0, 1, -1) * @lon_diff, ' ', @lat +  IF(@lon < 0, 1, -1) * @lat_diff, ')');
+
+SELECT *
+FROM facility FORCE INDEX FOR JOIN (`SPATIAL_COORD`)
+WHERE MBRCONTAINS(ST_LINESTRINGFROMTEXT(@diagonal), coordinates);
+END
+
+//
+
+DELIMITER ;
