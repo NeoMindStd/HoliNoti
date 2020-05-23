@@ -13,10 +13,11 @@ import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static com.neomind.holinoti_server.constants.Strings.PathString;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/relation_afs", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathString.RELATION_AFS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RelationAFController {
     RelationAFRepository relationAFRepository;
     FacilityRepository facilityRepository;
@@ -29,30 +30,31 @@ public class RelationAFController {
         return relationAFRepository.findAll();
     }
 
-    @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.ID_PATH + "{relationAFId}", method = RequestMethod.GET)
     public RelationAF getRelationAFById(@PathVariable("relationAFId") int id) {
         return relationAFRepository.findById(id).get();
     }
 
-    @RequestMapping(path = "/user_id={userId}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.USER_ID_PATH + "{userId}", method = RequestMethod.GET)
     public List<RelationAF> getRelationAFsByUserId(@PathVariable("userId") int userId) {
         return relationAFRepository.findByUserId(userId);
     }
 
-    @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.FACILITY_CODE_PATH + "{facilityCode}", method = RequestMethod.GET)
     public List<RelationAF> getRelationAFsByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
         return relationAFRepository.findByFacilityCode(facilityCode);
     }
 
     @PostMapping
     public ResponseEntity addRelationAF(@RequestBody RelationAF relationAF) throws Exception {
-        if (!userService.isAccessible(relationAF.getFacilityCode())) throw new Exception("Prohibited: Low Grade Role");
+        if (!(relationAF.getRole().ordinal() == Role.customer.ordinal() ||
+                !userService.isAccessible(relationAF.getFacilityCode()))) throw new Exception("Prohibited: Low Grade Role");
         RelationAF newRelationAF = relationAFRepository.save(relationAF);
         URI createdURI = linkTo(RelationAFController.class).slash(newRelationAF.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newRelationAF);
     }
 
-    @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.PUT)
+    @RequestMapping(path = PathString.ID_PATH + "{relationAFId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateRelationAF(@RequestBody RelationAF relationAF,
                                  @PathVariable("relationAFId") int id) throws Exception {
@@ -70,7 +72,7 @@ public class RelationAFController {
         relationAFRepository.save(target);
     }
 
-    @RequestMapping(path = "/id={relationAFId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = PathString.ID_PATH + "{relationAFId}", method = RequestMethod.DELETE)
     public void deleteRelationAF(@PathVariable("relationAFId") int id) throws Exception {
         RelationAF target = relationAFRepository.findById(id).get();
 

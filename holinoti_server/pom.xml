@@ -96,6 +96,27 @@
             <artifactId>flexmark</artifactId>
             <version>0.61.20</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>5.4.16.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.orbisgis</groupId>
+            <artifactId>h2gis</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+<!--        other Geometry version dependency. Maybe required future update-->
+<!--        <dependency>-->
+<!--            <groupId>com.bedatadriven</groupId>-->
+<!--            <artifactId>jackson-datatype-jts</artifactId>-->
+<!--            <version>2.4</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.graphhopper.external</groupId>
+            <artifactId>jackson-datatype-jts</artifactId>
+            <version>1.0-2.7</version>
+        </dependency>
     </dependencies>
 
     <build>

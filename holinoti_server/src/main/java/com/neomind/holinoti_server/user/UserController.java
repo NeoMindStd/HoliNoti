@@ -1,5 +1,6 @@
 package com.neomind.holinoti_server.user;
 
+import com.neomind.holinoti_server.constants.Strings;
 import com.neomind.holinoti_server.utils.EncodingManger;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,10 +12,11 @@ import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static com.neomind.holinoti_server.constants.Strings.PathString;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathString.USER, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     UserRepository userRepository;
     UserService userService;
@@ -24,7 +26,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    @RequestMapping(path = PathString.LOGIN_PATH, method = RequestMethod.POST)
     public User login() throws Exception {
         System.out.println("login attempted...");
         User currentUser = userService.getCurrentUser();
@@ -32,34 +34,34 @@ public class UserController {
         return currentUser;
     }
 
-    @RequestMapping(path = "/id={userId}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.GET)
     public User getUserById(@PathVariable("userId") int id) {
         return userRepository.findById(id).get();
     }
 
-    @RequestMapping(path = "/account={userAccount}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.ACCOUNT_PATH + "{userAccount}", method = RequestMethod.GET)
     public User getUserByAccount(@PathVariable("userAccount") String account) {
         return userRepository.findByAccount(account);
     }
 
-    @RequestMapping(path = "/email={email}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.EMAIL_PATH + "{email}", method = RequestMethod.GET)
     public User getUserEmail(@PathVariable("email") String email) {
         return userRepository.findByEmail(email);
     }
 
-    @RequestMapping(path = "/phone_number={phoneNumber}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.PHONE_NUMBER_PATH + "{phoneNumber}", method = RequestMethod.GET)
     public User getUserByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
 
-    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    @RequestMapping(path = PathString.REGISTER_PATH, method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody User user) {
         User newUser = userService.register(user);
         URI createdURI = linkTo(UserController.class).slash(newUser.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newUser);
     }
 
-    @RequestMapping(path = "/id={userId}", method = RequestMethod.PUT)
+    @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody User user,
                            @PathVariable("userId") int id) {
@@ -76,7 +78,7 @@ public class UserController {
         userRepository.save(target);
     }
 
-    @RequestMapping(path = "/id={userId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable("userId") int id) {
         userService.deleteAllRowInRelationAFByUser(id);
         userRepository.deleteById(id);

@@ -1,6 +1,13 @@
 package com.neomind.holinoti_server.facility;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+
+//import com.vividsolutions.jts.geom.Point; //Maybe required future update.
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +21,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class Facility implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code", nullable = false)
@@ -30,4 +36,9 @@ public class Facility implements Serializable {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "coordinates", columnDefinition = "geometry")
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
+    private Point coordinates;
 }
+
