@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
 import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/screens/widgets/facility/facility_card.dart';
+import 'package:holinoti_customer/screens/widgets/global/favorite_button.dart';
 
 class FacilityPage extends StatelessWidget {
   // To adjust the layout according to the screen size
@@ -20,9 +21,7 @@ class FacilityPage extends StatelessWidget {
             Icons.arrow_back,
           ),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.favorite),
-            )
+            FavoriteButton(),
           ],
           iconTheme: IconThemeData(size: 28, color: Themes.Colors.ORANGE),
           backgroundColor: Themes.Colors.WHITE,
