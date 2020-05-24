@@ -3,7 +3,7 @@ app.get("/kaka", (req, res) =>res.send(`<!DOCTYPE html>
     <head><meta charset="utf-8"/><title>Kakao 지도</title></head>
     <body>
       <div id="map" style="width:100%;height:400px;"></div>
-	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${fbf5e9761a5134cbbbf55e88022a89c8}"></script>
+	  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fbf5e9761a5134cbbbf55e88022a89c8"></script>
 	  <script>
 	     var container = document.getElementById('map');
 	     var options = {center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};

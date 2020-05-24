@@ -30,13 +30,13 @@ class Facility {
   }
 
   factory Facility.fromJson(Map<String, dynamic> json) => Facility(
-        code: json['code'] as int,
-        name: json['name'] as String,
-        address: json['address'] as String,
-        phoneNumber: json['phoneNumber'] as String,
-        siteUrl: json['siteUrl'] as String,
-        comment: json['comment'] as String,
-      );
+    code: json['code'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+    name: json['name'] as String ?? "",
+    address: json['address'] as String ?? "",
+    phoneNumber: json['phoneNumber'] as String ?? "",
+    siteUrl: json['siteUrl'] as String ?? "",
+    comment: json['comment'] as String ?? "",
+  );
 
   Map<String, dynamic> toJson() => {
         'code': code,
