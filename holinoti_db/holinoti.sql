@@ -4,7 +4,11 @@ CREATE TABLE `facility` (
   `address` varchar(255),
   `phone_number` char(30),
   `site_url` VARCHAR(255),
-  `comment` VARCHAR(255)
+  `comment` VARCHAR(255),
+  `coordinates`  POINT NOT NULL,
+  FULLTEXT FULLTEXT_ADDRESS(`address`),
+  FULLTEXT FULLTEXT_NAME(`name`),
+  SPATIAL SPATIAL_COORD(`coordinates`)
 );
 
 CREATE TABLE `facility_image` (

@@ -23,12 +23,12 @@ class OpeningInfo {
   }
 
   factory OpeningInfo.fromJson(Map<String, dynamic> json) => OpeningInfo(
-        id: json['id'] as int,
-        facilityCode: json['facilityCode'] as int,
-        businessDayStart: json['businessDayStart'] as String,
-        openingHoursStart: json['openingHoursStart'] as String,
-        businessDayEnd: json['businessDayEnd'] as String,
-        openingHoursEnd: json['openingHoursEnd'] as String,
+        id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        facilityCode: json['facilityCode'] as int ?? "",
+        businessDayStart: json['businessDayStart'] as String ?? "",
+        openingHoursStart: json['openingHoursStart'] as String ?? "",
+        businessDayEnd: json['businessDayEnd'] as String ?? "",
+        openingHoursEnd: json['openingHoursEnd'] as String ?? "",
       );
 
   Map<String, dynamic> toJson() => {
