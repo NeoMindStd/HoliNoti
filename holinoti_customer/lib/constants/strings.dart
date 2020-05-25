@@ -6,6 +6,12 @@ class ApiKeys {
   // TODO: Map View Rest API Key
 }
 
+class Preferences {
+  static const IS_AUTO_LOGIN_MODE = "isAutoLoginMode";
+  static const ACCOUNT = "account";
+  static const PASSWORD = "password";
+}
+
 class HttpApis {
   static const SITE_URL = "http://holinoti.tk:8080";
   static const API_ROOT = "/holinoti";
@@ -82,6 +88,7 @@ class GlobalPage {
   static const BUTTON_NO = '아니오';
   static const BUTTON_SUBMIT = '확인';
   static const BUTTON_CANCEL = '취소';
+  static const AUTO_LOGIN = '자동 로그인';
   static const DAYS_OF_THE_WEEKS = ['일', '월', '화', '수', '목', '금', '토'];
 }
 
@@ -150,4 +157,8 @@ class SettingPage {
   static const ETC = "기타";
   static const NOTICE = "공지사항";
   static const CONTACT = "문의하기";
+}
+
+class NoticePage {
+  static const NOTICE_TITLE = "공지 목록";
 }

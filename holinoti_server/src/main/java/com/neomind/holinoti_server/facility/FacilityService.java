@@ -15,6 +15,7 @@ import java.util.List;
 public class FacilityService {
     private UserRepository userRepository;
     private RelationAFRepository relationAFRepository;
+    private FacilityRepository facilityRepository;
 
     public void linkSupervisorAndFacility(int fid) throws Exception {
         final String currentUserAccount = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -32,5 +33,9 @@ public class FacilityService {
     public void deleteAllRowInRelationAF(int code) {
         List<RelationAF> relationAFList = relationAFRepository.findByFacilityCode(code);
         relationAFRepository.deleteInBatch(relationAFList);
+    }
+
+    public List<Facility> queryByDistance(double x, double y, int side){
+        return facilityRepository.findAllByCoordinates(x, y, side);
     }
 }

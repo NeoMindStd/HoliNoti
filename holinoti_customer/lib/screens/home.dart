@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/constants/themes.dart' as Themes;
+import 'package:holinoti_customer/screens/notice.dart';
 import 'package:holinoti_customer/screens/settings.dart';
 import 'package:holinoti_customer/screens/widgets/home/facility_list_column.dart';
 
@@ -146,7 +147,7 @@ class HomePage extends StatelessWidget {
       SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            Text("공지 목록"),
+            NoticeColumn(),
           ],
         ),
       ),
@@ -157,7 +158,7 @@ class HomePage extends StatelessWidget {
       stream: _homeBloc.tapIndexStream,
       builder: (context, snapshot) => Scaffold(
         appBar: _appBars[snapshot.data],
-        body: Center(
+        body: Container(
           child: _routePages[snapshot.data],
         ),
         bottomNavigationBar: BottomNavigationBar(

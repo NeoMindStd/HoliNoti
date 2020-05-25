@@ -28,13 +28,13 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json['id'] as int,
-        account: json['account'] as String,
-        password: json['password'] as String,
-        name: json['name'] as String,
-        authority: json['authority'] as Enums.Authority,
-        email: json['email'] as String,
-        phoneNumber: json['phoneNumber'] as String,
+        id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        account: json['account'] as String ?? "",
+        password: json['password'] as String ?? "",
+        name: json['name'] as String ?? "",
+        authority: json['authority'] as Enums.Authority ?? Enums.Authority.normal,
+        email: json['email'] as String ?? "",
+        phoneNumber: json['phoneNumber'] as String ?? "",
       );
 
   Map<String, dynamic> toJson() => {

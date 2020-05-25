@@ -11,10 +11,11 @@ import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static com.neomind.holinoti_server.constants.Strings.PathString;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/opening-infos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathString.OPENING_INFOS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class OpeningInfoController {
     OpeningInfoRepository openingInfoRepository;
     UserService userService;
@@ -24,12 +25,12 @@ public class OpeningInfoController {
         return openingInfoRepository.findAll();
     }
 
-    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.ID_PATH + "{openingInfoId}", method = RequestMethod.GET)
     public OpeningInfo getOpeningInfo(@PathVariable("openingInfoId") int id) {
         return openingInfoRepository.findById(id).get();
     }
 
-    @RequestMapping(path = "/facility_code={facilityCode}", method = RequestMethod.GET)
+    @RequestMapping(path = PathString.FACILITY_CODE_PATH + "{facilityCode}", method = RequestMethod.GET)
     public List<OpeningInfo> getOpeningInfosByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
         return openingInfoRepository.findOpeningInfosByFacilityCode(facilityCode);
     }
@@ -43,7 +44,7 @@ public class OpeningInfoController {
         return ResponseEntity.created(createdURI).body(newOpeningInfo);
     }
 
-    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.PUT)
+    @RequestMapping(path = PathString.ID_PATH + "{openingInfoId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateOpeningInfo(@RequestBody OpeningInfo openingInfo,
                                   @PathVariable("openingInfoId") int id) throws Exception {
@@ -59,7 +60,7 @@ public class OpeningInfoController {
         openingInfoRepository.save(target);
     }
 
-    @RequestMapping(path = "/id={openingInfoId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = PathString.ID_PATH + "{openingInfoId}", method = RequestMethod.DELETE)
     public void deleteOpeningInfo(@PathVariable("openingInfoId") int id) throws Exception {
         if (!userService.isAccessible(openingInfoRepository.findById(id).get().getFacilityCode()))
             throw new Exception("Prohibited: Low Grade Role");
