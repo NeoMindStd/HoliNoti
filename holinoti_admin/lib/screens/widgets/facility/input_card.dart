@@ -1,12 +1,10 @@
 import 'dart:io';
-import 'dart:async';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/opening_info.dart';
-
 
 class InputCard extends StatelessWidget {
   File _image;
@@ -16,16 +14,16 @@ class InputCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-      child:
-      Column(crossAxisAlignment: CrossAxisAlignment.center, children: <
-          Widget>[
-            Text("가게 정보 등록 페이지"),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: <
+                  Widget>[
+        Text("가게 정보 등록 페이지"),
         TextField(
           decoration: InputDecoration(
             labelText: "가게 이름",
           ),
           controller:
-          TextEditingController(text: _facilityInputBloc.facility.name),
+              TextEditingController(text: _facilityInputBloc.facility.name),
           onChanged: _facilityInputBloc.setFacilityName,
         ),
         TextField(
@@ -33,7 +31,7 @@ class InputCard extends StatelessWidget {
             labelText: "소개",
           ),
           controller:
-          TextEditingController(text: _facilityInputBloc.facility.comment),
+              TextEditingController(text: _facilityInputBloc.facility.comment),
           onChanged: _facilityInputBloc.setFacilityComment,
         ),
         Container(
@@ -47,7 +45,7 @@ class InputCard extends StatelessWidget {
             labelText: "가게 주소",
           ),
           controller:
-          TextEditingController(text: _facilityInputBloc.facility.address),
+              TextEditingController(text: _facilityInputBloc.facility.address),
           onChanged: _facilityInputBloc.setFacilityAddress,
         ),
         TextField(

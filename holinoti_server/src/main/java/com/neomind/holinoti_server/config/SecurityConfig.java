@@ -28,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                /// Resources
+                .antMatchers(HttpMethod.GET, "/kakao_map.html/**").permitAll()
+
                 /// Facility
                 .antMatchers(HttpMethod.GET, "/facilities/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/facilities/code=*/**").permitAll()

@@ -13,23 +13,23 @@ class OpeningInfo {
 
   OpeningInfo(
       {this.id = Nos.Global.NOT_ASSIGNED_ID,
-        this.facilityCode = Nos.Global.NOT_ASSIGNED_ID,
-        this.businessDayStart,
-        this.openingHoursStart = "09:00",
-        this.businessDayEnd,
-        this.openingHoursEnd = "21:00"}) {
+      this.facilityCode = Nos.Global.NOT_ASSIGNED_ID,
+      this.businessDayStart,
+      this.openingHoursStart = "09:00",
+      this.businessDayEnd,
+      this.openingHoursEnd = "21:00"}) {
     businessDayStart ??= Strings.RegisterFacilityPage.DAYS_OF_THE_WEEKS.first;
     businessDayEnd ??= Strings.RegisterFacilityPage.DAYS_OF_THE_WEEKS.last;
   }
 
   factory OpeningInfo.fromJson(Map<String, dynamic> json) => OpeningInfo(
-    id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
-    facilityCode: json['facilityCode'] as int ?? "",
-    businessDayStart: json['businessDayStart'] as String ?? "",
-    openingHoursStart: json['openingHoursStart'] as String ?? "",
-    businessDayEnd: json['businessDayEnd'] as String ?? "",
-    openingHoursEnd: json['openingHoursEnd'] as String ?? "",
-  );
+        id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        facilityCode: json['facilityCode'] as int ?? "",
+        businessDayStart: json['businessDayStart'] as String ?? "",
+        openingHoursStart: json['openingHoursStart'] as String ?? "",
+        businessDayEnd: json['businessDayEnd'] as String ?? "",
+        openingHoursEnd: json['openingHoursEnd'] as String ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
         'id': id,
