@@ -17,10 +17,10 @@ class RelationAF {
   });
 
   factory RelationAF.fromJson(Map<String, dynamic> json) => RelationAF(
-        id: json['id'] as int,
-        userId: json['userId'] as int,
-        facilityCode: json['facilityCode'] as int,
-        role: json['role'] as Enums.Role,
+        id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        userId: json['userId'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        facilityCode: json['facilityCode'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        role: json['role'] as Enums.Role ?? Enums.Role.customer,
       );
 
   Map<String, dynamic> toJson() => {

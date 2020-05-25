@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
@@ -59,7 +60,10 @@ class FacilityCard extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               width: 300,
               height: 300,
-              child: (_image != null) ? Image.file(_image) : Placeholder(),
+              child: EasyWebView(
+                src:
+                    "http://holinoti.tk:8080/holinoti/kakao_map/x=128.108000/y=35.158204/",
+              ),
             ),
             IconTextTile(
               Icons.location_on,

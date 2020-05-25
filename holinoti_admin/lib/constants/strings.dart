@@ -82,6 +82,10 @@ class GlobalPage {
   static const BUTTON_NO = '아니오';
   static const BUTTON_SUBMIT = '확인';
   static const BUTTON_CANCEL = '취소';
+  static const BIO_AUTH_SIGN_IN_TITLE = '생체 인증';
+  static const BIO_AUTH_GOTO_SETTING = '설정';
+  static const BIO_AUTH_GOTO_SETTING_DESCRIPTION = '생체 인증을 설정해주세요.';
+  static const BIO_AUTH_LOCALIZED_REASON = '계속 진행하시려면 인증해주십시오';
 }
 
 class HomePage {

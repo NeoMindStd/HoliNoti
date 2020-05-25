@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/utils/fingerprint_manager.dart';
 
 import 'home.dart';
 
@@ -23,6 +24,7 @@ class SplashPageState extends State<SplashPage> {
   }
 
   Future<Timer> loadData() async {
+    FingerPrintManager().checkBio();
     return Timer(Duration(seconds: 2), onDoneLoading);
   }
 

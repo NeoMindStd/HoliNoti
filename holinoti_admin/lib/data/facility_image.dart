@@ -14,9 +14,9 @@ class FacilityImage {
   });
 
   factory FacilityImage.fromJson(Map<String, dynamic> json) => FacilityImage(
-        id: json['id'] as int,
-        path: json['path'] as String,
-        facilityCode: json['facilityCode'] as int,
+        id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
+        path: json['path'] as String ?? "",
+        facilityCode: json['facilityCode'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
       );
 
   Map<String, dynamic> toJson() => {
