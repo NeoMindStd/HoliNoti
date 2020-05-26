@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
+import 'package:holinoti_admin/bloc/profile_bloc.dart';
 import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/screens/auth.dart';
 import 'package:holinoti_admin/screens/facility.dart';
@@ -9,6 +10,7 @@ import 'package:holinoti_admin/screens/profile.dart';
 import 'package:holinoti_admin/screens/register_opening_info.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBloc {
   final _tapIndexSubject = PublishSubject<int>();
@@ -25,13 +27,17 @@ class HomeBloc {
         ),
       );
 
-  void moveToProfilePage(BuildContext context) => Navigator.push(
-        context,
-        platformPageRoute(
-          context: context,
-          builder: (context) => ProfilePage(),
-        ),
-      );
+  void moveToProfilePage(BuildContext context) async {
+    ProfileBloc profileBloc =
+        ProfileBloc(await SharedPreferences.getInstance());
+    Navigator.push(
+      context,
+      platformPageRoute(
+        context: context,
+        builder: (context) => ProfilePage(profileBloc),
+      ),
+    );
+  }
 
   void moveToAuthOrProfilePage(BuildContext context) =>
       DataManager().currentUser == null

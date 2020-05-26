@@ -2,7 +2,6 @@ package com.neomind.holinoti_server.facility;
 
 import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 import static com.neomind.holinoti_server.constants.Strings.PathString;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @AllArgsConstructor
@@ -57,9 +55,9 @@ public class FacilityController {
 
     @RequestMapping(path = PathString.X_PATH + "{x}" + PathString.Y_PATH + "{y}" +
             PathString.DISTANCE_PATH + "{distanceM}", method = RequestMethod.GET)
-    public List<Facility> getFacilitiesByCoordinates(@PathVariable("x")double x,@PathVariable("y")double y,
-                                                   @PathVariable("distanceM") int side){
-       return facilityService.queryByDistance(x,y,side);
+    public List<Facility> getFacilitiesByCoordinates(@PathVariable("x") double x, @PathVariable("y") double y,
+                                                     @PathVariable("distanceM") int side) {
+        return facilityService.queryByDistance(x, y, side);
     }
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)

@@ -35,7 +35,7 @@ public class FacilityService {
         relationAFRepository.deleteInBatch(relationAFList);
     }
 
-    public List<Facility> queryByDistance(double x, double y, int side){
+    public List<Facility> queryByDistance(double x, double y, int side) {
         return facilityRepository.findAllByCoordinates(x, y, side);
     }
 }

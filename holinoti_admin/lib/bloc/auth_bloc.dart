@@ -12,6 +12,7 @@ import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 
 class AuthBloc {
@@ -73,55 +74,64 @@ class AuthBloc {
       DataManager().currentUser = User.fromJson(decodedUserResponse);
       print('Login: ${DataManager().currentUser}');
 
-      /*************************************************************************
-       *                           Get Bookmark List                           *
-       * Exclude if relationAF.role is Enums.Role.customer                     *
-       *************************************************************************/
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      http.Response relationAFsResponse = await DataManager().client.get(
-        Strings.HttpApis.relationAFsByUIdURI(DataManager().currentUser.id),
-        headers: {
-          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
-        },
-      );
-      List decodedRelationAFResponse =
-          HttpDecoder.utf8Response(relationAFsResponse);
-      print('decodedRelationAFResponse: $decodedRelationAFResponse');
+      prefs.setString(Strings.Preferences.ACCOUNT, account);
+      prefs.setString(Strings.Preferences.PASSWORD, password);
 
-      List decodedFacilitiesResponse = [];
-
-      decodedRelationAFResponse = decodedRelationAFResponse
-          .map((relationAFMap) {
-            relationAFMap['role'] =
-                Enums.fromString(Enums.Role.values, relationAFMap['role']);
-            return RelationAF.fromJson(relationAFMap);
-          })
-          .where((relationAF) => relationAF.role != Enums.Role.customer)
-          .toList();
-
-      for (RelationAF relationAF in decodedRelationAFResponse) {
-        decodedFacilitiesResponse
-            .add(HttpDecoder.utf8Response(await DataManager().client.get(
-          Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
-          headers: {
-            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
-          },
-        )));
-      }
-
-      DataManager().currentUser.facilities =
-          decodedFacilitiesResponse.map((e) => Facility.fromJson(e)).toList();
-      DataManager().dataBloc.setUser(DataManager().currentUser);
-
-      print('Facilities: ${DataManager().currentUser.facilities}');
+      await loadFacilities();
 
       Navigator.pop(context);
     } catch (e) {
       print(e);
       loginFailed(context);
     }
+  }
+
+  static Future loadFacilities() async {
+    /*************************************************************************
+     *                           Get Bookmark List                           *
+     * Exclude if relationAF.role is Enums.Role.customer                     *
+     *************************************************************************/
+
+    http.Response relationAFsResponse = await DataManager().client.get(
+      Strings.HttpApis.relationAFsByUIdURI(DataManager().currentUser.id),
+      headers: {
+        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+      },
+    );
+    List decodedRelationAFResponse =
+        HttpDecoder.utf8Response(relationAFsResponse);
+    print('decodedRelationAFResponse: $decodedRelationAFResponse');
+
+    List decodedFacilitiesResponse = [];
+
+    decodedRelationAFResponse = decodedRelationAFResponse
+        .map((relationAFMap) {
+          relationAFMap['role'] =
+              Enums.fromString(Enums.Role.values, relationAFMap['role']);
+          return RelationAF.fromJson(relationAFMap);
+        })
+        .where((relationAF) => relationAF.role != Enums.Role.customer)
+        .toList();
+
+    for (RelationAF relationAF in decodedRelationAFResponse) {
+      decodedFacilitiesResponse
+          .add(HttpDecoder.utf8Response(await DataManager().client.get(
+        Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
+      )));
+    }
+
+    DataManager().currentUser.facilities =
+        decodedFacilitiesResponse.map((e) => Facility.fromJson(e)).toList();
+    DataManager().dataBloc.setUser(DataManager().currentUser);
+
+    print('Facilities: ${DataManager().currentUser.facilities}');
   }
 
   void loginFailed(BuildContext context) => AppDialog(context)

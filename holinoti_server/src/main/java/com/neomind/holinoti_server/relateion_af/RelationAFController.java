@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static com.neomind.holinoti_server.constants.Strings.PathString;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @AllArgsConstructor
@@ -48,7 +48,8 @@ public class RelationAFController {
     @PostMapping
     public ResponseEntity addRelationAF(@RequestBody RelationAF relationAF) throws Exception {
         if (!(relationAF.getRole().ordinal() == Role.customer.ordinal() ||
-                !userService.isAccessible(relationAF.getFacilityCode()))) throw new Exception("Prohibited: Low Grade Role");
+                !userService.isAccessible(relationAF.getFacilityCode())))
+            throw new Exception("Prohibited: Low Grade Role");
         RelationAF newRelationAF = relationAFRepository.save(relationAF);
         URI createdURI = linkTo(RelationAFController.class).slash(newRelationAF.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newRelationAF);

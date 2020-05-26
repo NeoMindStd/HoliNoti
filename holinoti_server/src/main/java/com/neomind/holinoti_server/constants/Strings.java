@@ -17,7 +17,7 @@ public class Strings {
         public static final String USER_ID_PATH = "/user_id=";
         public static final String USER_ID_PATH_REGEXP = USER_ID_PATH + REGEXP;
 
-        public static final String FACILITY_CODE_PATH= "/facility_code=";
+        public static final String FACILITY_CODE_PATH = "/facility_code=";
         public static final String FACILITY_CODE_PATH_REGEXP = FACILITY_CODE_PATH + REGEXP;
 
         public static final String ACCOUNT_PATH = "/account=";
@@ -45,14 +45,12 @@ public class Strings {
         public static final String FACILITIES_URL_BY_PHONE_NUMBER = FACILITIES + PHONE_NUMBER_PATH_REGEXP;
         public static final String FACILITIES_URL_BY_DISTANCE = FACILITIES + X_PATH + "*" + Y_PATH + "*" + DISTANCE_PATH_REGEXP;
 
-
         /// FacilityImage
         public static final String FACILITIES_IMAGES = "/facility_images";
         public static final String FACILITIES_IMAGES_FULL_PATH = FACILITIES + FACILITIES_IMAGES; //path
         public static final String FACILITIES_IMAGES_URL = FACILITIES_IMAGES_FULL_PATH + "/**";
         public static final String FACILITIES_IMAGES_URL_BY_ID = FACILITIES_IMAGES_FULL_PATH + ID_PATH_REGEXP;
         public static final String FACILITIES_IMAGES_URL_BY_FACILITY_CODE = FACILITIES_IMAGES_FULL_PATH + FACILITY_CODE_PATH_REGEXP;
-
 
         /// OpeningInfo
         public static final String OPENING_INFOS = "/opening-infos";
@@ -78,6 +76,11 @@ public class Strings {
         public static final String REGISTER_PATH = "/register";
         public static final String USER_LOGIN_URL = USER + LOGIN_PATH + "/**";
         public static final String USER_REGISTER_URL = USER + REGISTER_PATH + "/**";
+
+        /// View
+        public static final String KAKAO_MAP_VIEW = "kakao_map";
+        public static final String KAKAO_MAP = "/" + KAKAO_MAP_VIEW;
+
     }
 }
 

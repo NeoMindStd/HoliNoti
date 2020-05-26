@@ -1,6 +1,7 @@
-package com.neomind.holinoti_server.html;
+package com.neomind.holinoti_server.view;
 
 
+import com.neomind.holinoti_server.constants.Strings;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @AllArgsConstructor
-public class HtmlController {
-    @RequestMapping(value = "/kakao_map/x={x}/y={y}", method = RequestMethod.GET)
+public class ViewController {
+    @RequestMapping(value = Strings.PathString.KAKAO_MAP + Strings.PathString.X_PATH + "{x}" + Strings.PathString.Y_PATH + "{y}", method = RequestMethod.GET)
     public String map(@PathVariable("x") double x, @PathVariable("y") double y, ModelMap modelMap) throws Exception {
-        modelMap.addAttribute("x",x);
-        modelMap.addAttribute("y",y);
+        modelMap.addAttribute("x", x);
+        modelMap.addAttribute("y", y);
 
         System.out.println(x);
         System.out.println(y);
@@ -22,6 +23,6 @@ public class HtmlController {
         System.out.println(modelMap.getAttribute("x"));
         System.out.println(modelMap.getAttribute("y"));
 
-        return "kakao_map";
+        return Strings.PathString.KAKAO_MAP_VIEW;
     }
 }

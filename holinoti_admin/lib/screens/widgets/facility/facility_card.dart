@@ -62,7 +62,7 @@ class FacilityCard extends StatelessWidget {
               height: 300,
               child: EasyWebView(
                 src:
-                    "http://holinoti.tk:8080/holinoti/kakao_map/x=128.108000/y=35.158204/",
+                    "http://holinoti.tk:8080/holinoti/kakao_map/x=${_facilityBloc.facility.x}/y=${_facilityBloc.facility.y}/",
               ),
             ),
             IconTextTile(

@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="map" style="width:500px;height:400px;"></div>
-<script th:inline="javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fb1a28ebf058dac66ff29d555e364e5"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fb1a28ebf058dac66ff29d555e364e5" th:inline="javascript"></script>
 <script th:inline="javascript">
     var container = document.getElementById('map');
     var options = {
@@ -16,7 +16,7 @@
 
     var map = new kakao.maps.Map(container, options);
 
-    var markerPosition  = new kakao.maps.LatLng([[${y}]], [[${x}]]);
+    var markerPosition = new kakao.maps.LatLng([[${y}]], [[${x}]]);
 
     var marker = new kakao.maps.Marker({
         position: markerPosition

@@ -11,6 +11,8 @@ class Facility {
   String phoneNumber;
   String siteUrl;
   String comment;
+  double x;
+  double y;
 
   /// json 매핑시 제외
   List<OpeningInfo> openingInfo;
@@ -24,6 +26,8 @@ class Facility {
     this.siteUrl = "",
     this.comment = "",
     this.openingInfo,
+    this.x = 0,
+    this.y = 0,
   }) {
     openingInfo ??= [];
     facilityImages ??= [];
@@ -36,6 +40,18 @@ class Facility {
         phoneNumber: json['phoneNumber'] as String ?? "",
         siteUrl: json['siteUrl'] as String ?? "",
         comment: json['comment'] as String ?? "",
+        x: (((json['coordinates'] as Map) ??
+                    {
+                      'coordinates': [0, 0]
+                    })['coordinates'] ??
+                [0, 0])[0] ??
+            0,
+        y: (((json['coordinates'] as Map) ??
+                    {
+                      'coordinates': [0, 0]
+                    })['coordinates'] ??
+                [0, 0])[1] ??
+            0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -45,11 +61,18 @@ class Facility {
         'phoneNumber': phoneNumber,
         'siteUrl': siteUrl,
         'comment': comment,
+        'coordinates': {
+          "type": "Point",
+          "coordinates": [
+            x,
+            y,
+          ],
+        },
       };
 
   @override
   String toString() =>
-      'Facility{code: $code, name: $name, address: $address, phoneNumber: $phoneNumber, siteUrl: $siteUrl, comment: $comment}';
+      'Facility{code: $code, name: $name, address: $address, phoneNumber: $phoneNumber, siteUrl: $siteUrl, comment: $comment, x: $x, y: $y}';
 }
 
 Facility facilityFromJson(String string) =>

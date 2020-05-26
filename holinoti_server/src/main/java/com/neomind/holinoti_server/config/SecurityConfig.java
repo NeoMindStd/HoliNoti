@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 /// FacilityImage
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL_BY_ID).permitAll()
-                .antMatchers(HttpMethod.GET,  PathString.FACILITIES_IMAGES_URL_BY_FACILITY_CODE).permitAll()
+                .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL_BY_FACILITY_CODE).permitAll()
 
                 .antMatchers(HttpMethod.POST, PathString.FACILITIES_IMAGES_URL).hasAuthority(Authority.normal.name())
 

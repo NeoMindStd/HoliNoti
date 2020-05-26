@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holinoti_admin/bloc/profile_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_block.dart';
@@ -7,6 +8,10 @@ import 'package:holinoti_admin/screens/widgets/global/menu/menu_title.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 
 class ProfilePage extends StatelessWidget {
+  final ProfileBloc _profileBloc;
+
+  ProfilePage(this._profileBloc);
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -25,8 +30,8 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ProfileTitle(),
-                ProfileList(),
+                ProfileTitle(_profileBloc),
+                ProfileList(_profileBloc),
               ],
             ),
           ),
@@ -34,8 +39,11 @@ class ProfilePage extends StatelessWidget {
       );
 }
 
-//프로필
 class ProfileTitle extends StatelessWidget {
+  final ProfileBloc _profileBloc;
+
+  ProfileTitle(this._profileBloc);
+
   @override
   Widget build(BuildContext context) => Container(
         margin: Themes.GlobalPage.blockMargin,
@@ -70,8 +78,11 @@ class ProfileTitle extends StatelessWidget {
       );
 }
 
-//내용 출력
 class ProfileList extends StatelessWidget {
+  final ProfileBloc _profileBloc;
+
+  ProfileList(this._profileBloc);
+
   @override
   Widget build(BuildContext context) => MenuBlock(
         title: MenuTitle(Strings.AuthPage.ACCOUNT),
@@ -85,6 +96,10 @@ class ProfileList extends StatelessWidget {
           MenuContent(Strings.ProfilePage.CHANGE_FINGERPRINT),
           MenuContent(Strings.ProfilePage.SET_DISCLOSURE_SCOPE_PERSONAL_INFO),
           MenuContent(Strings.ProfilePage.USER_SECESSION),
+          MenuContent(
+            Strings.GlobalPage.AUTO_LOGIN,
+            onTap: () => _profileBloc.moveToAutoLoginPage(context),
+          ),
           MenuContent(Strings.ProfilePage.LOGOUT),
         ],
       );

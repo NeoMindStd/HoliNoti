@@ -5,8 +5,6 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
-
-//import com.vividsolutions.jts.geom.Point; //Maybe required future update.
 import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;

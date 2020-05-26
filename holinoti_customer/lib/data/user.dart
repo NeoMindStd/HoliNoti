@@ -32,7 +32,8 @@ class User {
         account: json['account'] as String ?? "",
         password: json['password'] as String ?? "",
         name: json['name'] as String ?? "",
-        authority: json['authority'] as Enums.Authority ?? Enums.Authority.normal,
+        authority:
+            json['authority'] as Enums.Authority ?? Enums.Authority.normal,
         email: json['email'] as String ?? "",
         phoneNumber: json['phoneNumber'] as String ?? "",
       );

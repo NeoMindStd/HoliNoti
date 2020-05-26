@@ -114,12 +114,12 @@
             <artifactId>h2gis</artifactId>
             <version>1.4.0</version>
         </dependency>
-<!--        other Geometry version dependency. Maybe required future update-->
-<!--        <dependency>-->
-<!--            <groupId>com.bedatadriven</groupId>-->
-<!--            <artifactId>jackson-datatype-jts</artifactId>-->
-<!--            <version>2.4</version>-->
-<!--        </dependency>-->
+        <!--        other Geometry version dependency. Maybe required future update-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.bedatadriven</groupId>-->
+        <!--            <artifactId>jackson-datatype-jts</artifactId>-->
+        <!--            <version>2.4</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.graphhopper.external</groupId>
             <artifactId>jackson-datatype-jts</artifactId>

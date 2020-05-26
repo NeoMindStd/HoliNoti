@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
-import 'package:holinoti_admin/bloc/register_opening_info_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
+import 'package:holinoti_admin/screens/notice.dart';
 import 'package:holinoti_admin/screens/settings.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
 import 'package:holinoti_admin/screens/widgets/home/facility_list_column.dart';
@@ -194,16 +193,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      PlatformButton(
-        androidFlat: (BuildContext context) => MaterialFlatButtonData(
-          child: Text(
-            '임시 휴업일 추가 페이지',
-            style: optionStyle,
-          ),
-          onPressed: () => _homeBloc.moveToRegisterOpeningInfoPage(
-              context, RegisterOpeningInfoBloc()),
-        ),
-      ),
+      NoticeColumn(),
     ];
 
     return StreamBuilder<int>(
@@ -211,7 +201,7 @@ class HomePage extends StatelessWidget {
       stream: _homeBloc.tapIndexStream,
       builder: (context, snapshot) => Scaffold(
         appBar: _appBars[snapshot.data],
-        body: Center(
+        body: Container(
           child: _routePages[snapshot.data],
         ),
         bottomNavigationBar: BottomNavigationBar(

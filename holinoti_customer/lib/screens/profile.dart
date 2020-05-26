@@ -39,7 +39,6 @@ class ProfilePage extends StatelessWidget {
       );
 }
 
-//프로필
 class ProfileTitle extends StatelessWidget {
   final ProfileBloc _profileBloc;
 
@@ -79,7 +78,6 @@ class ProfileTitle extends StatelessWidget {
       );
 }
 
-//내용 출력
 class ProfileList extends StatelessWidget {
   final ProfileBloc _profileBloc;
 
