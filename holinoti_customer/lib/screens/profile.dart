@@ -103,7 +103,10 @@ class ProfileList extends StatelessWidget {
             Strings.GlobalPage.AUTO_LOGIN,
             onTap: () => _profileBloc.moveToAutoLoginPage(context),
           ),
-          MenuContent(Strings.ProfilePage.LOGOUT),
+          MenuContent(
+            Strings.ProfilePage.LOGOUT,
+            onTap: () => _profileBloc.logout(context),
+          ),
         ],
       );
 }

@@ -28,6 +28,13 @@ class ProfileBloc {
     _loginModeSubject.add(loginMode);
   }
 
+  void authPrefInit() async {
+    _sharedPreferences.remove(Strings.Preferences.ACCOUNT);
+    _sharedPreferences.remove(Strings.Preferences.PASSWORD);
+    _sharedPreferences.remove(Strings.Preferences.IS_AUTO_LOGIN_MODE);
+    DataManager().dispose();
+  }
+
   void moveToAutoLoginPage(BuildContext context) => Navigator.push(
         context,
         platformPageRoute(
@@ -52,7 +59,7 @@ class ProfileBloc {
               },
             );
             if (response.statusCode == HttpStatus.ok) {
-              DataManager().dispose();
+              authPrefInit();
               Navigator.pop(context);
             } else {
               AppDialog(context)
@@ -60,6 +67,20 @@ class ProfileBloc {
             }
           });
         });
+  }
+
+  void logout(BuildContext context) async {
+    AppDialog(context).showYesNoDialog("로그아웃 하시겠습니까?", onConfirm: () async {
+      http.Response response = await DataManager().client.get(
+        "http://holinoti.tk:8080/holinoti/logout",
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
+      );
+      authPrefInit();
+      Navigator.pop(context);
+    });
   }
 
   void dispose() {
