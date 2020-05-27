@@ -51,6 +51,20 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public boolean isSameUser(String account, String rawPassword, User user) {
+        return new EncodingManger().matches(rawPassword, user.getPassword()) && account.equals(user.getAccount());
+    }
+
+    public boolean seceesion(String account, String rawPassword) throws Exception {
+        User sessionUser = getCurrentUser();
+        if (isSameUser(account, rawPassword, sessionUser)) {
+            deleteAllRowInRelationAFByUser(sessionUser.getId());
+            userRepository.deleteById(sessionUser.getId());
+            return true;
+        }
+        return false;
+    }
+
     public User register(User user) {
         user.setPassword(new EncodingManger().encode(user.getPassword()));
 

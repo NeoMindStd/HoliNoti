@@ -95,7 +95,10 @@ class ProfileList extends StatelessWidget {
           MenuContent(Strings.ProfilePage.CHANGE_PASSWORD),
           MenuContent(Strings.ProfilePage.CHANGE_FINGERPRINT),
           MenuContent(Strings.ProfilePage.SET_DISCLOSURE_SCOPE_PERSONAL_INFO),
-          MenuContent(Strings.ProfilePage.USER_SECESSION),
+          MenuContent(
+            Strings.ProfilePage.USER_SECESSION,
+            onTap: () => _profileBloc.secession(context),
+          ),
           MenuContent(
             Strings.GlobalPage.AUTO_LOGIN,
             onTap: () => _profileBloc.moveToAutoLoginPage(context),

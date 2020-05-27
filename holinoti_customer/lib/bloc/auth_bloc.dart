@@ -125,8 +125,15 @@ class AuthBloc {
       )));
     }
 
-    DataManager().currentUser.facilities =
-        decodedFacilitiesResponse.map((e) => Facility.fromJson(e)).toList();
+    print(decodedFacilitiesResponse);
+
+    List<Facility> facilities = [];
+    for (var facilityResponse in decodedFacilitiesResponse) {
+      try {
+        facilities.add(Facility.fromJson(facilityResponse));
+      } catch (e) {}
+    }
+    DataManager().currentUser.facilities = facilities;
     DataManager().dataBloc.setUser(DataManager().currentUser);
 
     print('Facilities: ${DataManager().currentUser.facilities}');

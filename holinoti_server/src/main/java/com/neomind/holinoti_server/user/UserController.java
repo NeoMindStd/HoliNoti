@@ -82,4 +82,9 @@ public class UserController {
         userService.deleteAllRowInRelationAFByUser(id);
         userRepository.deleteById(id);
     }
+
+    @RequestMapping(path = "/secession/{account}/{password}", method = RequestMethod.DELETE)
+    public HttpStatus deleteUser(@PathVariable("account") String account, @PathVariable("password") String password) throws Exception {
+        return userService.seceesion(account, password) ? HttpStatus.OK : HttpStatus.FORBIDDEN;
+    }
 }

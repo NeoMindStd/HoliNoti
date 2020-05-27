@@ -95,6 +95,7 @@ class AppDialog {
       String message,
       String text = '',
       String hint,
+      bool isObscureText = false,
       List<TextInputFormatter> inputFormatters,
       Function onConfirm,
       Function onCancel()}) async {
@@ -124,6 +125,7 @@ class AppDialog {
                 inputFormatters: inputFormatters,
                 autofocus: true,
                 onSubmitted: onSubmit,
+                obscureText: isObscureText,
               ),
             )
           ],
