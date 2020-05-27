@@ -6,6 +6,7 @@ import 'package:holinoti_customer/bloc/home_bloc.dart';
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
+import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/data/user.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
@@ -44,22 +45,44 @@ class SplashPage extends StatelessWidget {
 
       DataManager().currentUser = User.fromJson(decodedUserResponse);
       print('Login: ${DataManager().currentUser}');
-
-      if (DataManager().currentUser.id != Nos.Global.NOT_ASSIGNED_ID) {
-        await AuthBloc.loadFacilities();
-      } else {
-        // TODO 주변 시설 조회
-      }
     } catch (e) {
       print(e);
     }
   }
 
   loadData(BuildContext context) async {
+    await DataManager().queryPosition();
+    print("========Where========");
+    print(DataManager().currentPosition);
+    print("====================");
     if ((await SharedPreferences.getInstance())
             .getBool(Strings.Preferences.IS_AUTO_LOGIN_MODE) ??
         true) {
       await autoLogIn();
+    } else {}
+
+    if (DataManager().currentUser != null &&
+        DataManager().currentUser.id != Nos.Global.NOT_ASSIGNED_ID) {
+      await AuthBloc.loadFacilities();
+    } else {
+      http.Response facilitiesResponse = await http.get(
+        "http://holinoti.tk:8080/holinoti/facilities/x=${DataManager().currentPosition.longitude}/y=${DataManager().currentPosition.latitude}/distance_m=500",
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+        },
+      );
+      var decodedFacilitiesResponse =
+          HttpDecoder.utf8Response(facilitiesResponse);
+      print(decodedFacilitiesResponse);
+      for (var facilityResponse in decodedFacilitiesResponse) {
+        try {
+          DataManager().addFacility(Facility.fromJson(facilityResponse));
+        } catch (e) {
+          print(e);
+        }
+      }
+      print("queryByPosition: ${DataManager().facilities}");
     }
     onDoneLoading(context);
   }

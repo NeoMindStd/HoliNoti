@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
-import 'package:holinoti_customer/data/facility.dart';
 
 class User {
   int id;
@@ -13,9 +12,6 @@ class User {
   String email;
   String phoneNumber;
 
-  /// json 매핑시 제외
-  List<Facility> facilities;
-
   User(
       {this.id = Nos.Global.NOT_ASSIGNED_ID,
       this.account,
@@ -23,9 +19,7 @@ class User {
       this.name = "",
       this.authority,
       this.email = "",
-      this.phoneNumber = ""}) {
-    facilities ??= [];
-  }
+      this.phoneNumber = ""});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,

@@ -47,19 +47,17 @@ class FacilityInputBloc {
         if (_registerMode) {
           throw IndexError;
         }
-        DataManager().currentUser.facilities[DataManager()
-                .currentUser
+        DataManager().facilities[DataManager()
                 .facilities
                 .indexWhere((item) => item.code == facility.code)] =
             Facility.fromJson(decodedFacilityResponse);
-        print('Modified: ${DataManager().currentUser.facilities.last}');
+        print('Modified: ${DataManager().facilities.last}');
       } catch (IndexError) {
         DataManager()
-            .currentUser
             .facilities
             .add(Facility.fromJson(decodedFacilityResponse));
 
-        print('Added: ${DataManager().currentUser.facilities.last}');
+        print('Added: ${DataManager().facilities.last}');
       }
     } catch (e) {
       print(e);

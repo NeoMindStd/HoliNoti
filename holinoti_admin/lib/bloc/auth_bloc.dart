@@ -140,10 +140,10 @@ class AuthBloc {
         facilities.add(Facility.fromJson(facilityResponse));
       } catch (e) {}
     }
-    DataManager().currentUser.facilities = facilities;
+    DataManager().facilities = facilities;
     DataManager().dataBloc.setUser(DataManager().currentUser);
 
-    print('Facilities: ${DataManager().currentUser.facilities}');
+    print('Facilities: ${DataManager().facilities}');
   }
 
   void loginFailed(BuildContext context) => AppDialog(context)
