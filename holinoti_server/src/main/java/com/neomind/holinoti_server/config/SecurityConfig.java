@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                /// Resources
+                /// View
                 .antMatchers(HttpMethod.GET, "/kakao_map.html/**").permitAll()
 
                 /// Facility
@@ -46,9 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, PathString.FACILITIES_URL_BY_CODE).hasAuthority(Authority.normal.name())
 
                 /// FacilityImage
-                .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL_BY_ID).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL_BY_FACILITY_CODE).permitAll()
+                .antMatchers(HttpMethod.GET, PathString.FACILITIES_IMAGES_URL).hasAuthority(Authority.admin.name())
 
                 .antMatchers(HttpMethod.POST, PathString.FACILITIES_IMAGES_URL).hasAuthority(Authority.normal.name())
 
@@ -57,10 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, PathString.FACILITIES_IMAGES_URL_BY_ID).hasAuthority(Authority.normal.name())
 
                 /// RelationAF
-                .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL_BY_ID).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL_BY_USER_ID).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL_BY_FACILITY_CODE).permitAll()
+                .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL).hasAuthority(Authority.admin.name())
 
                 .antMatchers(HttpMethod.POST, PathString.RELATION_AFS_URL).hasAuthority(Authority.normal.name())
 
@@ -69,10 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, PathString.RELATION_AFS_URL_BY_ID).hasAuthority(Authority.normal.name())
 
                 /// User
-                .antMatchers(HttpMethod.GET, PathString.USER_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.USER_URL_BY_ACCOUNT).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.USER_URL_BY_EMAIL).permitAll()
                 .antMatchers(HttpMethod.GET, PathString.USER_URL_BY_PHONE_NUMBER).permitAll()
+                .antMatchers(HttpMethod.GET, PathString.USER_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.USER_URL_BY_ID).hasAuthority(Authority.admin.name())
 
                 .antMatchers(HttpMethod.POST, PathString.USER_LOGIN_URL).permitAll()

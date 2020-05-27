@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
@@ -79,7 +81,7 @@ class AuthBloc {
       prefs.setString(Strings.Preferences.ACCOUNT, account);
       prefs.setString(Strings.Preferences.PASSWORD, password);
 
-      await loadFacilities();
+      loadFacilities();
 
       Navigator.pop(context);
     } catch (e) {
@@ -101,6 +103,9 @@ class AuthBloc {
             Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
       },
     );
+
+    if (relationAFsResponse.statusCode != HttpStatus.ok) return;
+
     List decodedRelationAFResponse =
         HttpDecoder.utf8Response(relationAFsResponse);
     print('decodedRelationAFResponse: $decodedRelationAFResponse');
