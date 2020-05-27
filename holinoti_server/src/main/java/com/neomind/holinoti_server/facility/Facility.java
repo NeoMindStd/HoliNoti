@@ -33,8 +33,9 @@ public class Facility implements Serializable {
     private String siteUrl;
     @Column(name = "comment")
     private String comment;
-
-    @Column(name = "coordinates", columnDefinition = "geometry")
+    @Column(name = "opening_info")
+    private String opening_info;
+    @Column(name = "coordinates", nullable = false, columnDefinition = "geometry")
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)
     private Point coordinates;

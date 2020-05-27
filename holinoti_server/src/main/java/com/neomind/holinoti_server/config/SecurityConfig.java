@@ -56,17 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.DELETE, PathString.FACILITIES_IMAGES_URL_BY_ID).hasAuthority(Authority.normal.name())
 
-                /// OpeningInfo
-                .antMatchers(HttpMethod.GET, PathString.OPENING_INFOS_URL).hasAuthority(Authority.admin.name())
-                .antMatchers(HttpMethod.GET, PathString.OPENING_INFOS_URL_BY_ID).permitAll()
-                .antMatchers(HttpMethod.GET, PathString.OPENING_INFOS_URL_BY_FACILITY_CODE).permitAll()
-
-                .antMatchers(HttpMethod.POST, PathString.OPENING_INFOS_URL).hasAuthority(Authority.normal.name())
-
-                .antMatchers(HttpMethod.PUT, PathString.OPENING_INFOS_URL_BY_ID).hasAuthority(Authority.normal.name())
-
-                .antMatchers(HttpMethod.DELETE, PathString.OPENING_INFOS_URL_BY_ID).hasAuthority(Authority.normal.name())
-
                 /// RelationAF
                 .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL).hasAuthority(Authority.admin.name())
                 .antMatchers(HttpMethod.GET, PathString.RELATION_AFS_URL_BY_ID).permitAll()

@@ -77,10 +77,7 @@ class FacilityCard extends StatelessWidget {
           IconTextTile(
               Icons.access_time,
               _facilityBloc.facility.openingInfo.length > 0
-                  ? "영업일: ${_facilityBloc.facility.openingInfo.first.businessDayStart} ~ "
-                      "${_facilityBloc.facility.openingInfo.first.businessDayEnd}\n"
-                      "영업시간: ${_facilityBloc.facility.openingInfo.first.openingHoursStart} ~ "
-                      "${_facilityBloc.facility.openingInfo.first.openingHoursEnd}"
+                  ? "영업 시간: ${_facilityBloc.facility.openingInfo}"
                   : "영업시간 정보 없음"),
           Container(
             margin: const EdgeInsets.all(10),

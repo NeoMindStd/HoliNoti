@@ -52,12 +52,6 @@ public class Strings {
         public static final String FACILITIES_IMAGES_URL_BY_ID = FACILITIES_IMAGES_FULL_PATH + ID_PATH_REGEXP;
         public static final String FACILITIES_IMAGES_URL_BY_FACILITY_CODE = FACILITIES_IMAGES_FULL_PATH + FACILITY_CODE_PATH_REGEXP;
 
-        /// OpeningInfo
-        public static final String OPENING_INFOS = "/opening-infos";
-        public static final String OPENING_INFOS_URL = OPENING_INFOS + "/**";
-        public static final String OPENING_INFOS_URL_BY_ID = OPENING_INFOS + ID_PATH_REGEXP;
-        public static final String OPENING_INFOS_URL_BY_FACILITY_CODE = OPENING_INFOS + FACILITY_CODE_PATH_REGEXP;
-
         /// RelationAF
         public static final String RELATION_AFS = "/relation_afs";
         public static final String RELATION_AFS_URL = RELATION_AFS + "/**";

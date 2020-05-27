@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/data/facility_image.dart';
-import 'package:holinoti_customer/data/opening_info.dart';
 
 class Facility {
   int code;
@@ -11,11 +10,11 @@ class Facility {
   String phoneNumber;
   String siteUrl;
   String comment;
+  String openingInfo;
   double x;
   double y;
 
   /// json 매핑시 제외
-  List<OpeningInfo> openingInfo;
   List<FacilityImage> facilityImages;
 
   Facility({
@@ -25,11 +24,10 @@ class Facility {
     this.phoneNumber = "",
     this.siteUrl = "",
     this.comment = "",
-    this.openingInfo,
+    this.openingInfo = "",
     this.x = 0,
     this.y = 0,
   }) {
-    openingInfo ??= [];
     facilityImages ??= [];
   }
 
@@ -40,6 +38,7 @@ class Facility {
         phoneNumber: json['phoneNumber'] as String ?? "",
         siteUrl: json['siteUrl'] as String ?? "",
         comment: json['comment'] as String ?? "",
+        openingInfo: json['openingInfo'] as String ?? "",
         x: (((json['coordinates'] as Map) ??
                     {
                       'coordinates': [0, 0]
@@ -61,6 +60,7 @@ class Facility {
         'phoneNumber': phoneNumber,
         'siteUrl': siteUrl,
         'comment': comment,
+        'openingInfo': openingInfo,
         'coordinates': {
           "type": "Point",
           "coordinates": [
@@ -72,7 +72,7 @@ class Facility {
 
   @override
   String toString() =>
-      'Facility{code: $code, name: $name, address: $address, phoneNumber: $phoneNumber, siteUrl: $siteUrl, comment: $comment, x: $x, y: $y}';
+      'Facility{code: $code, name: $name, address: $address, phoneNumber: $phoneNumber, siteUrl: $siteUrl, comment: $comment, openingInfo: $openingInfo, x: $x, y: $y}';
 }
 
 Facility facilityFromJson(String string) =>
