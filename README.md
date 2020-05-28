@@ -22,16 +22,16 @@ Language: [한국어](README.md) | [ENGLISH](README-EN.md)
 ## 개발 환경
 
 ### CLIENTS
-- Framework: Flutter 1.12.13+hotfix.9 • channel stable
-- IDE: Android Studio 3.6.2 JRE: 1.8 (use androidx.* artifacts) 
-- Language: Dart 2.7.1
+- Framework: Flutter 1.17.1 • channel stable
+- IDE: Android Studio 3.6.3 JRE: 1.8 (use androidx.* artifacts) 
+- Language: Dart 2.8.2
 - App native languages
-  * android: Open JDK 11 (Gradle 6.3 build, plugin 3.6.2), Kotlin 1.3.10
+  * android: Open JDK 11 (Gradle 6.3 build, plugin 3.6.3), Kotlin 1.3.10
   * android-ndk: 21.0.6113669
   * iOS: Swift
 
 ### SERVER 
-- Framework: Spring boot Starter Parent 2.1.12.RELEASE
+- Framework: Spring boot Starter Parent 2.3.0.RELEASE
 - IDE: IntelliJ IDEA 2019.3.3 (Ultimate Edition) 
 - Language: Open JDK 11 (Maven 3.6.1 build)
 - DB: 5.7.28 MySQL Community Server
