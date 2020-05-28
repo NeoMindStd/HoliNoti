@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:holinoti_customer/constants/enums.dart' as Enums;
-import 'package:holinoti_customer/data/relation_af.dart';
-import 'package:holinoti_customer/utils/data_manager.dart';
-import 'package:holinoti_customer/utils/dialog.dart';
+import 'package:holinoti_admin/constants/enums.dart' as Enums;
+import 'package:holinoti_admin/data/relation_af.dart';
+import 'package:holinoti_admin/utils/data_manager.dart';
+import 'package:holinoti_admin/utils/dialog.dart';
 
 class FavoriteButton extends StatelessWidget {
   final int fCode;

@@ -36,6 +36,8 @@ class HttpApis {
       [SITE_URL, API_ROOT, OPENING_INFO, facilityCode]);
 
   static const RELATION_AFS = "/relation_afs";
+  static String relationAFURI() =>
+      sprintf("%s%s%s", [SITE_URL, API_ROOT, RELATION_AFS]);
   static String relationAFByIdURI(int relationAFId) =>
       sprintf("%s%s%s/id=%d", [SITE_URL, API_ROOT, RELATION_AFS, relationAFId]);
   static String relationAFsByFCodeURI(int facilityCode) => sprintf(

@@ -111,15 +111,15 @@ class AuthBloc {
         HttpDecoder.utf8Response(relationAFsResponse);
     print('decodedRelationAFResponse: $decodedRelationAFResponse');
 
-    List decodedFacilitiesResponse = [];
-
-    decodedRelationAFResponse = decodedRelationAFResponse.map((relationAFMap) {
+    DataManager().relationAFs = decodedRelationAFResponse.map((relationAFMap) {
       relationAFMap['role'] =
           Enums.fromString(Enums.Role.values, relationAFMap['role']);
       return RelationAF.fromJson(relationAFMap);
     }).toList();
 
-    for (RelationAF relationAF in decodedRelationAFResponse) {
+    List decodedFacilitiesResponse = [];
+
+    for (RelationAF relationAF in DataManager().relationAFs) {
       decodedFacilitiesResponse
           .add(HttpDecoder.utf8Response(await DataManager().client.get(
         Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),

@@ -5,6 +5,7 @@ import 'package:holinoti_admin/bloc/home_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/data/facility.dart';
+import 'package:holinoti_admin/screens/widgets/global/favorite_button.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 
 class FacilitiesListColumn extends StatelessWidget {
@@ -49,10 +50,15 @@ class FacilitiesListColumn extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox.fromSize(
-                                  size: Size.square(100),
-                                  child: Image.asset(
-                                      Strings.Assets.RESTAURANT_JPG))
+                              Column(
+                                children: <Widget>[
+                                  SizedBox.fromSize(
+                                      size: Size.square(100),
+                                      child: Image.asset(
+                                          Strings.Assets.RESTAURANT_JPG)),
+                                  FavoriteButton(facility.code, context),
+                                ],
+                              ),
                             ],
                           ),
                         ),

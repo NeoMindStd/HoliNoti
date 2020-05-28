@@ -21,7 +21,7 @@ class FacilityPage extends StatelessWidget {
             Icons.arrow_back,
           ),
           actions: <Widget>[
-            FavoriteButton(),
+            FavoriteButton(_facilityBloc.facility.code, context),
           ],
           iconTheme: IconThemeData(size: 28, color: Themes.Colors.ORANGE),
           backgroundColor: Themes.Colors.WHITE,

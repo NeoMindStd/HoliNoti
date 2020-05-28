@@ -56,7 +56,7 @@ class FacilitiesListColumn extends StatelessWidget {
                                       size: Size.square(100),
                                       child: Image.asset(
                                           Strings.Assets.RESTAURANT_JPG)),
-                                  FavoriteButton(),
+                                  FavoriteButton(facility.code, context),
                                 ],
                               ),
                             ],
