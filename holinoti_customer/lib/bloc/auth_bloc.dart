@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
-import 'package:holinoti_customer/data/facility.dart';
-import 'package:holinoti_customer/data/relation_af.dart';
 import 'package:holinoti_customer/data/user.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:holinoti_customer/utils/dialog.dart';
@@ -82,66 +78,13 @@ class AuthBloc {
       prefs.setString(Strings.Preferences.ACCOUNT, account);
       prefs.setString(Strings.Preferences.PASSWORD, password);
 
-      loadFacilities();
+      DataManager().dataBloc.queryFacilities();
 
       Navigator.pop(context);
     } catch (e) {
       print(e);
       loginFailed(context);
     }
-  }
-
-  static Future loadFacilities() async {
-    /*************************************************************************
-     *                           Get Bookmark List                           *
-     * Supervisors and managers are also treated as bookmarks.               *
-     *************************************************************************/
-
-    http.Response relationAFsResponse = await DataManager().client.get(
-      Strings.HttpApis.relationAFsByUIdURI(DataManager().currentUser.id),
-      headers: {
-        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
-      },
-    );
-
-    if (relationAFsResponse.statusCode != HttpStatus.ok) return;
-
-    List decodedRelationAFResponse =
-        HttpDecoder.utf8Response(relationAFsResponse);
-    print('decodedRelationAFResponse: $decodedRelationAFResponse');
-
-    DataManager().relationAFs = decodedRelationAFResponse.map((relationAFMap) {
-      relationAFMap['role'] =
-          Enums.fromString(Enums.Role.values, relationAFMap['role']);
-      return RelationAF.fromJson(relationAFMap);
-    }).toList();
-
-    List decodedFacilitiesResponse = [];
-
-    for (RelationAF relationAF in DataManager().relationAFs) {
-      decodedFacilitiesResponse
-          .add(HttpDecoder.utf8Response(await DataManager().client.get(
-        Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
-        headers: {
-          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
-        },
-      )));
-    }
-
-    print(decodedFacilitiesResponse);
-
-    List<Facility> facilities = [];
-    for (var facilityResponse in decodedFacilitiesResponse) {
-      try {
-        facilities.add(Facility.fromJson(facilityResponse));
-      } catch (e) {}
-    }
-    DataManager().facilities = facilities;
-    DataManager().dataBloc.setUser(DataManager().currentUser);
-
-    print('Facilities: ${DataManager().facilities}');
   }
 
   void loginFailed(BuildContext context) => AppDialog(context)

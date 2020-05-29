@@ -33,6 +33,7 @@ class ProfileBloc {
     _sharedPreferences.remove(Strings.Preferences.PASSWORD);
     _sharedPreferences.remove(Strings.Preferences.IS_AUTO_LOGIN_MODE);
     DataManager().dispose();
+    DataManager().dataBloc.queryFacilities();
   }
 
   void moveToAutoLoginPage(BuildContext context) => Navigator.push(
