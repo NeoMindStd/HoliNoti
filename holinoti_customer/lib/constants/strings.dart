@@ -1,11 +1,6 @@
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:sprintf/sprintf.dart';
 
-class ApiKeys {
-  // TODO: Holiday Notifier Rest API Key
-  // TODO: Map View Rest API Key
-}
-
 class Preferences {
   static const IS_AUTO_LOGIN_MODE = "isAutoLoginMode";
   static const ACCOUNT = "account";
@@ -13,6 +8,17 @@ class Preferences {
 }
 
 class HttpApis {
+  static const API_KEY_KAKAO_MAP = "2fb1a28ebf058dac66ff29d555e364e5";
+  static const API_KEY_KAKAO_MAP_QUERY = "KakaoAK " + API_KEY_KAKAO_MAP;
+  static const API_URL_KAKAO_MAP_QUERY =
+      "http://dapi.kakao.com/v2/local/search/address.json";
+  static const API_AUTHORIZATION = "Authorization";
+  static const HEADER_NAME_CONTENT_TYPE = "Content-Type";
+  static const HEADER_VALUE_CONTENT_TYPE_JSON =
+      "application/json; charset=utf-8";
+  static const HEADER_VALUE_CONTENT_TYPE_URLENCODED =
+      "application/x-www-form-urlencoded";
+
   static const SITE_URL = "http://holinoti.tk:8080";
   static const API_ROOT = "/holinoti";
   static const FACILITIES = "/facilities";
@@ -62,9 +68,6 @@ class HttpApis {
       "$SITE_URL$API_ROOT/privacy_policies.html";
   static const String OPEN_SRC_LICENSES =
       "$SITE_URL$API_ROOT/open_src_licenses.html";
-
-  static const HEADER_NAME_CONTENT_TYPE = "Content-Type";
-  static const HEADER_VALUE_CONTENT_TYPE = "application/json; charset=utf-8";
 }
 
 class Assets {

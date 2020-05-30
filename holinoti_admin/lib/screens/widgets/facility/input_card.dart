@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
+import 'package:holinoti_admin/screens/widgets/facility/select_address.dart';
 
 class InputCard extends StatelessWidget {
   File _image;
@@ -42,13 +44,15 @@ class InputCard extends StatelessWidget {
                     "http://holinoti.tk:8080/holinoti/kakao_map/x=${_facilityInputBloc.facility.x}/y=${_facilityInputBloc.facility.y}/",
               ),
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "가게 주소",
+            InkWell(
+              child: Text("가게 주소"),
+              onTap: () => Navigator.push(
+                context,
+                platformPageRoute(
+                  context: context,
+                  builder: (context) => SelectAddress(_facilityInputBloc),
+                ),
               ),
-              controller: TextEditingController(
-                  text: _facilityInputBloc.facility.address),
-              onChanged: _facilityInputBloc.setFacilityAddress,
             ),
             TextField(
               decoration: InputDecoration(

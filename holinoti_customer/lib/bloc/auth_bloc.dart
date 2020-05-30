@@ -61,7 +61,7 @@ class AuthBloc {
         Strings.HttpApis.LOGIN_URI,
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
       );
 
@@ -96,7 +96,7 @@ class AuthBloc {
         Strings.HttpApis.REGISTER_URI,
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
         body: userToJson(user),
       );

@@ -37,7 +37,7 @@ class DataBloc {
           Strings.HttpApis.relationAFURI(),
           headers: {
             Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
           },
           body: relationAFToJson(relationAF),
         );
@@ -57,7 +57,7 @@ class DataBloc {
       Strings.HttpApis.relationAFByIdURI(relationAF.id),
       headers: {
         Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
       },
     );
     if (relationAFsResponse.statusCode == HttpStatus.ok) {
@@ -80,7 +80,7 @@ class DataBloc {
         Strings.HttpApis.relationAFsByUIdURI(DataManager().currentUser.id),
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
       );
 
@@ -106,7 +106,7 @@ class DataBloc {
           Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
           headers: {
             Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
           },
         )));
       }
@@ -132,7 +132,7 @@ class DataBloc {
         "http://holinoti.tk:8080/holinoti/facilities/x=${DataManager().currentPosition.longitude}/y=${DataManager().currentPosition.latitude}/distance_m=500",
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
       );
       var decodedFacilitiesResponse =

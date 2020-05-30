@@ -56,7 +56,7 @@ class ProfileBloc {
               "http://holinoti.tk:8080/holinoti/users/secession/${DataManager().currentUser.account}/$password",
               headers: {
                 Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                    Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                    Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
               },
             );
             if (response.statusCode == HttpStatus.ok) {
@@ -76,7 +76,7 @@ class ProfileBloc {
         "http://holinoti.tk:8080/holinoti/logout",
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
       );
       authPrefInit();

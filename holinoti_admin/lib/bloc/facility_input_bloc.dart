@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
+import 'package:holinoti_admin/data/kakao_address.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
@@ -9,16 +11,56 @@ import 'package:rxdart/rxdart.dart';
 class FacilityInputBloc {
   Facility facility;
   bool _registerMode;
+  List<KakaoAddress> addresses;
 
   final _facilitySubject = PublishSubject<Facility>();
+  final _addressSubject = PublishSubject<List<KakaoAddress>>();
 
   FacilityInputBloc({this.facility}) {
     facility ??= Facility();
     _registerMode = facility.code == Nos.Global.NOT_ASSIGNED_ID;
+    addresses = [];
   }
 
   bool get isRegisterMode => _registerMode;
   get facilityStream => _facilitySubject.stream;
+  get addressStream => _addressSubject.stream;
+
+  Future queryAddress(String query,
+      {int page = 1, int addressSize = 10}) async {
+    http.Response response = await http.post(
+      Strings.HttpApis.API_URL_KAKAO_MAP_QUERY,
+      headers: {
+        Strings.HttpApis.API_AUTHORIZATION:
+            Strings.HttpApis.API_KEY_KAKAO_MAP_QUERY,
+        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_URLENCODED,
+      },
+      body: {
+        "query": query,
+        "page": page.toString(),
+        "AddressSize": addressSize.toString(),
+      },
+    );
+    print(response.statusCode);
+    print(response.headers);
+    print(response.body);
+    var decodedResponse = HttpDecoder.utf8Response(response);
+    addresses = [];
+    for (var decodedAddress in decodedResponse["documents"]) {
+      addresses.add(KakaoAddress.fromJson(decodedAddress["road_address"]));
+    }
+    _addressSubject.add(addresses);
+    print(addresses);
+  }
+
+  void tapKakaoAddress(BuildContext context, KakaoAddress kakaoAddress) {
+    facility.address =
+        (kakaoAddress.addressName + " " + kakaoAddress.buildingName).trim();
+    facility.x = kakaoAddress.x;
+    facility.y = kakaoAddress.y;
+    Navigator.pop(context);
+  }
 
   Future<void> registerFacility() async {
     try {
@@ -27,7 +69,7 @@ class FacilityInputBloc {
                 Strings.HttpApis.FACILITIES,
                 headers: {
                   Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
                 },
                 body: facilityToJson(facility),
               )
@@ -35,7 +77,7 @@ class FacilityInputBloc {
                 Strings.HttpApis.facilityByCodeURI(facility.code),
                 headers: {
                   Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE
+                      Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
                 },
                 body: facilityToJson(facility),
               );
@@ -96,5 +138,7 @@ class FacilityInputBloc {
 
   void dispose() {
     _facilitySubject.close();
+    _addressSubject.close();
+    addresses = [];
   }
 }
