@@ -19,7 +19,7 @@ class Facility {
 
   Facility({
     this.code = Nos.Global.NOT_ASSIGNED_ID,
-    this.name,
+    this.name = "",
     this.address = "",
     this.phoneNumber = "",
     this.siteUrl = "",

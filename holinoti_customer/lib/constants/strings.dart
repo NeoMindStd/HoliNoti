@@ -22,6 +22,8 @@ class HttpApis {
   static const SITE_URL = "http://holinoti.tk:8080";
   static const API_ROOT = "/holinoti";
   static const FACILITIES = "/facilities";
+  static String facilitiesURI() =>
+      sprintf("%s%s%s", [SITE_URL, API_ROOT, FACILITIES]);
   static String facilityByCodeURI(int facilityCode) =>
       sprintf("%s%s%s/code=%d", [SITE_URL, API_ROOT, FACILITIES, facilityCode]);
   static String facilityByPHURI(String phoneNumber) => sprintf(

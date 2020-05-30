@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
               color: Themes.Colors.ORANGE,
               size: 28,
             ),
-            onPressed: () {},
+            onPressed: () => _facilityInputBloc.dispose(),
           ),
           IconButton(
             icon: const Icon(

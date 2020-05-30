@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
-import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/screens/widgets/facility/facility_card.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
 import 'package:holinoti_admin/screens/widgets/global/lower_half.dart';
@@ -39,7 +38,8 @@ class FacilityPage extends StatelessWidget {
                   actions: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () {},
+                      onPressed: () async =>
+                          await _facilityInputBloc.deleteFacility(context),
                     ),
                     IconButton(
                         icon: const Icon(Icons.check),
@@ -54,18 +54,13 @@ class FacilityPage extends StatelessWidget {
                 ),
                 body: SafeArea(
                   child: SingleChildScrollView(
-                    child: StreamBuilder<Facility>(
-                        initialData: _facilityBloc.facility,
-                        stream: _facilityBloc.facilityStream,
-                        builder: (context, snapshot) {
-                          return Stack(
-                            children: <Widget>[
-                              LowerHalf(),
-                              UpperHalf(),
-                              InputCard(_facilityInputBloc),
-                            ],
-                          );
-                        }),
+                    child: Stack(
+                      children: <Widget>[
+                        LowerHalf(),
+                        UpperHalf(),
+                        InputCard(_facilityInputBloc),
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -77,12 +72,13 @@ class FacilityPage extends StatelessWidget {
                   actions: <Widget>[
                     PopupMenuButton<int>(
                       icon: const Icon(Icons.more_vert),
-                      onSelected: (int index) {
+                      onSelected: (int index) async {
                         switch (index) {
                           case 0:
                             _facilityBloc.updateMode = true;
                             break;
                           case 1:
+                            await _facilityInputBloc.deleteFacility(context);
                             break;
                         }
                       },
