@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/data/facility.dart';
 
@@ -84,9 +85,18 @@ class FacilityCard extends StatelessWidget {
                     : "영업시간 정보 없음"),
             Container(
               margin: const EdgeInsets.all(10),
-              width: 200,
+              width: double.infinity,
               height: 200,
-              child: (_image != null) ? Image.file(_image) : Placeholder(),
+              child: Swiper(
+                // TODO 이미지 목록 수신 후 보여주기
+                itemBuilder: (BuildContext context, int index) => Image.network(
+                  "http://via.placeholder.com/350x150",
+                  fit: BoxFit.fill,
+                ),
+                pagination: SwiperPagination(),
+                control: SwiperControl(),
+                itemCount: 3,
+              ),
             ),
           ],
         ),

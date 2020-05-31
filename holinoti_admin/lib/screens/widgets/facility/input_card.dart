@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/screens/widgets/facility/select_address.dart';
 
@@ -81,7 +82,10 @@ class InputCard extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             width: 200,
             height: 200,
-            child: (_image != null) ? Image.file(_image) : Placeholder(),
+            child: MaterialButton(
+              child: Image.asset(Strings.Assets.RESTAURANT_JPG),
+              onPressed: () {}, // TODO 이미지 관리 화면으로 전환
+            ),
           ),
         ]));
   }
