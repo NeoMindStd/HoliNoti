@@ -5,7 +5,7 @@ import 'package:holinoti_admin/screens/web_view.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_block.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_content.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_title.dart';
-import 'package:holinoti_admin/utils/fingerprint_manager.dart';
+import 'package:holinoti_admin/utils/second_auth_manager.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -43,10 +43,11 @@ class AppSetting extends StatelessWidget {
         children: <Widget>[
           MenuContent(Strings.SettingPage.ALARM_SETTING),
           MenuContent(Strings.SettingPage.SLEEP_TIME_SETTING),
-          MenuContent(
-            Strings.SettingPage.PASSWORD_FINGERPRINT_LOCK,
-            onTap: () => FingerPrintManager().certify(),
-          ),
+          MenuContent(Strings.SettingPage.PASSWORD_FINGERPRINT_LOCK,
+              onTap: () async {
+            await SecondAuthManager().certify(context);
+            // TODO 인증 상태에 따라 진행
+          }),
         ],
       );
 }

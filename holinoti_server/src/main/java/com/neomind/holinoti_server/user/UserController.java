@@ -33,6 +33,11 @@ public class UserController {
         return currentUser;
     }
 
+    @RequestMapping(path = "/compare/{account}/{password}", method = RequestMethod.GET)
+    public boolean compareUser(@PathVariable("account") String account, @PathVariable("password") String password) throws Exception {
+        return userService.isSameUser(account, password, userService.getCurrentUser());
+    }
+
     @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.GET)
     public User getUserById(@PathVariable("userId") int id) {
         return userRepository.findById(id).get();

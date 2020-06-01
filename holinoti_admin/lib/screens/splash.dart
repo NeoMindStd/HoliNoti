@@ -8,6 +8,7 @@ import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/user.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
+import 'package:holinoti_admin/utils/second_auth_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,6 +50,7 @@ class SplashPage extends StatelessWidget {
   }
 
   loadData(BuildContext context) async {
+    SecondAuthManager().checkBio();
     if ((await SharedPreferences.getInstance())
             .getBool(Strings.Preferences.IS_AUTO_LOGIN_MODE) ??
         true) {

@@ -16,5 +16,6 @@ class Colors {
   static const Color ORANGE = const Color(0xFFF3753A);
   static const Color WHITE = const Color(0xFFFFFFFF);
   static const Color ORANGE_LIGHT = const Color(0xFFFF9551);
+  static const Color ORANGE_DARK = const Color(0xFFE26429);
   static const Color APRICOT = const Color(0xFFF9BA9D);
 }
