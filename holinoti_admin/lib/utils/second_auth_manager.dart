@@ -27,7 +27,7 @@ class SecondAuthManager {
 
   Future<bool> certify(BuildContext context) async {
     bool authorized = false;
-    if (_hasBioAuth) {
+    if (_hasBioAuth && false) {
       const androidAuthStrings = const AndroidAuthMessages(
         signInTitle: Strings.GlobalPage.BIO_AUTH_SIGN_IN_TITLE,
         cancelButton: Strings.GlobalPage.BUTTON_CANCEL,

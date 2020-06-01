@@ -43,7 +43,8 @@ class FacilitiesListColumn extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Text("영업여부 및 운영시간"),
+                                    Text(Strings
+                                        .HomePage.OPENING_INFO_AND_IS_OPEN),
                                     Text(facility.address),
                                     Text(facility.phoneNumber),
                                     Text(facility.comment),

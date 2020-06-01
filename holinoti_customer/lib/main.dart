@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:holinoti_customer/bloc/splash_bloc.dart';
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/constants/themes.dart' as Themes;
 import 'package:holinoti_customer/screens/splash.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Themes.Colors.ORANGE,
         accentColor: Themes.Colors.ORANGE,
       ),
-      home: SplashPage(),
+      home: SplashPage(SplashBloc()),
     );
   }
 }

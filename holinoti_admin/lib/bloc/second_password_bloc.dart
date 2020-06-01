@@ -36,30 +36,33 @@ class SecondPasswordBloc {
   void initPref() async {
     _preferences = await SharedPreferences.getInstance();
     _secondPassword = _preferences.getString("secondPassword");
-    if(_secondPassword == null && _initMode==Enums.SecondPassMode.verify) initPassword(context);
+    if (_secondPassword == null && _initMode == Enums.SecondPassMode.verify)
+      initPassword(context);
   }
 
   void initPassword(BuildContext context) {
     AppDialog(context).showInputDialog(
-        message: "간편 비밀번호 초기화를 위해 비밀번호를 입력해 주세요.",
-        hint: "비밀번호",
+        message: Strings.SecondPasswordPage.INIT_PASSWORD_DIALOG_INPUT,
+        hint: Strings.GlobalPage.PASSWORD,
         isObscureText: true,
         onConfirm: (String password) async {
           http.Response response = await DataManager().client.get(
-          "http://holinoti.tk:8080/holinoti/users/compare/${DataManager().currentUser.account}/$password",
-          headers: {
-            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
-          },
-        );
-        if (response.statusCode == HttpStatus.ok && response.body.toLowerCase() == 'true') {
-          _initMode = Enums.SecondPassMode.init;
-          _initModeSubject.add(_initMode);
-          deletePassNum();
-        } else {
-          AppDialog(context)
-              .showConfirmDialog("비밀번호가 일치하지 않습니다.");
-        }
+            Strings.HttpApis.userCompare(
+                DataManager().currentUser.account, password),
+            headers: {
+              Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                  Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+            },
+          );
+          if (response.statusCode == HttpStatus.ok &&
+              response.body.toLowerCase() == Strings.GlobalPage.TRUE) {
+            _initMode = Enums.SecondPassMode.init;
+            _initModeSubject.add(_initMode);
+            deletePassNum();
+          } else {
+            AppDialog(context).showConfirmDialog(
+                Strings.SecondPasswordPage.INIT_PASSWORD_DIALOG_FAILED);
+          }
         });
   }
 
@@ -68,7 +71,7 @@ class SecondPasswordBloc {
       Navigator.pop(context, true);
     } else {
       AppDialog(context).showConfirmDialog(
-        "비밀번호가 일치하지 않습니다.\n 다시 입력해주세요",
+        Strings.SecondPasswordPage.CHECK_PASSWORD_DIALOG_FAILED,
         onConfirm: deleteAllPassNum,
       );
     }
@@ -79,20 +82,22 @@ class SecondPasswordBloc {
     _inputPassword += num.toString();
     _inputPasswordSubject.add(_inputPassword);
     if (_inputPassword.length >= 6) {
-      if(_initMode == Enums.SecondPassMode.verify) {
+      if (_initMode == Enums.SecondPassMode.verify) {
         checkPassword(context);
-      } else if(_initMode == Enums.SecondPassMode.init) {
+      } else if (_initMode == Enums.SecondPassMode.init) {
         _initTempPass = _inputPassword;
         _inputPassword = "";
         _inputPasswordSubject.add(_inputPassword);
         _initMode = Enums.SecondPassMode.initCheck;
         _initModeSubject.add(_initMode);
       } else {
-        if(_initTempPass == _inputPassword) {
-          await _preferences.setString("secondPassword", _inputPassword);
-          _secondPassword = _preferences.getString("secondPassword");
+        if (_initTempPass == _inputPassword) {
+          await _preferences.setString(
+              Strings.Preferences.SECOND_PASSWORD, _inputPassword);
+          _secondPassword =
+              _preferences.getString(Strings.Preferences.SECOND_PASSWORD);
           await AppDialog(context).showConfirmDialog(
-            "비밀번호가 설정되었습니다.\n새로운 비밀번호로 인증을 진행해 주세요",
+            Strings.SecondPasswordPage.ADD_PASS_NUM_DIALOG_SUCCESS,
           );
           _inputPassword = _initTempPass = "";
           _inputPasswordSubject.add(_inputPassword);
@@ -100,7 +105,7 @@ class SecondPasswordBloc {
           _initModeSubject.add(_initMode);
         } else {
           await AppDialog(context).showConfirmDialog(
-              "비밀번호가 일치하지 않습니다.\n 다시 입력해주세요",
+            Strings.SecondPasswordPage.ADD_PASS_NUM_DIALOG_FAILED,
           );
           _inputPassword = "";
           _inputPasswordSubject.add(_inputPassword);

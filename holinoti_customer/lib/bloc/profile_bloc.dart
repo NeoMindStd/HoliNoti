@@ -46,14 +46,15 @@ class ProfileBloc {
 
   void secession(BuildContext context) {
     AppDialog(context).showInputDialog(
-        message: "탈퇴를 원하시면 비밀번호를 입력해 주세요.",
-        hint: "비밀번호",
+        message: Strings.ProfilePage.SECESSION_DIALOG_INPUT,
+        hint: Strings.GlobalPage.PASSWORD,
         isObscureText: true,
         onConfirm: (String password) {
           AppDialog(context).showYesNoDialog(
-              "정말로 탈퇴하시겠습니까? 탈퇴된 정보는 복구하실 수 없습니다.", onConfirm: () async {
+              Strings.ProfilePage.SECESSION_DIALOG_YES_NO, onConfirm: () async {
             http.Response response = await DataManager().client.delete(
-              "http://holinoti.tk:8080/holinoti/users/secession/${DataManager().currentUser.account}/$password",
+              Strings.HttpApis.userSecession(
+                  DataManager().currentUser.account, password),
               headers: {
                 Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
                     Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
@@ -63,17 +64,18 @@ class ProfileBloc {
               authPrefInit();
               Navigator.pop(context);
             } else {
-              AppDialog(context)
-                  .showConfirmDialog("회원 탈퇴에 실패했습니다. 비밀번호가 틀렸을 수 있습니다.");
+              AppDialog(context).showConfirmDialog(
+                  Strings.ProfilePage.SECESSION_DIALOG_FAILED);
             }
           });
         });
   }
 
   void logout(BuildContext context) async {
-    AppDialog(context).showYesNoDialog("로그아웃 하시겠습니까?", onConfirm: () async {
-      http.Response response = await DataManager().client.get(
-        "http://holinoti.tk:8080/holinoti/logout",
+    AppDialog(context).showYesNoDialog(Strings.ProfilePage.LOGOUT_DIALOG_YES_NO,
+        onConfirm: () async {
+      await DataManager().client.get(
+        Strings.HttpApis.LOGOUT_URI,
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
               Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON

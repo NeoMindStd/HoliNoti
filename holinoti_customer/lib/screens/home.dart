@@ -70,7 +70,11 @@ class HomePage extends StatelessWidget {
         backgroundColor: Themes.Colors.WHITE,
       ),
       AppBar(
-        title: Text("공지목록"),
+        title: Text(
+          Strings.GlobalPage.NOTICE_LIST,
+          style: TextStyle(
+              color: Themes.Colors.ORANGE, fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -116,7 +120,7 @@ class HomePage extends StatelessWidget {
             ),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "검색",
+                hintText: Strings.GlobalPage.SEARCH,
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.search,

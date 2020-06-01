@@ -129,7 +129,10 @@ class DataBloc {
       print(DataManager().currentPosition);
       print("====================");
       http.Response facilitiesResponse = await http.get(
-        "http://holinoti.tk:8080/holinoti/facilities/x=${DataManager().currentPosition.longitude}/y=${DataManager().currentPosition.latitude}/distance_m=500",
+        Strings.HttpApis.facilitiesByCoordinates(
+            DataManager().currentPosition.longitude,
+            DataManager().currentPosition.latitude,
+            500),
         headers: {
           Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
               Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON

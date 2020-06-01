@@ -31,7 +31,7 @@ class LoginCard extends StatelessWidget {
       stream: _authBloc.isObscureTextStream,
       builder: (context, snapshot) => TextFormField(
         decoration: InputDecoration(
-          labelText: Strings.AuthPage.PASSWORD,
+          labelText: Strings.GlobalPage.PASSWORD,
           hasFloatingPlaceholder: true,
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line

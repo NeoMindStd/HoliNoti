@@ -36,7 +36,7 @@ class RegisterCard extends StatelessWidget {
       stream: _authBloc.isObscureTextStream,
       builder: (context, snapshot) => TextFormField(
         decoration: InputDecoration(
-          labelText: Strings.AuthPage.PASSWORD,
+          labelText: Strings.GlobalPage.PASSWORD,
           hasFloatingPlaceholder: true,
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
@@ -105,7 +105,7 @@ class RegisterCard extends StatelessWidget {
           Flexible(
             child: RadioListTile<Enums.Authority>(
               dense: true,
-              title: Text("관리자"),
+              title: Text(Strings.GlobalPage.ADMIN),
               value: Enums.Authority.admin,
               groupValue: snapshot.data,
               onChanged: (value) => _authBloc.setAuthority(value),
@@ -114,7 +114,7 @@ class RegisterCard extends StatelessWidget {
           Flexible(
             child: RadioListTile<Enums.Authority>(
               dense: true,
-              title: Text("일반"),
+              title: Text(Strings.GlobalPage.NORMAL),
               value: Enums.Authority.normal,
               groupValue: snapshot.data,
               onChanged: (value) => _authBloc.setAuthority(value),

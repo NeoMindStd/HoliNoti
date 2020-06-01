@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
 
 class IconTextTile extends StatelessWidget {
@@ -62,8 +63,8 @@ class FacilityCard extends StatelessWidget {
               width: 300,
               height: 300,
               child: EasyWebView(
-                src:
-                    "http://holinoti.tk:8080/holinoti/kakao_map/x=${_facilityBloc.facility.x}/y=${_facilityBloc.facility.y}/",
+                src: Strings.HttpApis.kakaoMapWebViewURI(
+                    _facilityBloc.facility.x, _facilityBloc.facility.y),
               ),
             ),
             IconTextTile(
@@ -81,8 +82,8 @@ class FacilityCard extends StatelessWidget {
             IconTextTile(
                 Icons.access_time,
                 _facilityBloc.facility.openingInfo.length > 0
-                    ? "영업 시간: ${_facilityBloc.facility.openingInfo}"
-                    : "영업시간 정보 없음"),
+                    ? "${Strings.GlobalPage.OPENING_INFO}: ${_facilityBloc.facility.openingInfo}"
+                    : Strings.GlobalPage.OPENING_INFO_NOT_EXIST),
             Container(
               margin: const EdgeInsets.all(10),
               width: double.infinity,

@@ -11,19 +11,17 @@ class NoticeListContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              //제목
               Text("Title",
                   textAlign: TextAlign.left,
                   style: Themes.GlobalPage.blockTitle),
-              //내용
-              Text("Contant",
+              Text("Content",
                   textAlign: TextAlign.left,
                   style: Themes.GlobalPage.blockContents),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Text("date", textAlign: TextAlign.right), //날짜
+                  Text("date", textAlign: TextAlign.right),
                 ],
               ),
             ],

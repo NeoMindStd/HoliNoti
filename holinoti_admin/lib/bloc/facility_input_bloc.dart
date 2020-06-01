@@ -48,9 +48,10 @@ class FacilityInputBloc {
             Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_URLENCODED,
       },
       body: {
-        "query": query,
-        "page": page.toString(),
-        "AddressSize": addressSize.toString(),
+        Strings.HttpApis.API_REQUEST_BODY_KAKAO_MAP_QUERY: query,
+        Strings.HttpApis.API_REQUEST_BODY_KAKAO_MAP_PAGE: page.toString(),
+        Strings.HttpApis.API_REQUEST_BODY_KAKAO_MAP_ADDRESS_SIZE:
+            addressSize.toString(),
       },
     );
     print(response.statusCode);
@@ -58,8 +59,10 @@ class FacilityInputBloc {
     print(response.body);
     var decodedResponse = HttpDecoder.utf8Response(response);
     addresses = [];
-    for (var decodedAddress in decodedResponse["documents"]) {
-      addresses.add(KakaoAddress.fromJson(decodedAddress["road_address"]));
+    for (var decodedAddress in decodedResponse[
+        Strings.HttpApis.API_RESPONSE_BODY_KAKAO_MAP_DOCUMENTS]) {
+      addresses.add(KakaoAddress.fromJson(decodedAddress[
+          Strings.HttpApis.API_RESPONSE_BODY_KAKAO_MAP_ROAD_ADDRESS]));
     }
     _addressSubject.add(addresses);
     print(addresses);
@@ -124,8 +127,8 @@ class FacilityInputBloc {
 
   Future deleteFacility(BuildContext context) async {
     assert(facility.code != Nos.Global.NOT_ASSIGNED_ID);
-    AppDialog(context).showYesNoDialog("정말 해당 시설을 삭제하시겠습니까?",
-        onConfirm: () async {
+    AppDialog(context).showYesNoDialog(
+        Strings.FacilityPage.DELETE_DIALOG_YES_NO, onConfirm: () async {
       http.Response facilityResponse = await DataManager().client.delete(
         Strings.HttpApis.facilityByCodeURI(facility.code),
         headers: {
@@ -133,7 +136,8 @@ class FacilityInputBloc {
               Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
         },
       );
-      AppDialog(context).showConfirmDialog("삭제되었습니다",
+      AppDialog(context).showConfirmDialog(
+          Strings.FacilityPage.DELETE_DIALOG_CONFIRM,
           onConfirm: () => Navigator.pop(context));
     });
   }

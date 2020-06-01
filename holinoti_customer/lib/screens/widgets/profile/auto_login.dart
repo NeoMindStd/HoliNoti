@@ -29,7 +29,7 @@ class AutoLoginPage extends StatelessWidget {
                   Expanded(
                     child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text("자동 로그인")),
+                        child: Text(Strings.GlobalPage.AUTO_LOGIN)),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -41,18 +41,11 @@ class AutoLoginPage extends StatelessWidget {
                               value: snapshot.data,
                               onChanged: (loginMode) =>
                                   _profileBloc.loginMode = loginMode);
-                          return SwitchListTile(
-                            value: snapshot.data,
-                            onChanged: (loginMode) =>
-                                _profileBloc.loginMode = loginMode,
-                            title: Text("자동로그인"),
-                          );
-//                return Text("자동로그인");
                         }),
                   )
                 ],
               ),
-              Text("사용으로 설정 시 앱이 켜질 때 자동으로 로그인 합니다."),
+              Text(Strings.ProfilePage.AUTO_LOGIN_DESCRIPTION),
             ],
           ),
         ),

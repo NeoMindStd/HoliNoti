@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/data/kakao_address.dart';
 
@@ -33,7 +34,7 @@ class SelectAddress extends StatelessWidget {
               ),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "검색",
+                  hintText: Strings.GlobalPage.SEARCH,
                   suffixIcon: IconButton(
                     icon: Icon(
                       Icons.search,

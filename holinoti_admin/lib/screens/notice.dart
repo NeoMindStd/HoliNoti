@@ -9,7 +9,7 @@ class NoticeColumn extends StatelessWidget {
 }
 
 class NoticeList extends StatelessWidget {
-  final size = []; //크기 저장
+  final size = [];
 
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,

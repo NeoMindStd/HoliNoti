@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
       ),
       AppBar(
         title: Text(
-          "신규 시설 등록",
+          Strings.HomePage.RESISTER_FACILITY,
           style: TextStyle(
               color: Themes.Colors.ORANGE, fontWeight: FontWeight.bold),
         ),
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
       ),
       AppBar(
         title: Text(
-          "공지 목록",
+          Strings.GlobalPage.NOTICE_LIST,
           style: TextStyle(
               color: Themes.Colors.ORANGE, fontWeight: FontWeight.bold),
         ),
@@ -154,7 +154,7 @@ class HomePage extends StatelessWidget {
             ),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "검색",
+                hintText: Strings.GlobalPage.SEARCH,
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.search,

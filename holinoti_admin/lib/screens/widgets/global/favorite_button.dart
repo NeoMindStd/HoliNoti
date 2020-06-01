@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/constants/enums.dart' as Enums;
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/relation_af.dart';
 import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
@@ -34,7 +35,7 @@ class FavoriteButton extends StatelessWidget {
       DataManager().dataBloc.deleteRelationAF(relationAF);
     } else {
       AppDialog(_context).showYesNoDialog(
-        "정말 관리자를 그만두시겠습니까?",
+        Strings.GlobalPage.GIVE_UP_ADMIN,
         onConfirm: () => DataManager().dataBloc.deleteRelationAF(relationAF),
       );
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/widgets/facility/facility_card.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
@@ -30,7 +31,7 @@ class FacilityPage extends StatelessWidget {
             ? Scaffold(
                 appBar: AppBar(
                   title: Text(
-                    "시설 정보 수정",
+                    Strings.FacilityPage.EDIT_FACILITY,
                     style: TextStyle(
                         color: Themes.Colors.ORANGE,
                         fontWeight: FontWeight.bold),
@@ -86,11 +87,11 @@ class FacilityPage extends StatelessWidget {
                           <PopupMenuEntry<int>>[
                         const PopupMenuItem<int>(
                           value: 0,
-                          child: Text('수정'),
+                          child: Text(Strings.GlobalPage.EDIT),
                         ),
                         const PopupMenuItem<int>(
                           value: 1,
-                          child: Text('삭제'),
+                          child: Text(Strings.GlobalPage.DELETE),
                         ),
                       ],
                     ),
