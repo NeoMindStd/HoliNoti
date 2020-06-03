@@ -102,6 +102,7 @@ class Assets {
   static const TEMP_IMAGE_S = ROOT_PATH + "tempimageS.jpg";
   static const TEMP_IMAGE_M = ROOT_PATH + "tempimageM.jpg";
   static const TEMP_IMAGE_L = ROOT_PATH + "tempimageL.jpg";
+  static const SPLASH_IMAGE = ROOT_PATH + "splash.png";
 }
 
 class GlobalPage {

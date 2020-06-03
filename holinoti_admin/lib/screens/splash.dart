@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/splash_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 
 class SplashPage extends StatelessWidget {
   final SplashBloc _splashBloc;
@@ -9,13 +10,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _splashBloc.loadData(context);
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          image: AssetImage(Strings.Assets.TEMP_IMAGE_L),
-        ),
-      ),
-    );
+    return Scaffold(
+        backgroundColor: Themes.Colors.ORANGE_LIGHT,
+        body: Center(child: Image.asset(Strings.Assets.SPLASH_IMAGE)));
   }
 }

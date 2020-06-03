@@ -79,6 +79,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # App Icon
+  flutter_launcher_icons: "^0.7.5"
+
+# Please run below command
+# flutter pub get
+# flutter pub run flutter_launcher_icons:main
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

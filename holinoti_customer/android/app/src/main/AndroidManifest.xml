@@ -14,7 +14,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="holinoti_customer"
+        android:label="홀리노티"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">

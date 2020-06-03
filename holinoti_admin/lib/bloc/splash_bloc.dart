@@ -54,7 +54,7 @@ class SplashBloc {
         true) {
       await autoLogIn();
     }
-    DataManager().dataBloc.queryFacilities();
+    await DataManager().dataBloc.queryFacilities();
     onDoneLoading(context);
   }
 
