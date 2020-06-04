@@ -58,7 +58,7 @@ public class MDToHtmlConverter {
     }
 
     public Resource[] getAllMarkdowns() throws IOException {
-        return resolver.getResources(CLASS_PATH + MARKDOWN_PATH + "*");
+        return resolver.getResources(CLASS_PATH + MARKDOWN_PATH + "**.*");
     }
 
     public void render(String fileName, String markdownString) throws IOException {

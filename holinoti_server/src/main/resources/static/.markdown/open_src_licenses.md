@@ -1,3 +1,4 @@
-# 오픈소스 라이선스
+# Resource
+ Application logo: [Notification icon](https://icons8.com/icons/set/appointment-reminders) by [Icons8](https://icons8.com)
 
-### 내용 추가 예정
+# Open source
