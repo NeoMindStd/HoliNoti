@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:holinoti_customer/bloc/home_bloc.dart';
+import 'package:holinoti_customer/bloc/tutorial_bloc.dart';
 import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/data/user.dart';
 import 'package:holinoti_customer/screens/home.dart';
+import 'package:holinoti_customer/screens/tutorial.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
@@ -57,7 +59,14 @@ class SplashBloc {
   }
 
   onDoneLoading(BuildContext context) async {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage(HomeBloc())));
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.getBool(Strings.Preferences.SHOW_TUTORIAL) ?? true) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => TutorialPage(TutorialBloc(pref))));
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomePage(HomeBloc())),
+      );
+    }
   }
 }
