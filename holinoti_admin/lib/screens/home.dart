@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/home_bloc.dart';
+import 'package:holinoti_admin/bloc/settings_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/notice.dart';
 import 'package:holinoti_admin/screens/settings.dart';
 import 'package:holinoti_admin/screens/widgets/facility/input_card.dart';
 import 'package:holinoti_admin/screens/widgets/home/facility_list_column.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   final HomeBloc _homeBloc;
@@ -28,14 +30,19 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Themes.Colors.ORANGE,
-              size: 28,
-            ),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsPage())),
-          ),
+              icon: const Icon(
+                Icons.settings,
+                color: Themes.Colors.ORANGE,
+                size: 28,
+              ),
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsPage(SettingsBloc(pref))));
+              }),
           IconButton(
             icon: const Icon(
               Icons.person,
@@ -84,14 +91,19 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Themes.Colors.ORANGE,
-              size: 28,
-            ),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsPage())),
-          ),
+              icon: const Icon(
+                Icons.settings,
+                color: Themes.Colors.ORANGE,
+                size: 28,
+              ),
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsPage(SettingsBloc(pref))));
+              }),
           IconButton(
             icon: const Icon(
               Icons.person,
@@ -111,14 +123,19 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Themes.Colors.ORANGE,
-              size: 28,
-            ),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsPage())),
-          ),
+              icon: const Icon(
+                Icons.settings,
+                color: Themes.Colors.ORANGE,
+                size: 28,
+              ),
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsPage(SettingsBloc(pref))));
+              }),
           IconButton(
             icon: const Icon(
               Icons.person,

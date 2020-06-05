@@ -6,6 +6,7 @@ class Preferences {
   static const ACCOUNT = "account";
   static const PASSWORD = "password";
   static const SECOND_PASSWORD = "secondPassword";
+  static const SHOW_TUTORIAL = "showTutorial";
 }
 
 class HttpApis {
@@ -222,6 +223,9 @@ class SettingPage {
   static const ETC = "기타";
   static const NOTICE = "공지사항";
   static const CONTACT = "문의하기";
+  static const SHOW_TUTORIAL = "튜토리얼 페이지 다시 보기";
+
+  static const SHOW_TUTORIAL_DIALOG_YES_NO = "앱이 다시 켜질 때 튜토리얼 페이지를 보여드릴까요?";
 }
 
 class SecondPasswordPage {

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:holinoti_admin/bloc/settings_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/screens/web_view.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_block.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_content.dart';
 import 'package:holinoti_admin/screens/widgets/global/menu/menu_title.dart';
+import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:holinoti_admin/utils/second_auth_manager.dart';
 
 class SettingsPage extends StatelessWidget {
+  final SettingsBloc _settingsBloc;
+
+  SettingsPage(this._settingsBloc);
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -26,9 +32,9 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                AppSetting(),
-                AppInfo(),
-                EtcSetting(),
+                AppSetting(_settingsBloc),
+                AppInfo(_settingsBloc),
+                EtcSetting(_settingsBloc),
               ],
             ),
           ),
@@ -37,6 +43,10 @@ class SettingsPage extends StatelessWidget {
 }
 
 class AppSetting extends StatelessWidget {
+  final SettingsBloc _settingsBloc;
+
+  AppSetting(this._settingsBloc);
+
   @override
   Widget build(BuildContext context) => MenuBlock(
         title: MenuTitle(Strings.SettingPage.APP_SETTING),
@@ -48,11 +58,22 @@ class AppSetting extends StatelessWidget {
             await SecondAuthManager().certify(context);
             // TODO 인증 상태에 따라 진행
           }),
+          MenuContent(
+            Strings.SettingPage.SHOW_TUTORIAL,
+            onTap: () => AppDialog(context).showYesNoDialog(
+              Strings.SettingPage.SHOW_TUTORIAL_DIALOG_YES_NO,
+              onConfirm: _settingsBloc.initTutorial,
+            ),
+          ),
         ],
       );
 }
 
 class AppInfo extends StatelessWidget {
+  final SettingsBloc _settingsBloc;
+
+  AppInfo(this._settingsBloc);
+
   @override
   Widget build(BuildContext context) => MenuBlock(
         title: MenuTitle(Strings.SettingPage.APP_INFO),
@@ -82,6 +103,10 @@ class AppInfo extends StatelessWidget {
 }
 
 class EtcSetting extends StatelessWidget {
+  final SettingsBloc _settingsBloc;
+
+  EtcSetting(this._settingsBloc);
+
   @override
   Widget build(BuildContext context) => MenuBlock(
         title: MenuTitle(Strings.SettingPage.ETC),
