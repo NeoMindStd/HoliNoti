@@ -38,4 +38,8 @@ public class FacilityService {
     public List<Facility> queryByDistance(double x, double y, int side) {
         return facilityRepository.findAllByCoordinates(x, y, side);
     }
+
+    public List<Facility> queryByName(double x, double y, int side, String nam) {
+        return facilityRepository.findAllByName(x, y, side, nam);
+    }
 }
