@@ -33,7 +33,8 @@ SET @lon = lon;
 SET @lat = lat;
 SET @nam = nam;
 
-SET @R_nam = CONCAT('%',@nam,'%');
+SET @A_nam = REPLACE(@nam,'+','');
+SET @R_nam = CONCAT('%',@A_nam,'%');
 
 SET @MBR_length = side;
 
