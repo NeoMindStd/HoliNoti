@@ -38,6 +38,9 @@ public class Strings {
         public static final String DISTANCE_PATH = "/distance_m=";
         public static final String DISTANCE_PATH_REGEXP = DISTANCE_PATH + REGEXP;
 
+        public static final String NAME_PATH = "/name=";
+        public static final String NAME_PATH_REGEXP = DISTANCE_PATH + REGEXP;
+
         /// Facility
         public static final String FACILITIES = "/facilities";
         public static final String FACILITIES_URL = FACILITIES + "/**";
