@@ -31,6 +31,10 @@ class HttpApis {
   static String facilitiesByCoordinates(double x, double y, int distance) =>
       sprintf("%s%s%s/x=%f/y=%f/distance_m=%d",
           [SITE_URL, API_ROOT, FACILITIES, x, y, distance]);
+  static String facilitiesByName(
+          double x, double y, int distance, String name) =>
+      sprintf("%s%s%s/x=%f/y=%f/distance_m=%d/name=%s",
+          [SITE_URL, API_ROOT, FACILITIES, x, y, distance, name]);
 
   static const FACILITY_IMAGES = "/facility_images";
   static String fIMGByIdURI(int facilityImageId) => sprintf("%s%s%s%s/id=%d",

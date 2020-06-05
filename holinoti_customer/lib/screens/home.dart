@@ -115,6 +115,8 @@ class HomePage extends StatelessWidget {
       ),
     ];
 
+    final TextEditingController searchController = TextEditingController();
+
     final List<Widget> _routePages = [
       Column(
         children: <Widget>[
@@ -136,6 +138,7 @@ class HomePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(32),
             ),
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
                 hintText: Strings.GlobalPage.SEARCH,
                 suffixIcon: IconButton(
@@ -144,10 +147,12 @@ class HomePage extends StatelessWidget {
                     color: Themes.Colors.ORANGE,
                     size: 28,
                   ),
+                  onPressed: () => _homeBloc.search(searchController.text),
                 ),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.all(20),
               ),
+              onSubmitted: (t) => _homeBloc.search(searchController.text),
             ),
           ),
           Flexible(
