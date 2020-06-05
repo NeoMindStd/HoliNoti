@@ -44,7 +44,7 @@ SET @diagonal = CONCAT('LINESTRING(', @lon -  IF(@lon < 0, 1, -1) * @lon_diff, '
 
 SELECT *
 FROM facility FORCE INDEX FOR JOIN (`SPATIAL_COORD`)
-WHERE MBRCONTAINS(ST_LINESTRINGFROMTEXT(@diagonal), coordinates) AND name LIKE @R_nam;
+WHERE MBRCONTAINS(ST_LINESTRINGFROMTEXT(@diagonal), coordinates) AND replace(name,' ','') LIKE @R_nam;
 END
 
 //
