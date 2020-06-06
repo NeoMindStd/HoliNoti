@@ -1,0 +1,8 @@
+
+
+class TempHolidayBloc {
+  TempHolidayBloc();
+
+  dispose() {
+  }
+}
