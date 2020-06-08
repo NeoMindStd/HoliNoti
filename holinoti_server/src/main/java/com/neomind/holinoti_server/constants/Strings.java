@@ -82,6 +82,8 @@ public class Strings {
         public static final String NOTIFICATION = "/notifications";
         public static final String HOLYDAY = "/holyday=";
 
+        ///File Path
+        public static final String FACILITY_IMAGE_FILE_PATH = "/usr/local/holinoti-images";
     }
 }
 
