@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -116,5 +117,11 @@ public class UserService implements UserDetailsService {
         for (int code : facilityCodes) {
             relationAFService.deleteAllFacilityWithoutSupervisor(code);
         }
+    }
+
+    public List<String> getDeviceTokensByIds(List<Integer> ids){
+        List<User> userList = userRepository.findByIdIn(ids);
+
+        return userList.stream().map(User::getDeviceToken).collect(Collectors.toList());
     }
 }
