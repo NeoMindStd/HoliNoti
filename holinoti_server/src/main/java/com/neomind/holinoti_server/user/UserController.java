@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -59,7 +61,10 @@ public class UserController {
     }
 
     @RequestMapping(path = PathString.REGISTER_PATH, method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@Valid @RequestBody User user, Errors errors) {
+        if(errors.hasErrors()){
+            return new ResponseEntity<>(userService.validateHandling(errors), HttpStatus.BAD_REQUEST);
+        }
         User newUser = userService.register(user);
         URI createdURI = linkTo(UserController.class).slash(newUser.getId()).toUri();
         return ResponseEntity.created(createdURI).body(newUser);
@@ -67,8 +72,11 @@ public class UserController {
 
     @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateUser(@RequestBody User user,
-                           @PathVariable("userId") int id) {
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user,
+                           @PathVariable("userId") int id, Errors errors) {
+        if(errors.hasErrors()){
+            return new ResponseEntity<>(userService.validateHandling(errors), HttpStatus.BAD_REQUEST);
+        }
         User target = userRepository.findById(id).get();
 
         target.setAccount(user.getAccount());
@@ -78,8 +86,11 @@ public class UserController {
         target.setAuthority(user.getAuthority());
         target.setEmail(user.getEmail());
         target.setPhoneNumber(user.getPhoneNumber());
-
+        target.setDeviceToken(user.getDeviceToken());
         userRepository.save(target);
+
+        URI createdURI = linkTo(UserController.class).slash(target.getId()).toUri();
+        return ResponseEntity.created(createdURI).body(target);
     }
 
     @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.DELETE)
