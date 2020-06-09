@@ -78,6 +78,12 @@ public class Strings {
         public static final String KAKAO_MAP_VIEW = "kakao_map";
         public static final String KAKAO_MAP = "/" + KAKAO_MAP_VIEW;
 
+        ///Notification
+        public static final String NOTIFICATION = "/notifications";
+        public static final String HOLYDAY = "/holyday=";
+
+        ///File Path
+        public static final String FACILITY_IMAGE_FILE_PATH = "/usr/local/holinoti-images";
     }
 }
 
