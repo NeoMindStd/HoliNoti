@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/auth_bloc.dart';
 import 'package:holinoti_admin/bloc/facility_bloc.dart';
+import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/bloc/profile_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
@@ -82,7 +83,7 @@ class HomeBloc {
         context,
         platformPageRoute(
           context: context,
-          builder: (context) => FacilityPage(facilityBloc),
+          builder: (context) => FacilityPage(facilityBloc, FacilityInputBloc(facility: facilityBloc.facility)),
         ),
       );
 

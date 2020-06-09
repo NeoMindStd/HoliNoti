@@ -11,19 +11,12 @@ import 'package:holinoti_admin/screens/widgets/global/lower_half.dart';
 import 'package:holinoti_admin/screens/widgets/global/upper_half.dart';
 import 'package:intl/intl.dart';
 
-// ignore: must_be_immutable
 class FacilityPage extends StatelessWidget {
-  // To adjust the layout according to the screen size
-  // so that our layout remains responsive ,we need to
-  // calculate the screen height
-  // Set initial mode to sign in
 
   final FacilityBloc _facilityBloc;
-  FacilityInputBloc _facilityInputBloc;
+  final FacilityInputBloc _facilityInputBloc;
 
-  FacilityPage(this._facilityBloc) {
-    _facilityInputBloc = FacilityInputBloc(facility: _facilityBloc.facility);
-  }
+  FacilityPage(this._facilityBloc, this._facilityInputBloc);
 
   @override
   Widget build(BuildContext context) => StreamBuilder<bool>(
