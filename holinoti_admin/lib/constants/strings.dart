@@ -43,6 +43,15 @@ class HttpApis {
   static String fIMGsByFCodeURI(int facilityCode) => sprintf(
       "%s%s%s%s/facility_code=%d",
       [SITE_URL, API_ROOT, FACILITIES, FACILITY_IMAGES, facilityCode]);
+  static String fIMGViewURI(int facilityCode, String fileName) =>
+      sprintf("%s%s%s%s/%d/%s", [
+        SITE_URL,
+        API_ROOT,
+        FACILITIES,
+        FACILITY_IMAGES,
+        facilityCode,
+        fileName
+      ]);
 
   static const OPENING_INFO = "/opening-infos";
   static String oiByIdURI(int openingInfoId) => sprintf(

@@ -4,6 +4,7 @@ import 'package:holinoti_customer/constants/enums.dart' as Enums;
 import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/data/facility.dart';
+import 'package:holinoti_customer/data/facility_image.dart';
 import 'package:holinoti_customer/data/relation_af.dart';
 import 'package:holinoti_customer/data/user.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
@@ -30,6 +31,12 @@ class DataBloc {
 
   void setRelationAFs(List<RelationAF> relationAFs) {
     _relationAFsSubject.add(relationAFs);
+  }
+
+  void addFacilityImage(Facility facility, FacilityImage facilityImage) {
+    if (facility.facilityImages == null) facility.facilityImages = [];
+    facility.facilityImages.add(facilityImage);
+    _facilitiesSubject.add(DataManager().facilities);
   }
 
   Future addRelationAF(RelationAF relationAF) async {
@@ -150,6 +157,21 @@ class DataBloc {
       }
       print("queryByPosition: ${DataManager().facilities}");
     }
+    DataManager().facilities.forEach((facility) async {
+      http.Response imagesResponse = await http.get(
+        Strings.HttpApis.fIMGsByFCodeURI(facility.code),
+        headers: {
+          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+        },
+      );
+
+      for (var imageResponse in HttpDecoder.utf8Response(imagesResponse)) {
+        addFacilityImage(facility, FacilityImage.fromJson(imageResponse));
+      }
+      print(imagesResponse.statusCode);
+      print(facility.facilityImages);
+    });
   }
 
   void dispose() {

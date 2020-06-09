@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +30,7 @@ class IconTextTile extends StatelessWidget {
       );
 }
 
-// ignore: must_be_immutable
 class FacilityCard extends StatelessWidget {
-  File _image;
   final FacilityBloc _facilityBloc;
 
   FacilityCard(this._facilityBloc);
@@ -81,21 +77,26 @@ class FacilityCard extends StatelessWidget {
               _facilityBloc.facility.openingInfo.length > 0
                   ? "${Strings.GlobalPage.OPENING_INFO}: ${_facilityBloc.facility.openingInfo}"
                   : Strings.GlobalPage.OPENING_INFO_NOT_EXIST),
-          Container(
-            margin: const EdgeInsets.all(10),
-            width: double.infinity,
-            height: 200,
-            child: Swiper(
-              // TODO 이미지 목록 수신 후 보여주기
-              itemBuilder: (BuildContext context, int index) => Image.network(
-                "http://via.placeholder.com/350x150",
-                fit: BoxFit.fill,
-              ),
-              pagination: SwiperPagination(),
-              control: SwiperControl(),
-              itemCount: 3,
-            ),
-          ),
+          _facilityBloc.facility.facilityImages.length > 0
+              ? Container(
+                  margin: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  height: 200,
+                  child: Swiper(
+                    itemCount: _facilityBloc.facility.facilityImages.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        Image.network(
+                      Strings.HttpApis.fIMGViewURI(
+                          _facilityBloc.facility.code,
+                          _facilityBloc
+                              .facility.facilityImages[index].fileName),
+                      fit: BoxFit.fill,
+                    ),
+                    pagination: SwiperPagination(),
+                    control: SwiperControl(),
+                  ),
+                )
+              : Container(),
         ],
       ));
 }

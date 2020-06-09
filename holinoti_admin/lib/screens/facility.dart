@@ -81,91 +81,109 @@ class FacilityPage extends StatelessWidget {
                           if (onDismiss != null) onDismiss();
                           return true;
                         }
-                        onConfirm() {
-                          
-                        }
+
+                        onConfirm() {}
                         switch (index) {
                           case 0:
                             showCupertinoDialog(
-                                context: context,
-                                builder: (context)=>WillPopScope(
-                                  onWillPop: () async => _onWillPop(onConfirm),
-                                  child: PlatformAlertDialog(
-                                    title: Text(Strings.GlobalPage.ALERT_TITLE),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        TextField(
-                                          decoration: InputDecoration(
-                                              labelText: "휴업 사유"
-                                          ),
-                                        ),
-                                        Row(
-                                          children: <Widget>[
-                                            Text("휴업일:"),
-                                            StreamBuilder<DateTime>(
-                                              initialData: _facilityBloc.holidayStart,
-                                              stream: _facilityBloc.holidayStartStream,
+                              context: context,
+                              builder: (context) => WillPopScope(
+                                onWillPop: () async => _onWillPop(onConfirm),
+                                child: PlatformAlertDialog(
+                                  title: Text(Strings.GlobalPage.ALERT_TITLE),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      TextField(
+                                        decoration:
+                                            InputDecoration(labelText: "휴업 사유"),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Text("휴업일:"),
+                                          StreamBuilder<DateTime>(
+                                              initialData:
+                                                  _facilityBloc.holidayStart,
+                                              stream: _facilityBloc
+                                                  .holidayStartStream,
                                               builder: (context, snapshot) {
-                                                assert(snapshot != null && snapshot.data != null);
+                                                assert(snapshot != null &&
+                                                    snapshot.data != null);
                                                 return FlatButton(
-                                                    child: Text(DateFormat('yyyy-MM-dd').format(snapshot.data)),
+                                                    child: Text(DateFormat(
+                                                            'yyyy-MM-dd')
+                                                        .format(snapshot.data)),
                                                     onPressed: () async =>
-                                                        _facilityBloc.holidayStart = await showDatePicker(
+                                                        _facilityBloc
+                                                                .holidayStart =
+                                                            await showDatePicker(
                                                           context: context,
-                                                          initialDate: DateTime.now(),
-                                                          firstDate: DateTime.now(),
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime.now(),
                                                           lastDate: DateTime(
-                                                              DateTime.now().year+1
-                                                          ),
-                                                        )
-                                                );
-                                              }
-                                            ),
-                                            Text("~"),
-                                            StreamBuilder<DateTime>(
-                                                initialData: _facilityBloc.holidayEnd,
-                                                stream: _facilityBloc.holidayEndStream,
+                                                              DateTime.now()
+                                                                      .year +
+                                                                  1),
+                                                        ));
+                                              }),
+                                          Text("~"),
+                                          StreamBuilder<DateTime>(
+                                              initialData:
+                                                  _facilityBloc.holidayEnd,
+                                              stream: _facilityBloc
+                                                  .holidayEndStream,
                                               builder: (context, snapshot) {
-                                                assert(snapshot != null && snapshot.data != null);
+                                                assert(snapshot != null &&
+                                                    snapshot.data != null);
                                                 return FlatButton(
-                                                    child: Text(DateFormat('yyyy-MM-dd').format(snapshot.data)),
+                                                    child: Text(DateFormat(
+                                                            'yyyy-MM-dd')
+                                                        .format(snapshot.data)),
                                                     onPressed: () async =>
-                                                        _facilityBloc.holidayEnd = await showDatePicker(
+                                                        _facilityBloc
+                                                                .holidayEnd =
+                                                            await showDatePicker(
                                                           context: context,
-                                                          initialDate: DateTime.now(),
-                                                          firstDate: DateTime.now(),
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime.now(),
                                                           lastDate: DateTime(
-                                                              DateTime.now().year+3
-                                                          ),
-                                                        )
-                                                );
-                                              }
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    actions: <Widget>[
-                                      PlatformButton(
-                                        androidFlat: (BuildContext context) => MaterialFlatButtonData(
-                                          child: Text(Strings.GlobalPage.BUTTON_CONFIRM),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            if (onConfirm != null) onConfirm();
-                                          },
-                                        ),
-                                        ios: (BuildContext context) => CupertinoButtonData(
-                                          child: Text(Strings.GlobalPage.BUTTON_CONFIRM),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            if (onConfirm != null) onConfirm();
-                                          },
-                                        ),
+                                                              DateTime.now()
+                                                                      .year +
+                                                                  3),
+                                                        ));
+                                              })
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  actions: <Widget>[
+                                    PlatformButton(
+                                      androidFlat: (BuildContext context) =>
+                                          MaterialFlatButtonData(
+                                        child: Text(
+                                            Strings.GlobalPage.BUTTON_CONFIRM),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          if (onConfirm != null) onConfirm();
+                                        },
+                                      ),
+                                      ios: (BuildContext context) =>
+                                          CupertinoButtonData(
+                                        child: Text(
+                                            Strings.GlobalPage.BUTTON_CONFIRM),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          if (onConfirm != null) onConfirm();
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
                             );
                             break;
                           case 1:
@@ -178,14 +196,14 @@ class FacilityPage extends StatelessWidget {
                       },
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<int>>[
-                            const PopupMenuItem<int>(
-                              value: 0,
-                              child: Text("휴업일 관리"),
-                            ),
-                            const PopupMenuItem<int>(
-                              value: 1,
-                              child: Text(Strings.GlobalPage.EDIT),
-                            ),
+                        const PopupMenuItem<int>(
+                          value: 0,
+                          child: Text("휴업일 관리"),
+                        ),
+                        const PopupMenuItem<int>(
+                          value: 1,
+                          child: Text(Strings.GlobalPage.EDIT),
+                        ),
                         const PopupMenuItem<int>(
                           value: 2,
                           child: Text(Strings.GlobalPage.DELETE),

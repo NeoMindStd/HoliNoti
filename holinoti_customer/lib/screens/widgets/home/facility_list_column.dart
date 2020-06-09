@@ -55,8 +55,13 @@ class FacilitiesListColumn extends StatelessWidget {
                                 children: <Widget>[
                                   SizedBox.fromSize(
                                       size: Size.square(100),
-                                      child: Image.asset(
-                                          Strings.Assets.RESTAURANT_JPG)),
+                                      child: facility.facilityImages.length > 0
+                                          ? Image.network(
+                                              Strings.HttpApis.fIMGViewURI(
+                                                  facility.code,
+                                                  facility.facilityImages.first
+                                                      .fileName))
+                                          : Container()),
                                   FavoriteButton(facility.code, context),
                                 ],
                               ),
