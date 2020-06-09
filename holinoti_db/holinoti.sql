@@ -14,7 +14,7 @@ CREATE TABLE `facility` (
 
 CREATE TABLE `facility_image` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `path` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
   `facility_code` int NOT NULL
 );
 

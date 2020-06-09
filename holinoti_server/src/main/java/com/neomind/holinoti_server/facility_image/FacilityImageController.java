@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 
@@ -39,25 +39,22 @@ public class FacilityImageController {
         return facilityImageRepository.findFacilityImagesByFacilityCode(facilityCode);
     }
 
-    //TODO 리눅스 톰캣 서버에서 동작 버그 고치기
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public ResponseEntity addFacilityImage(MultipartHttpServletRequest request) throws Exception {
     public ResponseEntity<?> addFacilityImage(@RequestParam("file") MultipartFile uploadFile,
-                                           @RequestParam("facility_code") int facilityCode) throws Exception {
+                                              @RequestParam("facility_code") int facilityCode) throws Exception {
         if (!userService.isAccessible(facilityCode))
             throw new Exception("Prohibited: Low Grade Role");
-        FacilityImage newFacilityImage = new FacilityImage();
+        FacilityImage facilityImage = new FacilityImage();
 
         try {
-            facilityImageService.upload(newFacilityImage, uploadFile, facilityCode);
-        }
-        catch (Exception e){
+            facilityImageService.upload(facilityImage, uploadFile, facilityCode);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        URI createdURI = linkTo(FacilityImageController.class).slash(newFacilityImage.getId()).toUri();
-        return ResponseEntity.created(createdURI).body(newFacilityImage);
+        URI createdURI = linkTo(FacilityImageController.class).slash(facilityImage.getId()).toUri();
+        return ResponseEntity.created(createdURI).body(facilityImage);
     }
 
     @RequestMapping(path = PathString.ID_PATH + "{facilityImageId}", method = RequestMethod.PUT,
@@ -69,7 +66,7 @@ public class FacilityImageController {
             throw new Exception("Prohibited: Low Grade Role");
         FacilityImage target = facilityImageRepository.findById(id).get();
 
-        target.setPath(facilityImage.getPath());
+        target.setFileName(facilityImage.getFileName());
         target.setFacilityCode(facilityImage.getFacilityCode());
 
         facilityImageRepository.save(target);
@@ -80,9 +77,9 @@ public class FacilityImageController {
         FacilityImage facilityImage = facilityImageRepository.findById(id).get();
         if (!userService.isAccessible(facilityImage.getFacilityCode()))
             throw new Exception("Prohibited: Low Grade Role");
-        String path = facilityImageRepository.findById(id).get().getPath();
+        String path = facilityImageRepository.findById(id).get().getFileName();
         File delFile = new File(path);
-        if(delFile.exists())
+        if (delFile.exists())
             delFile.delete();
         facilityImageRepository.deleteById(id);
     }

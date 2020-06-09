@@ -18,8 +18,8 @@ public class FacilityImage implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
-    @Column(name = "path", nullable = false)
-    private String path;
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
     @Column(name = "facility_code", nullable = false)
     private int facilityCode;
 }

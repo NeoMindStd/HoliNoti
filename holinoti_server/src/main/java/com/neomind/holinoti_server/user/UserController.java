@@ -62,7 +62,7 @@ public class UserController {
 
     @RequestMapping(path = PathString.REGISTER_PATH, method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@Valid @RequestBody User user, Errors errors) {
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             return new ResponseEntity<>(userService.validateHandling(errors), HttpStatus.BAD_REQUEST);
         }
         User newUser = userService.register(user);
@@ -73,8 +73,8 @@ public class UserController {
     @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> updateUser(@Valid @RequestBody User user,
-                           @PathVariable("userId") int id, Errors errors) {
-        if(errors.hasErrors()){
+                                        @PathVariable("userId") int id, Errors errors) {
+        if (errors.hasErrors()) {
             return new ResponseEntity<>(userService.validateHandling(errors), HttpStatus.BAD_REQUEST);
         }
         User target = userRepository.findById(id).get();

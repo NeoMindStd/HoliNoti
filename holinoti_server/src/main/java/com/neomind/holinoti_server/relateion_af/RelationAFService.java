@@ -32,7 +32,8 @@ public class RelationAFService {
             facilityRepository.deleteById(facilityCode);
         }
     }
-    public List<Integer> customerUserIdByFacilityCode(int facilityCode){
+
+    public List<Integer> customerUserIdByFacilityCode(int facilityCode) {
         List<RelationAF> relationAFListByFacilityCode = relationAFRepository.findByFacilityCode(facilityCode);
         relationAFListByFacilityCode.removeIf(rel -> rel.getRole() != Role.customer);
         List<Integer> deviceTokens = relationAFListByFacilityCode.stream().map(RelationAF::getUserId).collect(Collectors.toList());

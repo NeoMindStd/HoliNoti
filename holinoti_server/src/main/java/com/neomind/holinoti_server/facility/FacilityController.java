@@ -63,7 +63,7 @@ public class FacilityController {
     @RequestMapping(path = PathString.X_PATH + "{x}" + PathString.Y_PATH + "{y}" +
             PathString.DISTANCE_PATH + "{distanceM}" + PathString.NAME_PATH + "{name}", method = RequestMethod.GET)
     public List<Facility> getFacilitiesByName(@PathVariable("x") double x, @PathVariable("y") double y,
-                                                     @PathVariable("distanceM") int side, @PathVariable("name") String nam) {
+                                              @PathVariable("distanceM") int side, @PathVariable("name") String nam) {
         return facilityService.queryByName(x, y, side, nam);
     }
 

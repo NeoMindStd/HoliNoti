@@ -1,24 +1,19 @@
 package com.neomind.holinoti_server.notification;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import com.neomind.holinoti_server.constants.Strings;
 import com.neomind.holinoti_server.relateion_af.RelationAFService;
-import com.neomind.holinoti_server.user.User;
-import com.neomind.holinoti_server.user.UserRepository;
 import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @AllArgsConstructor
@@ -27,11 +22,11 @@ import org.springframework.web.bind.annotation.*;
 public class NotificationController {
     UserService userService;
     RelationAFService relationAFService;
-//    @Autowired
+    //    @Autowired
     NotificationService notificationService;
 
 
-//    //TODO 생성되는 JSON 알림 객체. device 토큰을 불러올 facility_code를 매개변수로 받아야함.
+    //    //TODO 생성되는 JSON 알림 객체. device 토큰을 불러올 facility_code를 매개변수로 받아야함.
 //    public String PeriodicNotificationJson(int facilityCode, LocalDateTime holyDateTime) throws Exception {
 //        LocalDate localDate = LocalDate.now();
 //
@@ -70,9 +65,10 @@ public class NotificationController {
     @RequestMapping(path = Strings.PathString.FACILITY_CODE_PATH + "{facilityCode}" +
             Strings.PathString.HOLYDAY + "{HolyDay}", method = RequestMethod.GET)
     //TODO facility_code를 매개변수로 받아야함. Manager 이상이 접근할 수 있게 해야함. magnager 이상이 자신이 관리가능한 범위에 알림이 가능해야함.
-    public @ResponseBody ResponseEntity<String> send(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-                                                     @PathVariable("HolyDay") LocalDateTime holyDateTime,
-                                                     @PathVariable("facilityCode") int facilityCode) throws Exception {
+    public @ResponseBody
+    ResponseEntity<String> send(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+                                @PathVariable("HolyDay") LocalDateTime holyDateTime,
+                                @PathVariable("facilityCode") int facilityCode) throws Exception {
         if (!userService.isAccessible(facilityCode))
             throw new Exception("Prohibited: Low Grade Role");
         String notifications = notificationService.PeriodicNotificationJson(facilityCode, holyDateTime);
@@ -82,14 +78,12 @@ public class NotificationController {
         CompletableFuture<String> pushNotification = notificationService.send(request);
         CompletableFuture.allOf(pushNotification).join();
 
-        try{
+        try {
             String firebaseResponse = pushNotification.get();
             return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
-        }
-        catch (InterruptedException e){
+        } catch (InterruptedException e) {
             throw new InterruptedException();
-        }
-        catch (ExecutionException e){
+        } catch (ExecutionException e) {
             return new ResponseEntity<>("Push Notification ERROR!", HttpStatus.BAD_REQUEST);
         }
     }

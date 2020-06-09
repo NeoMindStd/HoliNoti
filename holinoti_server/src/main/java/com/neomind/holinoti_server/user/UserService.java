@@ -119,7 +119,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<String> getDeviceTokensByIds(List<Integer> ids){
+    public List<String> getDeviceTokensByIds(List<Integer> ids) {
         List<User> userList = userRepository.findByIdIn(ids);
 
         return userList.stream().map(User::getDeviceToken).collect(Collectors.toList());
