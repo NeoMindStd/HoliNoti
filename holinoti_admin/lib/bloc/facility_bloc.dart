@@ -2,7 +2,7 @@ import 'package:holinoti_admin/data/facility.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FacilityBloc {
-  Facility facility;
+  Facility _facility;
   bool _updateMode;
   DateTime _holidayStart;
   DateTime _holidayEnd;
@@ -12,12 +12,13 @@ class FacilityBloc {
   final _holidayStartSubject = PublishSubject<DateTime>();
   final _holidayEndSubject = PublishSubject<DateTime>();
 
-  FacilityBloc(this.facility) {
+  FacilityBloc(this._facility) {
     _updateMode = false;
     _holidayStart = DateTime.now();
     _holidayEnd = DateTime.now();
   }
 
+  get facility => _facility;
   get isUpdateMode => _updateMode;
   get holidayStart => _holidayStart;
   get holidayEnd => _holidayEnd;
@@ -31,8 +32,8 @@ class FacilityBloc {
     _updateModeSubject.add(isUpdateMode);
   }
 
-  set setFacility(Facility facility) {
-    this.facility = facility;
+  set facility(Facility facility) {
+    this._facility = facility;
     _facilitySubject.add(facility);
   }
 

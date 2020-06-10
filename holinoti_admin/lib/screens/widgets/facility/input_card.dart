@@ -1,16 +1,15 @@
-import 'dart:io';
-
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_admin/bloc/facility_input_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:holinoti_admin/constants/themes.dart' as Themes;
 import 'package:holinoti_admin/data/facility.dart';
 import 'package:holinoti_admin/screens/widgets/facility/select_address.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 class InputCard extends StatelessWidget {
-  File _image;
   final FacilityInputBloc _facilityInputBloc;
 
   InputCard(this._facilityInputBloc);
@@ -45,8 +44,8 @@ class InputCard extends StatelessWidget {
                   width: 300,
                   height: 300,
                   child: EasyWebView(
-                    src:
-                        "http://holinoti.tk:8080/holinoti/kakao_map/x=${facility.x}/y=${facility.y}/",
+                    src: Strings.HttpApis.kakaoMapWebViewURI(
+                        facility.x, facility.y),
                   ),
                 );
               }),
@@ -83,8 +82,23 @@ class InputCard extends StatelessWidget {
             width: 200,
             height: 200,
             child: MaterialButton(
-              child: Image.asset(Strings.Assets.RESTAURANT_JPG),
-              onPressed: () {}, // TODO 이미지 관리 화면으로 전환
+              child: Text("이미지 업로드"),
+              onPressed: () async => _facilityInputBloc.images.addAll(
+                await MultiImagePicker.pickImages(
+                  maxImages: 10,
+                  enableCamera: true,
+                  cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+                  materialOptions: MaterialOptions(
+                    statusBarColor: Themes.Colors.STATUS_BAR,
+                    actionBarColor: Themes.Colors.ACTION_BAR,
+                    actionBarTitleColor: Themes.Colors.ACTION_BAR_TITLE,
+                    allViewTitle: "전체",
+                    actionBarTitle: "업로드 할 사진 선택",
+                    useDetailsView: false,
+                    selectCircleStrokeColor: "#000000",
+                  ),
+                ),
+              ),
             ),
           ),
         ]));

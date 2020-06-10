@@ -83,7 +83,8 @@ class HomeBloc {
         context,
         platformPageRoute(
           context: context,
-          builder: (context) => FacilityPage(facilityBloc, FacilityInputBloc(facility: facilityBloc.facility)),
+          builder: (context) => FacilityPage(
+              facilityBloc, FacilityInputBloc(facility: facilityBloc.facility)),
         ),
       );
 

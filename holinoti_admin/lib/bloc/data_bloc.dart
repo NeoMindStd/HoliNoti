@@ -174,6 +174,27 @@ class DataBloc {
     });
   }
 
+  Future uploadImage(File file, Facility facility) async {
+    http.MultipartRequest request = http.MultipartRequest(
+        "POST",
+        Uri.parse(
+            "http://holinoti.tk:8080/holinoti/facilities/facility_images"));
+    request.fields["facility_code"] = facility.code.toString();
+    http.MultipartFile pic =
+        await http.MultipartFile.fromPath("file", file.path);
+    request.files.add(pic);
+    http.StreamedResponse response = await DataManager().client.send(request);
+
+    var responseData = await response.stream.toBytes();
+    var responseString = String.fromCharCodes(responseData);
+    print(responseString);
+
+    if (facility.facilityImages == null) facility.facilityImages = [];
+    addFacilityImage(facility, facilityImageFromJson(responseString));
+
+    print("${facility.facilityImages.last} was added.");
+  }
+
   void dispose() {
     _currentUserSubject.close();
     _facilitiesSubject.close();

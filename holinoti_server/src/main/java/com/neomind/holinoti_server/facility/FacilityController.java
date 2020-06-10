@@ -69,7 +69,7 @@ public class FacilityController {
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateFacility(@RequestBody Facility facility,
+    public ResponseEntity updateFacility(@RequestBody Facility facility,
                                @PathVariable("facilityCode") int code) throws Exception {
         if (!userService.isAccessible(code)) throw new Exception("Prohibited: Low Grade Role");
 
@@ -82,6 +82,8 @@ public class FacilityController {
         target.setCoordinates(facility.getCoordinates());
 
         facilityRepository.save(target);
+
+        return ResponseEntity.ok().body(target);
     }
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.DELETE)

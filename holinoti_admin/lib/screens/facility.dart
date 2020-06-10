@@ -12,7 +12,6 @@ import 'package:holinoti_admin/screens/widgets/global/upper_half.dart';
 import 'package:intl/intl.dart';
 
 class FacilityPage extends StatelessWidget {
-
   final FacilityBloc _facilityBloc;
   final FacilityInputBloc _facilityInputBloc;
 
@@ -41,7 +40,8 @@ class FacilityPage extends StatelessWidget {
                     IconButton(
                         icon: const Icon(Icons.check),
                         onPressed: () async {
-                          await _facilityInputBloc.registerFacility();
+                          _facilityBloc.facility =
+                              await _facilityInputBloc.registerFacility();
                           _facilityBloc.updateMode = false;
                         })
                   ],

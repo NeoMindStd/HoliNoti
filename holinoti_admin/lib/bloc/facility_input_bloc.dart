@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:holinoti_admin/constants/nos.dart' as Nos;
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
@@ -7,12 +10,14 @@ import 'package:holinoti_admin/utils/data_manager.dart';
 import 'package:holinoti_admin/utils/dialog.dart';
 import 'package:holinoti_admin/utils/http_decoder.dart';
 import 'package:http/http.dart' as http;
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FacilityInputBloc {
   Facility facility;
   bool _registerMode;
   List<KakaoAddress> addresses;
+  List<Asset> images;
   TextEditingController nameController;
   TextEditingController commentController;
   TextEditingController urlController;
@@ -26,6 +31,7 @@ class FacilityInputBloc {
     facility ??= Facility();
     _registerMode = facility.code == Nos.Global.NOT_ASSIGNED_ID;
     addresses = [];
+    images = [];
     nameController = TextEditingController(text: facility.name);
     commentController = TextEditingController(text: facility.comment);
     urlController = TextEditingController(text: facility.siteUrl);
@@ -77,7 +83,7 @@ class FacilityInputBloc {
     Navigator.pop(context);
   }
 
-  Future<void> registerFacility() async {
+  Future<Facility> registerFacility() async {
     try {
       http.Response facilityResponse = _registerMode
           ? await DataManager().client.post(
@@ -107,11 +113,15 @@ class FacilityInputBloc {
         if (_registerMode) {
           throw IndexError;
         }
-        DataManager().facilities[DataManager()
-                .facilities
-                .indexWhere((item) => item.code == facility.code)] =
+        int index = DataManager()
+            .facilities
+            .indexWhere((item) => item.code == facility.code);
+        DataManager().facilities[index] =
             Facility.fromJson(decodedFacilityResponse);
         print('Modified: ${DataManager().facilities.last}');
+        await uploadImage(DataManager().facilities[index]);
+
+        return DataManager().facilities[index];
       } catch (IndexError) {
         DataManager()
             .facilities
@@ -120,9 +130,27 @@ class FacilityInputBloc {
         print('Added: ${DataManager().facilities.last}');
       }
       DataManager().dataBloc.setFacilities(DataManager().facilities);
+      await uploadImage(DataManager().facilities.last);
+
+      return DataManager().facilities.last;
     } catch (e) {
-      print(e);
+      throw e;
     }
+  }
+
+  Future uploadImage(Facility facility) async {
+    print("=====Image Uploading...=====");
+    for (var element in images) {
+      print(element.name);
+      print(element.identifier);
+      File file =
+          File(await FlutterAbsolutePath.getAbsolutePath(element.identifier));
+      print(file);
+      print(file.path);
+      print(file.readAsBytesSync());
+      await DataManager().dataBloc.uploadImage(file, facility);
+    }
+    print("=====Uploading Done!!!!=====");
   }
 
   Future deleteFacility(BuildContext context) async {
@@ -145,6 +173,7 @@ class FacilityInputBloc {
   void dispose() {
     facility = Facility();
     addresses = [];
+    images = [];
     nameController = TextEditingController(text: facility.name);
     commentController = TextEditingController(text: facility.comment);
     urlController = TextEditingController(text: facility.siteUrl);
