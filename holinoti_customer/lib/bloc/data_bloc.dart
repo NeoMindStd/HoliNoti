@@ -48,10 +48,11 @@ class DataBloc {
           },
           body: relationAFToJson(relationAF),
         );
+    print("relationAFsResponse.statusCode: ${relationAFsResponse.statusCode}");
     if (relationAFsResponse.statusCode == HttpStatus.created) {
       RelationAF response =
           RelationAF.fromJson(HttpDecoder.utf8Response(relationAFsResponse));
-      DataManager().addRelationAF(relationAF);
+      DataManager().addRelationAF(response);
     } else {
       throw Exception(
           "HTTP Post Error: \nStatus Code: ${relationAFsResponse.statusCode}\nHeaders: ${relationAFsResponse.headers}\nBody: ${relationAFsResponse.body}");
@@ -98,13 +99,12 @@ class DataBloc {
       print('decodedRelationAFResponse: $decodedRelationAFResponse');
 
       DataManager().relationAFs = decodedRelationAFResponse
-          .map((relationAFMap) {
-            relationAFMap['role'] =
-                Enums.fromString(Enums.Role.values, relationAFMap['role']);
-            return RelationAF.fromJson(relationAFMap);
-          })
+          .map(
+            (relationAFMap) => RelationAF.fromJson(relationAFMap),
+          )
           .where((relationAF) => relationAF.role != Enums.Role.customer)
           .toList();
+      print(DataManager().relationAFs);
       List decodedFacilitiesResponse = [];
 
       for (RelationAF relationAF in DataManager().relationAFs) {

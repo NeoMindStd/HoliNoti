@@ -96,34 +96,6 @@ class RegisterCard extends StatelessWidget {
       validator: (_) => null,
     );
 
-    // 테스트를 위한 임시 위젯. TODO 릴리즈 단계에서 삭제
-    final StreamBuilder<Enums.Authority> authorityStream = StreamBuilder(
-      initialData: _authBloc.authority,
-      stream: _authBloc.authorityStream,
-      builder: (context, snapshot) => Row(
-        children: <Widget>[
-          Flexible(
-            child: RadioListTile<Enums.Authority>(
-              dense: true,
-              title: Text(Strings.GlobalPage.ADMIN),
-              value: Enums.Authority.admin,
-              groupValue: snapshot.data,
-              onChanged: (value) => _authBloc.setAuthority(value),
-            ),
-          ),
-          Flexible(
-            child: RadioListTile<Enums.Authority>(
-              dense: true,
-              title: Text(Strings.GlobalPage.NORMAL),
-              value: Enums.Authority.normal,
-              groupValue: snapshot.data,
-              onChanged: (value) => _authBloc.setAuthority(value),
-            ),
-          ),
-        ],
-      ),
-    );
-
     return Form(
       key: _formKey,
       child: Column(
@@ -173,10 +145,6 @@ class RegisterCard extends StatelessWidget {
                       height: 20,
                     ),
                     phoneNumberField,
-                    SizedBox(
-                      height: 20,
-                    ),
-                    authorityStream,
                     SizedBox(
                       height: 20,
                     ),

@@ -20,7 +20,9 @@ class RelationAF {
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
         userId: json['userId'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
         facilityCode: json['facilityCode'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
-        role: json['role'] as Enums.Role ?? Enums.Role.customer,
+        role: json['role'] == null
+            ? Enums.fromString(Enums.Role.values, json['role'])
+            : Enums.Role.customer,
       );
 
   Map<String, dynamic> toJson() => {
