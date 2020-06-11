@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app
+        version="3.0"
+        metadata-complete="true">
+    <display-name>HoliNoti Rest API</display-name>
+    <description>
+        HoliNoti Rest API
+    </description>
+
+    <!-- 1. aliases ?? -->
+    <servlet>
+        <servlet-name>holinoti</servlet-name>
+        <servlet-class>com.neomind.holinoti_server.RestApiApplication</servlet-class>
+    </servlet>
+
+    <!-- 2. ?? -->
+    <servlet-mapping>
+        <servlet-name>holinoti</servlet-name>
+        <url-pattern>/holinoti</url-pattern>
+    </servlet-mapping>
+</web-app>
