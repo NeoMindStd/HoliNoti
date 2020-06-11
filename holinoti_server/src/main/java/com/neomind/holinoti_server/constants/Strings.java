@@ -5,6 +5,11 @@ public class Strings {
         public static final String ROLE = "ROLE_";
     }
 
+    public static class Api {
+        public static final String API_KEY_FCM_SERVER = "AAAAHmLOi9s:APA91bFvXcg0LzYrp4tCYA6zdTDdGVZ3Tqbx0i0tAuKlQEN3fsAGPXnbO_B5SBH2JMAtmHVjetHJom6x2FcAddi_ZWuv4fvbAbyqCyBosOSPYd3VCvMPp6dPCJ_CjVJHEGAxhX2s-sKq";
+        public static final String API_URL_FCM_SERVER = "https://fcm.googleapis.com/fcm/send";
+    }
+
     public static class PathString {
         public static final String REGEXP = "*/**";
 
@@ -79,8 +84,8 @@ public class Strings {
         public static final String KAKAO_MAP = "/" + KAKAO_MAP_VIEW;
 
         ///Notification
-        public static final String NOTIFICATION = "/notifications";
-        public static final String HOLYDAY = "/holyday=";
+        public static final String NOTIFICATIONS = "/notifications";
+        public static final String NOTIFICATION_URL = NOTIFICATIONS + "*/**";
 
         ///File Path
         public static final String FACILITY_IMAGE_FILE_PATH = "/usr/local/holinoti-images";

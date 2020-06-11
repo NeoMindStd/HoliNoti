@@ -7,6 +7,7 @@ import 'package:holinoti_customer/data/user.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:holinoti_customer/utils/dialog.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
+import 'package:holinoti_customer/utils/notification_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:rxdart/rxdart.dart';
@@ -72,6 +73,17 @@ class AuthBloc {
 
       DataManager().currentUser = User.fromJson(decodedUserResponse);
       print('Login: ${DataManager().currentUser}');
+      await NotificationManager.getFirebaseToken();
+      http.Response tokenUpdateResponse = await DataManager().client.put(
+            Strings.HttpApis.userByIdURI(DataManager().currentUser.id),
+            headers: {
+              Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                  Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+            },
+            body: userToJsonWithoutPassword(DataManager().currentUser),
+          );
+      print('Token Updated Status: ${tokenUpdateResponse.statusCode}');
+      print('Token Updated: ${DataManager().currentUser}');
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 

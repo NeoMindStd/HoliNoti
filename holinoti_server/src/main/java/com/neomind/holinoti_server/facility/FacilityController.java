@@ -70,7 +70,7 @@ public class FacilityController {
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateFacility(@RequestBody Facility facility,
-                               @PathVariable("facilityCode") int code) throws Exception {
+                                         @PathVariable("facilityCode") int code) throws Exception {
         if (!userService.isAccessible(code)) throw new Exception("Prohibited: Low Grade Role");
 
         Facility target = facilityRepository.findById(code).get();

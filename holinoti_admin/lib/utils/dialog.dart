@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:holinoti_admin/bloc/facility_bloc.dart';
 import 'package:holinoti_admin/constants/strings.dart' as Strings;
+import 'package:intl/intl.dart';
 
 class AppDialog {
   static final AppDialog _instance = AppDialog._();
@@ -185,6 +187,103 @@ class AppDialog {
               .toList(),
         ),
       );
+
+  Future showTempHolidayDialog(
+      {FacilityBloc facilityBloc, Function onCancel()}) async {
+    TextEditingController controller = TextEditingController();
+
+    onConfirm() => facilityBloc.submitTempHoliday(controller.value.text);
+
+    onSubmit([String text]) {
+      Navigator.of(_context).pop();
+      if (onConfirm != null) onConfirm();
+    }
+
+    return showPlatformDialog(
+      context: _context,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => _onWillPop(onConfirm),
+        child: PlatformAlertDialog(
+          title: Text(Strings.GlobalPage.ALERT_TITLE),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                controller: controller,
+                decoration: InputDecoration(labelText: "휴업 사유"),
+              ),
+              Row(
+                children: <Widget>[
+                  Text("휴업일:"),
+                  StreamBuilder<DateTime>(
+                      initialData: facilityBloc.holidayStart,
+                      stream: facilityBloc.holidayStartStream,
+                      builder: (context, snapshot) {
+                        assert(snapshot != null && snapshot.data != null);
+                        return FlatButton(
+                            child: Text(
+                                DateFormat('yyyy-MM-dd').format(snapshot.data)),
+                            onPressed: () async => facilityBloc.holidayStart =
+                                    await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(DateTime.now().year + 1),
+                                ));
+                      }),
+                  Text("~"),
+                  StreamBuilder<DateTime>(
+                      initialData: facilityBloc.holidayEnd,
+                      stream: facilityBloc.holidayEndStream,
+                      builder: (context, snapshot) {
+                        assert(snapshot != null && snapshot.data != null);
+                        return FlatButton(
+                            child: Text(
+                                DateFormat('yyyy-MM-dd').format(snapshot.data)),
+                            onPressed: () async =>
+                                facilityBloc.holidayEnd = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(DateTime.now().year + 3),
+                                ));
+                      })
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            PlatformButton(
+              androidFlat: (BuildContext context) => MaterialFlatButtonData(
+                child: Text(Strings.GlobalPage.BUTTON_SUBMIT),
+                onPressed: onSubmit,
+              ),
+              ios: (BuildContext context) => CupertinoButtonData(
+                child: Text(Strings.GlobalPage.BUTTON_SUBMIT),
+                onPressed: onSubmit,
+              ),
+            ),
+            PlatformButton(
+              androidFlat: (BuildContext context) => MaterialFlatButtonData(
+                child: Text(Strings.GlobalPage.BUTTON_CANCEL),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onCancel != null) onCancel();
+                },
+              ),
+              ios: (BuildContext context) => CupertinoButtonData(
+                child: Text(Strings.GlobalPage.BUTTON_CANCEL),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onCancel != null) onCancel();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Future<bool> _onWillPop(void onDismiss()) async {
     if (onDismiss != null) onDismiss();

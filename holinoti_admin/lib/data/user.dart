@@ -11,6 +11,7 @@ class User {
   Enums.Authority authority;
   String email;
   String phoneNumber;
+  String deviceToken;
 
   User(
       {this.id = Nos.Global.NOT_ASSIGNED_ID,
@@ -19,7 +20,8 @@ class User {
       this.name = "",
       this.authority,
       this.email = "",
-      this.phoneNumber = ""});
+      this.phoneNumber = "",
+      this.deviceToken = ""});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as int ?? Nos.Global.NOT_ASSIGNED_ID,
@@ -30,23 +32,32 @@ class User {
             json['authority'] as Enums.Authority ?? Enums.Authority.normal,
         email: json['email'] as String ?? "",
         phoneNumber: json['phoneNumber'] as String ?? "",
+        deviceToken: json['deviceToken'] as String ?? "",
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJsonWithoutPassword() => {
         'id': id,
         'account': account,
-        'password': password,
         'name': name,
         'authority': Enums.toString(authority),
         'email': email,
         'phoneNumber': phoneNumber,
+        'deviceToken': deviceToken,
       };
+
+  Map<String, dynamic> toJson() {
+    var jsonWithoutPassword = toJsonWithoutPassword();
+    jsonWithoutPassword['password'] = password;
+    return jsonWithoutPassword;
+  }
 
   @override
   String toString() =>
-      'User{id: $id, account: $account, name: $name, authority: $authority, email: $email, phoneNumber: $phoneNumber}';
+      'User{id: $id, account: $account, name: $name, authority: $authority, email: $email, phoneNumber: $phoneNumber, deviceToken: $deviceToken}';
 }
 
 User userFromJson(String string) => User.fromJson(json.decode(string));
 
+String userToJsonWithoutPassword(User user) =>
+    json.encode(user.toJsonWithoutPassword());
 String userToJson(User user) => json.encode(user.toJson());

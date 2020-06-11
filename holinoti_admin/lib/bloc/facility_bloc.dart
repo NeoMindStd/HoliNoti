@@ -1,4 +1,9 @@
+import 'package:holinoti_admin/constants/strings.dart' as Strings;
 import 'package:holinoti_admin/data/facility.dart';
+import 'package:holinoti_admin/data/notification.dart' as Data;
+import 'package:holinoti_admin/utils/data_manager.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FacilityBloc {
@@ -45,6 +50,30 @@ class FacilityBloc {
   set holidayEnd(DateTime dateTime) {
     this._holidayEnd = dateTime;
     _holidayEndSubject.add(dateTime);
+  }
+
+  Future submitTempHoliday(String text) async {
+    Data.Notification notification = Data.Notification(
+        title: "${_facility.name} 임시 휴업 알림",
+        body:
+            "사유: $text, 기간: ${DateFormat('yyyy-MM-dd').format(_holidayStart)} ~ ${DateFormat('yyyy-MM-dd').format(_holidayEnd)}");
+    print("====Notification Request====");
+    print(_facility.code);
+    print(notification);
+    print("==============================");
+    http.Response response = await DataManager().client.post(
+          Strings.HttpApis.notificationFromFCodeURI(_facility.code),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+          body: Data.notificationToJson(notification),
+        );
+    print("====Notification Response====");
+    print(response.statusCode);
+    print(response.headers);
+    print(response.body);
+    print("==============================");
   }
 
   void dispose() {

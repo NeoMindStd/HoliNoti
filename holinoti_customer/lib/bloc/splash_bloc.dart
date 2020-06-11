@@ -9,6 +9,7 @@ import 'package:holinoti_customer/screens/home.dart';
 import 'package:holinoti_customer/screens/tutorial.dart';
 import 'package:holinoti_customer/utils/data_manager.dart';
 import 'package:holinoti_customer/utils/http_decoder.dart';
+import 'package:holinoti_customer/utils/notification_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_auth/http_auth.dart' as http_auth;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +49,7 @@ class SplashBloc {
   }
 
   loadData(BuildContext context) async {
+    NotificationManager().initFirebase();
     if ((await SharedPreferences.getInstance())
             .getBool(Strings.Preferences.IS_AUTO_LOGIN_MODE) ??
         true) {

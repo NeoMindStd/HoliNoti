@@ -11,6 +11,8 @@ class Preferences {
 class HttpApis {
   static const API_KEY_KAKAO_MAP = "2fb1a28ebf058dac66ff29d555e364e5";
   static const API_KEY_KAKAO_MAP_QUERY = "KakaoAK " + API_KEY_KAKAO_MAP;
+  static const API_KEY_FCM_SERVER =
+      'AAAAHmLOi9s:APA91bFvXcg0LzYrp4tCYA6zdTDdGVZ3Tqbx0i0tAuKlQEN3fsAGPXnbO_B5SBH2JMAtmHVjetHJom6x2FcAddi_ZWuv4fvbAbyqCyBosOSPYd3VCvMPp6dPCJ_CjVJHEGAxhX2s-sKq';
   static const API_AUTHORIZATION = "Authorization";
   static const HEADER_NAME_CONTENT_TYPE = "Content-Type";
   static const HEADER_VALUE_CONTENT_TYPE_JSON =
@@ -102,6 +104,8 @@ class HttpApis {
   static const API_REQUEST_BODY_KAKAO_MAP_ADDRESS_SIZE = "AddressSize";
   static const API_RESPONSE_BODY_KAKAO_MAP_DOCUMENTS = "documents";
   static const API_RESPONSE_BODY_KAKAO_MAP_ROAD_ADDRESS = "road_address";
+
+  static const API_URL_FCM_SERVER = "https://fcm.googleapis.com/fcm/send";
 
   static const String PRIVACY_POLICIES =
       "$SITE_URL$API_ROOT/privacy_policies.html";

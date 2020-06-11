@@ -4,21 +4,17 @@ import com.neomind.holinoti_server.constants.Strings;
 import com.neomind.holinoti_server.relateion_af.RelationAFService;
 import com.neomind.holinoti_server.user.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @RestController
 @AllArgsConstructor
-//TODO consumes 확인하기
-@RequestMapping(value = Strings.PathString.NOTIFICATION, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = Strings.PathString.NOTIFICATIONS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class NotificationController {
     UserService userService;
     RelationAFService relationAFService;
@@ -61,21 +57,15 @@ public class NotificationController {
 //
 //        return body.toString();
 //    }
-    //TODO SecurityConfig 추가해야됨.
-    @RequestMapping(path = Strings.PathString.FACILITY_CODE_PATH + "{facilityCode}" +
-            Strings.PathString.HOLYDAY + "{HolyDay}", method = RequestMethod.GET)
-    //TODO facility_code를 매개변수로 받아야함. Manager 이상이 접근할 수 있게 해야함. magnager 이상이 자신이 관리가능한 범위에 알림이 가능해야함.
+
+    @RequestMapping(path = Strings.PathString.FACILITY_CODE_PATH + "{facilityCode}", method = RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity<String> send(@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-                                @PathVariable("HolyDay") LocalDateTime holyDateTime,
-                                @PathVariable("facilityCode") int facilityCode) throws Exception {
+    ResponseEntity<String> send(@PathVariable("facilityCode") int facilityCode, @RequestBody Notification notification) throws Exception {
         if (!userService.isAccessible(facilityCode))
             throw new Exception("Prohibited: Low Grade Role");
-        String notifications = notificationService.PeriodicNotificationJson(facilityCode, holyDateTime);
+        String notifications = notificationService.notificationJson(facilityCode, notification.getTitle(), notification.getBody());
 
-        HttpEntity<String> request = new HttpEntity<>(notifications);
-
-        CompletableFuture<String> pushNotification = notificationService.send(request);
+        CompletableFuture<String> pushNotification = notificationService.send(notifications);
         CompletableFuture.allOf(pushNotification).join();
 
         try {

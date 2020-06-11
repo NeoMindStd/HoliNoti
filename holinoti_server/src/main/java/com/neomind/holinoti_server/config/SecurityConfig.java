@@ -82,6 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.DELETE, PathString.USER_URL_BY_ID).hasAuthority(Authority.normal.name())
 
+                /// Notification
+                .antMatchers(HttpMethod.POST, PathString.NOTIFICATION_URL).hasAuthority(Authority.normal.name())
+
                 .and().csrf().disable().httpBasic();
     }
 

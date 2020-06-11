@@ -72,16 +72,33 @@ public class UserController {
 
     @RequestMapping(path = PathString.ID_PATH + "{userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> updateUser(@Valid @RequestBody User user,
-                                        @PathVariable("userId") int id, Errors errors) {
+    public ResponseEntity<?> updateUser(@RequestBody User user,
+                                        @PathVariable("userId") int id) {
+        User target = userRepository.findById(id).get();
+
+        target.setAccount(user.getAccount());
+        target.setName(user.getName());
+        target.setAuthority(user.getAuthority());
+        target.setEmail(user.getEmail());
+        target.setPhoneNumber(user.getPhoneNumber());
+        target.setDeviceToken(user.getDeviceToken());
+        userRepository.save(target);
+
+        URI createdURI = linkTo(UserController.class).slash(target.getId()).toUri();
+        return ResponseEntity.created(createdURI).body(target);
+    }
+
+    @RequestMapping(path = PathString.ID_PATH + "{userId}/with-password", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateUserWithPassword(@Valid @RequestBody User user,
+                                                    @PathVariable("userId") int id, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(userService.validateHandling(errors), HttpStatus.BAD_REQUEST);
         }
         User target = userRepository.findById(id).get();
 
         target.setAccount(user.getAccount());
-        target.setPassword(user.getPassword() != null
-                ? new EncodingManger().encode(user.getPassword()) : target.getPassword());
+        target.setPassword(new EncodingManger().encode(user.getPassword()));
         target.setName(user.getName());
         target.setAuthority(user.getAuthority());
         target.setEmail(user.getEmail());

@@ -60,6 +60,7 @@ dependencies:
 
   # Notification
   flutter_local_notifications: ^1.4.3
+  firebase_messaging: ^6.0.16
 
   # Location
   geolocator: ^5.3.1

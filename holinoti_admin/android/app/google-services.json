@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "130506722267",
+    "firebase_url": "https://holiday-notifier-d8efb.firebaseio.com",
+    "project_id": "holiday-notifier-d8efb",
+    "storage_bucket": "holiday-notifier-d8efb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130506722267:android:754d5dcd0af42f52dbf5fe",
+        "android_client_info": {
+          "package_name": "com.neomind.holinoti_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130506722267-5ftdc05iuujqob6g63l2jg39f0ursviu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClSyhHWsZCJKLgcdYBkGbHuSqxs99bGnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130506722267-5ftdc05iuujqob6g63l2jg39f0ursviu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "130506722267-120jlebq58egld2retc2p1ks2lulo79n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.neomind.holinotiCustomer"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130506722267:android:8b61c3a8f220f4eddbf5fe",
+        "android_client_info": {
+          "package_name": "com.neomind.holinoti_customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130506722267-5ftdc05iuujqob6g63l2jg39f0ursviu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClSyhHWsZCJKLgcdYBkGbHuSqxs99bGnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130506722267-5ftdc05iuujqob6g63l2jg39f0ursviu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "130506722267-120jlebq58egld2retc2p1ks2lulo79n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.neomind.holinotiCustomer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

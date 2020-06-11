@@ -37,8 +37,17 @@ public class RelationAFService {
         List<RelationAF> relationAFListByFacilityCode = relationAFRepository.findByFacilityCode(facilityCode);
         relationAFListByFacilityCode.removeIf(rel -> rel.getRole() != Role.customer);
         List<Integer> deviceTokens = relationAFListByFacilityCode.stream().map(RelationAF::getUserId).collect(Collectors.toList());
-        HashSet<Integer> templist = new HashSet<Integer>(deviceTokens);
-        deviceTokens = new ArrayList<Integer>(templist);
+        HashSet<Integer> tmpList = new HashSet(deviceTokens);
+        deviceTokens = new ArrayList(tmpList);
+
+        return deviceTokens;
+    }
+
+    public List<Integer> userIdByFacilityCode(int facilityCode) {
+        List<RelationAF> relationAFListByFacilityCode = relationAFRepository.findByFacilityCode(facilityCode);
+        List<Integer> deviceTokens = relationAFListByFacilityCode.stream().map(RelationAF::getUserId).collect(Collectors.toList());
+        HashSet<Integer> tmpList = new HashSet(deviceTokens);
+        deviceTokens = new ArrayList(tmpList);
 
         return deviceTokens;
     }
