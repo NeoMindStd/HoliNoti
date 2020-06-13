@@ -77,7 +77,7 @@ class DataBloc {
     _relationAFsSubject.add(DataManager().relationAFs);
   }
 
-  Future queryFacilities() async {
+  Future queryFacilities({int distance = 5000}) async {
     /*************************************************************************
      *                           Get Bookmark List                           *
      * Exclude if relationAF.role is Enums.Role.customer                     *
@@ -100,54 +100,70 @@ class DataBloc {
 
       DataManager().relationAFs = decodedRelationAFResponse
           .map(
-            (relationAFMap) => RelationAF.fromJson(relationAFMap),
+            (relationAFMap) {
+              RelationAF relationAF = RelationAF.fromJson(relationAFMap);
+              print("decoded: $relationAF");
+              return relationAF;
+            },
           )
           .where((relationAF) => relationAF.role != Enums.Role.customer)
           .toList();
-      print(DataManager().relationAFs);
+      print("relationAFs: ${DataManager().relationAFs}");
       List decodedFacilitiesResponse = [];
 
       for (RelationAF relationAF in DataManager().relationAFs) {
-        decodedFacilitiesResponse
-            .add(HttpDecoder.utf8Response(await DataManager().client.get(
+        http.Response facilityResponse = await DataManager().client.get(
           Strings.HttpApis.facilityByCodeURI(relationAF.facilityCode),
           headers: {
             Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
                 Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
           },
-        )));
+        );
+        decodedFacilitiesResponse
+            .add(HttpDecoder.utf8Response(facilityResponse));
       }
 
       print(decodedFacilitiesResponse);
 
-      List<Facility> facilities = [];
+      DataManager().facilities = [];
       for (var facilityResponse in decodedFacilitiesResponse) {
         try {
-          facilities.add(Facility.fromJson(facilityResponse));
+          DataManager().addFacility(Facility.fromJson(facilityResponse));
         } catch (e) {}
       }
-      DataManager().facilities = facilities;
       DataManager().dataBloc.setUser(DataManager().currentUser);
 
       print('Facilities: ${DataManager().facilities}');
     } else {
       await DataManager().queryPosition();
-      print("========Where========");
-      print(DataManager().currentPosition);
-      print("====================");
-      http.Response facilitiesResponse = await http.get(
-        Strings.HttpApis.facilitiesByCoordinates(
-            DataManager().currentPosition.longitude,
-            DataManager().currentPosition.latitude,
-            500),
-        headers: {
-          Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-              Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
-        },
-      );
+      print("========Search========");
+      print("${DataManager().currentPosition}, Distance: $distance");
+      print("=====================");
+      http.Response facilitiesResponse;
+      if (distance > Nos.Global.WITHOUT_DISTANCE) {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesByCoordinates(
+              DataManager().currentPosition.longitude,
+              DataManager().currentPosition.latitude,
+              distance),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      } else {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesURI(),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      }
       var decodedFacilitiesResponse =
           HttpDecoder.utf8Response(facilitiesResponse);
       print(decodedFacilitiesResponse);
+      DataManager().facilities = [];
       for (var facilityResponse in decodedFacilitiesResponse) {
         try {
           DataManager().addFacility(Facility.fromJson(facilityResponse));
@@ -157,6 +173,10 @@ class DataBloc {
       }
       print("queryByPosition: ${DataManager().facilities}");
     }
+    queryFacilityImages();
+  }
+
+  Future queryFacilityImages() async {
     DataManager().facilities.forEach((facility) async {
       http.Response imagesResponse = await http.get(
         Strings.HttpApis.fIMGsByFCodeURI(facility.code),

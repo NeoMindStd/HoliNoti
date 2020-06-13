@@ -155,6 +155,64 @@ class HomePage extends StatelessWidget {
       Column(
         children: <Widget>[
           Container(
+            color: Colors.white,
+            child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text(
+                    "검색 거리",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Themes.Colors.ORANGE),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: StreamBuilder(
+                    initialData: 2,
+                    stream: _homeBloc.distanceIndexStream,
+                    builder: (context, snapshot) {
+                      assert(snapshot != null &&
+                          snapshot.data != null &&
+                          snapshot.data is int &&
+                          snapshot.data >= 0 &&
+                          snapshot.data <
+                              Strings.HomePage.DISTANCE_LIST.length);
+                      return DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          iconEnabledColor: Themes.Colors.ORANGE,
+                          isExpanded: true,
+                          items: List.generate(
+                                  Strings.HomePage.DISTANCE_LIST.length,
+                                  (index) => index)
+                              .map((index) => DropdownMenuItem(
+                                    value: index,
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        Strings.HomePage.DISTANCE_LIST[index],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Themes.Colors.ORANGE),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          value: snapshot.data,
+                          onChanged: (index) =>
+                              _homeBloc.onDistanceIndexChanged(index),
+                        ),
+                      );
+                    }),
+              ),
+            ]),
+          ),
+          Container(
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
               boxShadow: [

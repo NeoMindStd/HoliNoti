@@ -62,9 +62,14 @@ public class FacilityController {
 
     @RequestMapping(path = PathString.X_PATH + "{x}" + PathString.Y_PATH + "{y}" +
             PathString.DISTANCE_PATH + "{distanceM}" + PathString.NAME_PATH + "{name}", method = RequestMethod.GET)
-    public List<Facility> getFacilitiesByName(@PathVariable("x") double x, @PathVariable("y") double y,
-                                              @PathVariable("distanceM") int side, @PathVariable("name") String nam) {
+    public List<Facility> getFacilitiesByCoordinatesAndName(@PathVariable("x") double x, @PathVariable("y") double y,
+                                                            @PathVariable("distanceM") int side, @PathVariable("name") String nam) {
         return facilityService.queryByName(x, y, side, nam);
+    }
+
+    @RequestMapping(path = PathString.NAME_PATH + "{name}", method = RequestMethod.GET)
+    public List<Facility> getFacilitiesByName(@PathVariable("name") String name) {
+        return facilityRepository.findAllByName(name);
     }
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)

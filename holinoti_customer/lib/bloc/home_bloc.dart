@@ -3,6 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:holinoti_customer/bloc/auth_bloc.dart';
 import 'package:holinoti_customer/bloc/facility_bloc.dart';
 import 'package:holinoti_customer/bloc/profile_bloc.dart';
+import 'package:holinoti_customer/constants/nos.dart' as Nos;
 import 'package:holinoti_customer/constants/strings.dart' as Strings;
 import 'package:holinoti_customer/data/facility.dart';
 import 'package:holinoti_customer/screens/auth.dart';
@@ -15,28 +16,80 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBloc {
+  int distanceIndex;
+
+  HomeBloc() {
+    distanceIndex = 2;
+  }
+
   final _tapIndexSubject = PublishSubject<int>();
+  final _distanceIndexSubject = PublishSubject<int>();
   get tapIndexStream => _tapIndexSubject.stream;
+  get distanceIndexStream => _distanceIndexSubject.stream;
 
   void onTapChanged(int index) => _tapIndexSubject.add(index);
+  void onDistanceIndexChanged(int distanceIndex) {
+    this.distanceIndex = distanceIndex;
+    _distanceIndexSubject.add(distanceIndex);
+  }
 
   void search(String name) async {
-    await DataManager().queryPosition();
-    print("========Where========");
-    print(DataManager().currentPosition);
-    print("====================");
-    http.Response facilitiesResponse = await http.get(
-      Strings.HttpApis.facilitiesByName(
-        DataManager().currentPosition.longitude,
-        DataManager().currentPosition.latitude,
-        500,
-        name,
-      ),
-      headers: {
-        Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
-            Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
-      },
-    );
+    name = name.trim();
+    int distance = Nos.HomePage.DISTANCE_LIST[distanceIndex];
+    print("========Search========");
+    http.Response facilitiesResponse;
+    if (distance > Nos.Global.WITHOUT_DISTANCE) {
+      await DataManager().queryPosition();
+      print(
+          "Name: $name, ${DataManager().currentPosition}, Distance: $distance");
+      if (name != null && name != "") {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesByCoordinatesAndName(
+            DataManager().currentPosition.longitude,
+            DataManager().currentPosition.latitude,
+            distance,
+            name,
+          ),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      } else {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesByCoordinates(
+            DataManager().currentPosition.longitude,
+            DataManager().currentPosition.latitude,
+            distance,
+          ),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      }
+    } else {
+      print("Name: $name");
+      if (name != null && name != "") {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesByName(
+            name,
+          ),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      } else {
+        facilitiesResponse = await http.get(
+          Strings.HttpApis.facilitiesURI(),
+          headers: {
+            Strings.HttpApis.HEADER_NAME_CONTENT_TYPE:
+                Strings.HttpApis.HEADER_VALUE_CONTENT_TYPE_JSON
+          },
+        );
+      }
+    }
     var decodedFacilitiesResponse =
         HttpDecoder.utf8Response(facilitiesResponse);
     print(decodedFacilitiesResponse);
@@ -48,7 +101,10 @@ class HomeBloc {
         print(e);
       }
     }
-    print("queryByPosition: ${DataManager().facilities}");
+    print("query results: ${DataManager().facilities}");
+    print("=====================");
+
+    DataManager().dataBloc.queryFacilityImages();
   }
 
   void moveToAuthPage(BuildContext context, AuthBloc authBloc) =>
@@ -88,5 +144,7 @@ class HomeBloc {
 
   void dispose() {
     _tapIndexSubject.close();
+    _distanceIndexSubject.close();
+    distanceIndex = 2;
   }
 }
