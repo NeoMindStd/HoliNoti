@@ -8,7 +8,7 @@
 
     <groupId>com.neomind</groupId>
     <artifactId>holinoti</artifactId>
-    <version>Alpha-1.0</version>
+    <version>Alpha-1.0.2</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -142,7 +142,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.30</version>
         </dependency>
     </dependencies>
 

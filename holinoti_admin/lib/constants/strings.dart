@@ -31,10 +31,12 @@ class HttpApis {
       sprintf("%s%s%s/code=%d", [SITE_URL, API_ROOT, FACILITIES, facilityCode]);
   static String facilityByPHURI(String phoneNumber) => sprintf(
       "%s%s%s/phone_number=%s", [SITE_URL, API_ROOT, FACILITIES, phoneNumber]);
+  static String facilitiesByName(String name) =>
+      sprintf("%s%s%s/name=%s", [SITE_URL, API_ROOT, FACILITIES, name]);
   static String facilitiesByCoordinates(double x, double y, int distance) =>
       sprintf("%s%s%s/x=%f/y=%f/distance_m=%d",
           [SITE_URL, API_ROOT, FACILITIES, x, y, distance]);
-  static String facilitiesByName(
+  static String facilitiesByCoordinatesAndName(
           double x, double y, int distance, String name) =>
       sprintf("%s%s%s/x=%f/y=%f/distance_m=%d/name=%s",
           [SITE_URL, API_ROOT, FACILITIES, x, y, distance, name]);
@@ -156,6 +158,7 @@ class GlobalPage {
 }
 
 class HomePage {
+  static const DISTANCE_LIST = ["500m", "1km", "5km", "10km", "전체"];
   static const FACILITY_LIST = "시설 목록";
   static const RESISTER_FACILITY = "신규 시설 등록";
   static const REGISTER_TEMP_HOLIDAY = "임시 휴일 등록";

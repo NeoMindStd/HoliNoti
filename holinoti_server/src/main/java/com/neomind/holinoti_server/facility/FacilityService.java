@@ -40,6 +40,6 @@ public class FacilityService {
     }
 
     public List<Facility> queryByName(double x, double y, int side, String nam) {
-        return facilityRepository.findAllByName(x, y, side, nam);
+        return facilityRepository.findAllByCoordinatesAndName(x, y, side, nam);
     }
 }
