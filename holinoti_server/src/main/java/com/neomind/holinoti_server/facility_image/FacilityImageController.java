@@ -35,7 +35,7 @@ public class FacilityImageController {
     }
 
     @RequestMapping(path = PathString.FACILITY_CODE_PATH + "{facilityCode}", method = RequestMethod.GET)
-    public List<FacilityImage> getManagerByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
+    public List<FacilityImage> getFacilityImagesByFacilityCode(@PathVariable("facilityCode") int facilityCode) {
         return facilityImageRepository.findFacilityImagesByFacilityCode(facilityCode);
     }
 

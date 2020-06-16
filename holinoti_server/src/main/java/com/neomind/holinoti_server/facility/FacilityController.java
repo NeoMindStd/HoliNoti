@@ -36,23 +36,6 @@ public class FacilityController {
         return facilityRepository.findByPhoneNumber(phoneNumber);
     }
 
-    @PostMapping
-    public ResponseEntity addFacility(@RequestBody Facility facility) {
-        Facility newFacility = facilityRepository.save(facility);
-        try {
-            facilityService.linkSupervisorAndFacility(newFacility.getCode());
-            URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
-            return ResponseEntity.created(createdURI).body(newFacility);
-        } catch (Exception e) {
-            try {
-                deleteFacility(newFacility.getCode());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @RequestMapping(path = PathString.X_PATH + "{x}" + PathString.Y_PATH + "{y}" +
             PathString.DISTANCE_PATH + "{distanceM}", method = RequestMethod.GET)
     public List<Facility> getFacilitiesByCoordinates(@PathVariable("x") double x, @PathVariable("y") double y,
@@ -70,6 +53,23 @@ public class FacilityController {
     @RequestMapping(path = PathString.NAME_PATH + "{name}", method = RequestMethod.GET)
     public List<Facility> getFacilitiesByName(@PathVariable("name") String name) {
         return facilityRepository.findAllByName(name);
+    }
+
+    @PostMapping
+    public ResponseEntity addFacility(@RequestBody Facility facility) {
+        Facility newFacility = facilityRepository.save(facility);
+        try {
+            facilityService.linkSupervisorAndFacility(newFacility.getCode());
+            URI createdURI = linkTo(FacilityController.class).slash(newFacility.getCode()).toUri();
+            return ResponseEntity.created(createdURI).body(newFacility);
+        } catch (Exception e) {
+            try {
+                deleteFacility(newFacility.getCode());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(path = PathString.CODE_PATH + "{facilityCode}", method = RequestMethod.PUT)
