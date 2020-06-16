@@ -35,10 +35,23 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 
 ## TODO LIST
 
-#### General
+#### Common
+ - Implement notification, notice
+ - Implement show fullscreen when clicking on facility image
+ - fix the problem of facility image ratio
+ - Implement of unimplemented menu
+ - Change to show the list of facilities with relation_af when clicking the home button on the top left of the home screen
+ - Change to processing the closing time in a specific string format, and displaying the presence or absence based on the time
 
-#### App for Admin
+#### Admin App
+ - Change to require secondary authentication for facility registration, modification, deletion and suspension management
+ - Add the closed day management page
+ - Change to update the facility list on the home screen when modifying or deleting a facility, 
+ - Add the facility image management page
 
-#### App for Customer
+#### Customer App
 
 #### Server
+ - Change the Kakao Map pin to be centered on the map
+ - Add missing HTTP method in SecurityConfig
+ - Implement facility image modification service
