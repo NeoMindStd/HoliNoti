@@ -5,7 +5,7 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 ## USER STORY
 
 #### Network Communication
-![](/page_assets/images/network.png)
+![](/page_assets/images/network.jpg)
 
 #### 관리자용 앱
  - 이 프로젝트는 관리자가 시설의 기본적인 영업시간, 영업요일 등을 올리고, 최고 관리자(사장 등)가 다른 관리자(알바 등)을 관리할 수 있고, 공사, 여행등으로 인한 임시 휴일시 앱에 등록하여 고객들이 볼 수 있도록 공지하는 기능을 주 목표로 삼고 있습니다.
@@ -21,9 +21,7 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 
 #### DB
 
-![](/page_assets/images/e-r_diagram.png)
-![](/page_assets/images/db_schema.png)
-![](/page_assets/images/db_schema2.png)
+![](/page_assets/images/e-r_diagram.jpg)
 
 - MySQL 또는 MariaDB를 이용합니다.
 - 앱에서 요구하는 데이터를 저장하고 조회할 수 있도록 하고, 비밀번호 등 민감한 개인정보는 암호화하여 저장하는 것이 주 목표입니다.

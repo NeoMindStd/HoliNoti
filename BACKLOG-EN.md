@@ -5,7 +5,7 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 ## USER STORY
 
 #### Network Communication
-![](/page_assets/images/network.png)
+![](/page_assets/images/network.jpg)
 
 #### App for Admin
  -This project allows administrators to post basic business hours, business days, etc. of facilities, and super administrators (such as owner) can manage other administrators (such as Alba), and register for the app during temporary holidays due to remodeling, travel, etc. The main goal is to make notice available to customers for viewing.
@@ -21,9 +21,7 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 
 #### DB
 
-![](/page_assets/images/e-r_diagram.png)
-![](/page_assets/images/db_schema.png)
-![](/page_assets/images/db_schema2.png)
+![](/page_assets/images/e-r_diagram.jpg)
 
 - Use MySQL or MariaDB.
 - The main goal is to store and query the data required by the app, and to encrypt and store sensitive personal information such as passwords.
