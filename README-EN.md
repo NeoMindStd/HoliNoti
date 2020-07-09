@@ -42,4 +42,25 @@ The project was started to minimize such experience.
 - Host: Google Cloud Platform
 - Server OS: CentOS Linux release 7.7.1908
 
+## Environment Settings
+Before build the project, Register the API key used in each system separately. The key currently provided in the source code is a retired key.
+
+ create ./holinoti_server/src/main/resources/application.properties and write the below code.
+```
+server.address=localhost
+devtools.livereload.enabled=true
+spring.jpa.database=mysql
+spring.jpa.generate-ddl=false
+spring.datasource.url=jdbc:{your mysql server url}?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true
+spring.datasource.username={your mysql username}
+spring.datasource.password={your mysql password}
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.jpa.database-platform=org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
+spring.datasource.hikari.idle-timeout=10000
+spring.datasource.hikari.max-lifetime=420000
+spring.datasource.hikari.connection-timeout=10000
+spring.datasource.hikari.validation-timeout=10000
+spring.jpa.properties.javax.persistence.validation.mode=none
+```
+
 ## [BACKLOG](/BACKLOG-EN.md)

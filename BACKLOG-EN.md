@@ -5,7 +5,7 @@ Language: [한국어](BACKLOG.md) | [ENGLISH](BACKLOG-EN.md)
 ## USER STORY
 
 #### Network Communication
-![](/page_assets/images/network.png)
+![](/page_assets/images/network.jpg)
 
 #### App for Admin
  -This project allows administrators to post basic business hours, business days, etc. of facilities, and super administrators (such as owner) can manage other administrators (such as Alba), and register for the app during temporary holidays due to remodeling, travel, etc. The main goal is to make notice available to customers for viewing.
@@ -21,9 +21,7 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 
 #### DB
 
-![](/page_assets/images/e-r_diagram.png)
-![](/page_assets/images/db_schema.png)
-![](/page_assets/images/db_schema2.png)
+![](/page_assets/images/e-r_diagram.jpg)
 
 - Use MySQL or MariaDB.
 - The main goal is to store and query the data required by the app, and to encrypt and store sensitive personal information such as passwords.
@@ -35,10 +33,23 @@ The design pattern is composed of model(object)-BLoC(business logic)-widget(widg
 
 ## TODO LIST
 
-#### General
+#### Common
+ - Implement notification, notice
+ - Implement show fullscreen when clicking on facility image
+ - fix the problem of facility image ratio
+ - Implement of unimplemented menu
+ - Change to show the list of facilities with relation_af when clicking the home button on the top left of the home screen
+ - Change to processing the closing time in a specific string format, and displaying the presence or absence based on the time
 
-#### App for Admin
+#### Admin App
+ - Change to require secondary authentication for facility registration, modification, deletion and suspension management
+ - Add the closed day management page
+ - Change to update the facility list on the home screen when modifying or deleting a facility, 
+ - Add the facility image management page
 
-#### App for Customer
+#### Customer App
 
 #### Server
+ - Change the Kakao Map pin to be centered on the map
+ - Add missing HTTP method in SecurityConfig
+ - Implement facility image modification service
