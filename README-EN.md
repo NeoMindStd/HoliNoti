@@ -43,6 +43,8 @@ The project was started to minimize such experience.
 - Server OS: CentOS Linux release 7.7.1908
 
 ## Environment Settings
+Before build the project, Register the API key used in each system separately. The key currently provided in the source code is a retired key.
+
  create ./holinoti_server/src/main/resources/application.properties and write the below code.
 ```
 server.address=localhost

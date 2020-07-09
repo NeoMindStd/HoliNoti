@@ -40,6 +40,8 @@ Language: [한국어](README.md) | [ENGLISH](README-EN.md)
 - Server OS: CentOS Linux release 7.7.1908
 
 ## 환경 설정
+각 시스템에서 사용하는 API키는 별도로 등록 후 사용해주세요. 현재 소스코드 상으로 제공되는 키는 폐기된 키 입니다.
+
  ./holinoti_server/src/main/resources/application.properties 파일을 만들고 다음 코드를 작성해주세요
 ```
 server.address=localhost
